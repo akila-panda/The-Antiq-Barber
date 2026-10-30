@@ -1,0 +1,51 @@
+---
+import BookPair from './BookPair.astro';
+import { site } from '../data/site';
+const { address } = site;
+---
+
+<!-- The back page: a printed sign-off with everything a visitor needs, no ticker. -->
+<footer class="mx-auto mt-24 max-w-[1400px] px-4 pb-10 sm:px-6">
+  <div class="rule-double"></div>
+  <div class="grid gap-10 border-b border-ink py-10 md:grid-cols-[1.3fr_1fr_1fr] md:gap-0">
+    <div data-rise class="md:border-r md:border-ink/40 md:pr-10">
+      <div class="flex items-center gap-4">
+        <span class="grid size-16 shrink-0 place-items-center rounded-full border-2 border-ink p-1">
+          <img src="/images/logo.png" alt="" width="480" height="480" class="size-full rounded-full object-contain print-logo" loading="lazy" />
+        </span>
+        <p class="font-black text-[clamp(2rem,4vw,3rem)] leading-none">The Antiq Barber</p>
+      </div>
+      <p class="mt-6 max-w-sm text-lg leading-relaxed">
+        Cut and printed at {address.line1}, {address.suburb}. Book ahead online, or walk in.
+      </p>
+      <BookPair class="mt-6" />
+    </div>
+
+    <div data-rise class="md:border-r md:border-ink/40 md:px-10">
+      <p class="font-display text-lg font-bold">Find us</p>
+      <p class="mt-2 leading-relaxed">
+        {address.line1}<br />{address.suburb} {address.state} {address.postcode}
+      </p>
+      <a href={site.mapsUrl} target="_blank" rel="noopener" class="mt-2 inline-block underline decoration-oxblood underline-offset-4 hover:text-oxblood">
+        Get directions
+      </a>
+      <p class="mt-5 font-display text-lg font-bold">Today</p>
+      <p class="mt-2" data-open-status>Walk-ins welcome</p>
+    </div>
+
+    <div data-rise class="md:pl-10">
+      <p class="font-display text-lg font-bold">Get in touch</p>
+      <p class="mt-2 leading-relaxed">
+        <a href={site.phoneHref} class="hover:text-oxblood">{site.phone}</a><br />
+        <a href={`mailto:${site.email}`} class="hover:text-oxblood">{site.email}</a>
+      </p>
+      <p class="mt-5 font-display text-lg font-bold">Follow</p>
+      <p class="mt-2">
+        <a href={site.instagram} target="_blank" rel="noopener" class="underline decoration-oxblood underline-offset-4 hover:text-oxblood">Instagram</a>
+        <span class="mx-1 text-ink-soft">/</span>
+        <a href={site.facebook} target="_blank" rel="noopener" class="underline decoration-oxblood underline-offset-4 hover:text-oxblood">Facebook</a>
+      </p>
+    </div>
+  </div>
+  <p class="mt-4 text-sm text-ink-soft">© {new Date().getFullYear()} Antiq Barbers, Epping VIC.</p>
+</footer>

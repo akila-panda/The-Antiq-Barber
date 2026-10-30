@@ -1,0 +1,187 @@
+<!--SHELL:CSS-->
+/* ================= the real site around each variation (hero above, Services below) ================= */
+.site-wrap { max-width: 1400px; margin: 0 auto; padding: 0 var(--gutter); }
+.site-kicker { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; }
+.site-mast { padding-top: 1.5rem; }
+.site-dateline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1.5rem; border-bottom: 1px solid var(--ink); padding-bottom: .5rem; color: var(--ink-soft); }
+.site-dateline [data-site-today] { color: var(--ink); }
+.site-nameplate { padding: 1.75rem 0; text-align: center; }
+.site-nameplate h1 { display: flex; align-items: center; justify-content: center; gap: 0 .15em; margin: 0; font-family: var(--font-black); font-weight: 400; font-size: clamp(3.1rem, 10vw, 8.5rem); line-height: .85; letter-spacing: -.01em; }
+.site-crest { display: grid; place-items: center; width: clamp(5rem, 11vw, 9rem); aspect-ratio: 1; flex: none; border: 2px solid var(--ink); border-radius: 50%; padding: .25rem; }
+.site-crest > span { display: grid; place-items: center; width: 100%; height: 100%; border: 1px solid rgb(22 18 14 / .6); border-radius: 50%; }
+.site-crest img { width: 82%; height: 82%; object-fit: contain; mix-blend-mode: multiply; }
+.site-nameplate .mobile { display: none; }
+.site-tagline { margin: .75rem 0 0; font-family: var(--font-deck); font-style: italic; font-size: 1.25rem; color: var(--ink-soft); }
+.site-rule2 { border-top: 3px double var(--ink); }
+.site-navrow { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--ink); }
+.site-navrow ul { display: flex; flex-wrap: wrap; gap: .5rem .75rem; margin: 0; padding: 0; list-style: none; }
+.site-navrow .menu { display: none; border: 1px solid var(--ink); padding: .35rem .75rem; }
+.nav-ticket { display: inline-flex; align-items: stretch; border: 1.5px solid var(--ink); background: var(--frame); color: var(--ink); font-family: var(--font-mono); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; white-space: nowrap; text-decoration: none; box-shadow: 3px 3px 0 var(--ink); transition: transform .15s ease, box-shadow .15s ease, background-color .2s, color .2s; }
+.nav-ticket .stub { display: grid; place-items: center; min-width: 2rem; padding: 0 .5rem; border-right: 1.5px dashed currentColor; font-family: var(--font-display); font-size: .95rem; font-weight: 800; letter-spacing: 0; }
+.nav-ticket .label { padding: .5rem .8rem; }
+.nav-ticket:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); background: var(--accent); color: var(--paper); }
+.nav-ticket[aria-current='true'] { background: var(--ink); color: var(--paper); }
+.nav-ticket[aria-current='true'] .stub { color: var(--accent); }
+.site-antiq { margin-top: 1.5rem; background: var(--ink); color: var(--paper); overflow: hidden; }
+.site-antiq svg { display: block; width: 100%; height: clamp(8.5rem, 27vw, 24rem); }
+.site-antiq p { margin: 0; border-top: 1px solid rgb(234 220 191 / .3); padding: .75rem 1.5rem; font-family: var(--font-deck); font-style: italic; font-size: 1.15rem; color: rgb(234 220 191 / .85); }
+@media (max-width: 1279px) { .site-navrow ul { display: none; } .site-navrow .menu { display: inline-block; } }
+@media (max-width: 640px) {
+  .site-nameplate h1 { flex-direction: column; }
+  .site-nameplate .wide { display: none; }
+  .site-nameplate .mobile { display: block; margin-top: .75rem; }
+  .site-dateline [data-site-today] { display: none; }
+}
+
+/* Services, as on the site */
+.site-services { padding-top: 5rem; padding-bottom: 6rem; }
+.site-sechead { border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: .25rem 0; }
+.site-sechead h2 { margin: 0; border-top: 1px solid rgb(22 18 14 / .4); border-bottom: 1px solid rgb(22 18 14 / .4); padding: .75rem 0; text-align: center; font-family: var(--font-display); font-weight: 900; font-variation-settings: 'opsz' 96; font-size: clamp(2.6rem, 8vw, 6rem); text-transform: uppercase; line-height: .85; letter-spacing: -.02em; }
+.site-bookrow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; margin-top: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--ink); }
+.site-bookrow p { margin: 0; max-width: 36rem; font-family: var(--font-deck); font-style: italic; font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.25; }
+.site-bookrow .right { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; }
+.site-bookrow .call { font-size: 1.1rem; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+.site-ads { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+.site-lead { display: flex; flex-direction: column; justify-content: space-between; background: var(--ink); color: var(--paper); padding: clamp(1.75rem, 3vw, 2.25rem); }
+.site-lead .k { margin: 0; font-family: var(--font-deck); font-style: italic; font-size: 1.25rem; color: rgb(234 220 191 / .8); }
+.site-lead h3 { margin: 1rem 0 0; font-family: var(--font-display); font-weight: 900; font-size: clamp(2.4rem, 4.5vw, 3.8rem); text-transform: uppercase; line-height: .9; }
+.site-lead .foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid rgb(234 220 191 / .3); }
+.site-lead .price { margin: 0; font-family: var(--font-display); font-weight: 700; font-variation-settings: 'opsz' 9; font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1; }
+.site-lead .meta { text-align: right; }
+.site-lead .meta span { display: block; font-family: var(--font-deck); font-style: italic; font-size: 1.1rem; color: rgb(234 220 191 / .8); }
+.site-lead .meta a { display: inline-block; margin-top: .5rem; background: var(--paper); color: var(--ink); padding: .5rem 1rem; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; text-decoration: none; }
+.site-small { display: grid; gap: 1.25rem; }
+.site-ad { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 2px solid var(--ink); padding: 1.5rem; text-decoration: none; transition: background-color .2s; }
+.site-ad:hover { background: var(--paper-deep); }
+.site-ad .n { display: block; font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; text-transform: uppercase; line-height: 1.1; }
+.site-ad .d { display: block; margin-top: .25rem; font-family: var(--font-deck); font-style: italic; font-size: 1.1rem; color: var(--ink-soft); }
+.site-ad .p { display: block; text-align: right; font-family: var(--font-display); font-weight: 700; font-variation-settings: 'opsz' 9; font-size: 1.9rem; color: var(--accent); }
+.site-ad .b { display: inline-block; margin-top: .25rem; border-bottom: 1px solid var(--ink); font-family: var(--font-display); font-weight: 700; font-size: .85rem; text-transform: uppercase; }
+.site-menu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; align-items: start; margin-top: 2.5rem; }
+.site-menu .grp { border: 1px solid var(--ink); padding: 1.25rem; }
+.site-menu .grp:first-child { grid-row: span 2; }
+.site-menu h4 { margin: 0; border-bottom: 1px solid var(--ink); padding-bottom: .5rem; font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; }
+.site-menu ul { margin: 0; padding: 0; list-style: none; }
+.site-menu li { display: flex; align-items: center; gap: .75rem; padding: .75rem 0; border-top: 1px solid rgb(22 18 14 / .2); }
+.site-menu li:first-child { border-top: 0; }
+.site-menu .nm { flex: 1; min-width: 0; }
+.site-menu .nm b { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; line-height: 1.15; }
+.site-menu .nm i { font-family: var(--font-deck); color: var(--ink-soft); }
+.site-menu .pr { font-family: var(--font-display); font-weight: 700; font-variation-settings: 'opsz' 9; font-size: 1.25rem; white-space: nowrap; }
+.site-menu .bk { flex: none; border: 1px solid var(--ink); padding: .35rem .75rem; font-family: var(--font-display); font-weight: 700; font-size: .8rem; text-transform: uppercase; text-decoration: none; }
+.site-menu .bk:hover { background: var(--ink); color: var(--paper); }
+@media (max-width: 1023px) { .site-ads, .site-menu { grid-template-columns: 1fr; } .site-menu .grp:first-child { grid-row: auto; } }
+
+/* presenter markers: where the variation starts and ends (not part of the design) */
+.deck-mark { display: flex; align-items: center; gap: 1rem; margin: 2.5rem auto 0; max-width: 1400px; padding: 0 var(--gutter); font-family: var(--font-mono); font-size: .66rem; letter-spacing: .22em; text-transform: uppercase; color: #8e1b1b; }
+.deck-mark::before, .deck-mark::after { content: ''; flex: 1; border-top: 1.5px dashed currentColor; }
+.deck-mark.end { margin: 0 auto; padding-top: 2.5rem; }
+<!--SHELL:BEFORE-->
+<!-- ====== the site as it is: masthead + the ANTIQ block (unchanged) ====== -->
+<header class="site-wrap site-mast">
+  <div class="site-dateline site-kicker">
+    <span>Epping Edition · Melbourne, Victoria</span>
+    <span data-site-today>Today's edition</span>
+    <span>Cuts from $40 · Walk-ins welcome</span>
+  </div>
+  <div class="site-nameplate">
+    <h1>
+      <span class="wide">The Antiq</span>
+      <span class="site-crest"><span><img src="IMG:logo" alt="" width="480" height="480" /></span></span>
+      <span class="wide">Barber</span>
+      <span class="mobile">The Antiq Barber</span>
+    </h1>
+    <p class="site-tagline">“Not your average barbershop” — Melbourne's 1st antique barbershop</p>
+  </div>
+  <div class="site-rule2">
+    <nav class="site-navrow" aria-label="Sections (preview)">
+      <ul>
+        <li><a class="nav-ticket" href="#" aria-current="true"><span class="stub">1</span><span class="label">Front Page</span></a></li>
+        <li><a class="nav-ticket" href="#"><span class="stub">2</span><span class="label">Services</span></a></li>
+        <li><a class="nav-ticket" href="#"><span class="stub">3</span><span class="label">Gallery</span></a></li>
+        <li><a class="nav-ticket" href="#"><span class="stub">4</span><span class="label">The Loft</span></a></li>
+        <li><a class="nav-ticket" href="#"><span class="stub">5</span><span class="label">Our Work</span></a></li>
+        <li><a class="nav-ticket" href="#"><span class="stub">6</span><span class="label">Reviews</span></a></li>
+        <li><a class="nav-ticket" href="#"><span class="stub">7</span><span class="label">Directions</span></a></li>
+      </ul>
+      <span class="site-kicker menu">Sections ☰</span>
+      <a class="site-kicker" href="#" style="text-decoration:none">@antiqbarbers ↗</a>
+    </nav>
+  </div>
+</header>
+<div class="site-wrap">
+  <div class="site-antiq">
+    <svg viewBox="0 0 1000 250" preserveAspectRatio="none" role="img" aria-label="Antiq">
+      <text x="14" y="238" textLength="972" lengthAdjust="spacingAndGlyphs" fill="currentColor" style="font-family: var(--font-display); font-weight: 900; font-size: 300px; font-variation-settings: 'opsz' 96">ANTIQ</text>
+    </svg>
+    <p>Barbers on Miller Street, Epping. Skin fades, scissor cuts, beard work and classic cuts.</p>
+  </div>
+</div>
+<p class="deck-mark">The new section starts here</p>
+<!--SHELL:AFTER-->
+<p class="deck-mark end">The new section ends here</p>
+<!-- ====== the site as it is: Services (unchanged) ====== -->
+<section class="site-wrap site-services">
+  <div class="site-sechead"><h2>Services</h2></div>
+  <div class="site-bookrow">
+    <p>Book direct with the shop, use Booksy if you're on it already, or walk straight in. Cuts from $40.</p>
+    <div class="right">
+      <div class="book-pair">
+        <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book direct</span><span class="arrow" aria-hidden="true">→</span></a>
+        <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+      </div>
+      <a class="call" href="#">Call (03) 8407 3631</a>
+    </div>
+  </div>
+  <div class="site-ads">
+    <div class="site-lead">
+      <p class="k">Most booked at the shop</p>
+      <h3>Skin Fade &amp; Beard Trim</h3>
+      <div class="foot">
+        <p class="price">$75</p>
+        <div class="meta"><span>45 min</span><a href="#">Book this →</a></div>
+      </div>
+    </div>
+    <div class="site-small">
+      <a class="site-ad" href="#"><span><span class="n">Skin Fade</span><span class="d">30 min · Bald to blended</span></span><span><span class="p">$55–60</span><span class="b">Book</span></span></a>
+      <a class="site-ad" href="#"><span><span class="n">Standard Haircut</span><span class="d">30 min · Clipper &amp; scissor</span></span><span><span class="p">$50–55</span><span class="b">Book</span></span></a>
+    </div>
+  </div>
+  <div class="site-menu">
+    <div class="grp">
+      <h4>Barber services</h4>
+      <ul>
+        <li><span class="nm"><b>Skin Fade &amp; Beard Trim</b><i>45 min</i></span><span class="pr">$75</span><a class="bk" href="#">Book</a></li>
+        <li><span class="nm"><b>Skin Fade</b><i>30 min</i></span><span class="pr">$55–60</span><a class="bk" href="#">Book</a></li>
+        <li><span class="nm"><b>Standard Haircut</b><i>30 min</i></span><span class="pr">$50–55</span><a class="bk" href="#">Book</a></li>
+        <li><span class="nm"><b>Stylish Scissor Haircut</b><i>40 min</i></span><span class="pr">$60–65</span><a class="bk" href="#">Book</a></li>
+        <li><span class="nm"><b>Skin Fade, Beard Trim &amp; Eyebrow Threading</b><i>45 min</i></span><span class="pr">$80</span><a class="bk" href="#">Book</a></li>
+        <li><span class="nm"><b>Beard Trim</b><i>25 min</i></span><span class="pr">$30–35</span><a class="bk" href="#">Book</a></li>
+        <li><span class="nm"><b>Buzz Cut</b><i>20 min</i></span><span class="pr">$40+</span><a class="bk" href="#">Book</a></li>
+        <li><span class="nm"><b>Junior Haircut</b><i>30 min</i></span><span class="pr">$40+</span><a class="bk" href="#">Book</a></li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h4>Grooming</h4>
+      <ul>
+        <li><span class="nm"><b>Eyebrow Threading</b><i>15 min</i></span><span class="pr">$20</span><a class="bk" href="#">Book</a></li>
+        <li><span class="nm"><b>Nose &amp; Ears Waxing</b><i>15 min</i></span><span class="pr">$25</span><a class="bk" href="#">Book</a></li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h4>Skin facials with Mim</h4>
+      <ul>
+        <li><span class="nm"><b>Express Skin Reset Facial</b><i>30 min</i></span><span class="pr">$65</span><a class="bk" href="#">Book</a></li>
+        <li><span class="nm"><b>Premium Skin Reset Facial</b><i>50 min</i></span><span class="pr">$89</span><a class="bk" href="#">Book</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+<script>
+  // the masthead's dateline shows today's date, as on the site
+  document.querySelectorAll('[data-site-today]').forEach(function (el) {
+    el.textContent = new Intl.DateTimeFormat('en-AU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Australia/Melbourne' }).format(new Date());
+  });
+  document.querySelectorAll('.site-mast a, .site-services a').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+</script>
+<!--SHELL:END-->

@@ -1,0 +1,87 @@
+---
+import BookPair from './BookPair.astro';
+---
+
+<section id="front" data-edition="day" class="mx-auto max-w-[1400px] scroll-mt-16 px-4 pt-6 sm:px-6">
+  <!-- the giant inverse nameblock -->
+  <div data-hero="antiq" class="relative overflow-hidden bg-ink text-paper">
+    <svg
+      viewBox="0 0 1000 250"
+      preserveAspectRatio="none"
+      class="block h-[clamp(8.5rem,27vw,24rem)] w-full"
+      role="img"
+      aria-label="Antiq"
+    >
+      <text
+        x="14"
+        y="238"
+        textLength="972"
+        lengthAdjust="spacingAndGlyphs"
+        fill="currentColor"
+        style="font-family: var(--font-display); font-weight: 900; font-size: 300px; font-variation-settings: 'opsz' 96;"
+      >ANTIQ</text>
+    </svg>
+    <p class="border-t border-paper/30 px-4 py-3 font-deck text-lg italic text-paper/85 sm:px-6">
+      Barbers on Miller Street, Epping. Skin fades, scissor cuts, beard work and classic cuts.
+    </p>
+  </div>
+
+  <!-- the shop at a glance: one bento of headline, rooms, motto, live status and booking -->
+  <div class="bento py-10">
+    <div class="bento-tile t-head">
+      <h2 data-split class="font-display text-[clamp(2.6rem,5.2vw,5.4rem)] font-extrabold uppercase leading-[0.88] tracking-[-0.01em] [text-wrap:balance]">
+        Not your average barbershop
+      </h2>
+      <p data-rise class="font-deck text-[clamp(1.35rem,2.2vw,1.8rem)] leading-snug text-ink-soft">
+        Antique chairs, porthole mirrors and the <em>modern fade.</em>
+      </p>
+    </div>
+
+    <figure class="bento-tile bento-photo t-hero" data-unveil>
+      <div class="halftone h-full">
+        <img
+          src="/images/shop/front-bar-wide.webp"
+          width="1317"
+          height="741"
+          alt="The front bar at Antiq Barbers: burnt-timber counter, barrel tables and barber chairs under warm lights"
+          fetchpriority="high"
+        />
+      </div>
+    </figure>
+
+    <div class="bento-tile t-lede" data-rise>
+      <p class="text-[1.1rem] leading-[1.6]">
+        Step in off Miller Street and the century changes. Hand-burnt timber, tufted leather, a courtyard of birdsong.
+      </p>
+      <a href="#night" class="font-semibold underline decoration-oxblood">Continued on p.4 →</a>
+    </div>
+
+    <figure class="bento-tile bento-photo t-chair" data-unveil>
+      <div class="halftone h-full">
+        <img src="/images/shop/chair.webp" width="640" height="960" alt="A tufted leather antique barber chair between whisky barrels" loading="lazy" />
+      </div>
+    </figure>
+
+    <figure class="bento-tile bento-photo t-neon" data-unveil>
+      <div class="halftone h-full">
+        <img src="/images/shop/lounge-neon-pool.webp" width="640" height="853" alt="The upstairs loft: a pool table under neon" loading="lazy" />
+      </div>
+    </figure>
+
+    <blockquote class="bento-tile t-motto" data-rise>
+      <p class="font-display text-[clamp(1.25rem,1.6vw,1.55rem)] font-medium italic leading-[1.1]">
+        “A gallery of culture. A home for barbers. An experience for everyone.”
+      </p>
+    </blockquote>
+
+    <div class="bento-tile t-status" data-rise>
+      <p class="font-display text-[clamp(1.6rem,2.2vw,2.1rem)] font-extrabold uppercase leading-[0.95]">Walk-ins welcome</p>
+      <p class="bento-status font-deck text-xl italic" data-open-status>Check today's hours below</p>
+    </div>
+
+    <div class="bento-tile t-book" data-rise>
+      <p class="font-deck text-[1.35rem] leading-tight">Or keep a chair for later.</p>
+      <BookPair class="book-pair-stack" label="Book a chair" />
+    </div>
+  </div>
+</section>

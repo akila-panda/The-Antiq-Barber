@@ -1,0 +1,24 @@
+---
+// Section nameplate: one big title between rules. No page labels or ornaments;
+// the page numbers live once, in the nav tickets.
+interface Props {
+  page?: number;
+  title: string;
+  aside?: string;
+  tone?: 'day' | 'night';
+}
+const { title, tone = 'day' } = Astro.props;
+const night = tone === 'night';
+---
+
+<div class:list={['border-y-2 py-1', night ? 'border-neon-pink/60' : 'border-ink']}>
+  <h2
+    data-split
+    class:list={[
+      'border-y py-3 text-center font-display text-[clamp(2.6rem,8vw,6rem)] font-black uppercase leading-[0.85] tracking-[-0.02em] [text-wrap:balance]',
+      night ? 'neon border-neon-pink/30' : 'border-ink/40',
+    ]}
+  >
+    {title}
+  </h2>
+</div>

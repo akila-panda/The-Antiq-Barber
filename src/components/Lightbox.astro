@@ -1,0 +1,23 @@
+---
+import { site } from '../data/site';
+---
+
+<dialog
+  id="lightbox"
+  class="m-auto max-h-none max-w-none bg-transparent p-0 backdrop:bg-ink/90 backdrop:backdrop-blur-sm"
+  aria-label="Enlarged photograph"
+>
+  <div class="flex h-[100svh] w-screen flex-col items-center justify-center gap-4 p-4 sm:p-8">
+    <figure class="border border-paper/30 bg-[#f4ecda] p-2.5 shadow-2xl">
+      <img data-lb-img alt="" class="max-h-[72svh] max-w-[88vw] object-contain" />
+      <figcaption data-lb-caption class="px-1 pt-2 font-deck text-xl italic text-ink"></figcaption>
+    </figure>
+    <div class="flex items-center gap-3 text-paper">
+      <button type="button" data-lb-prev class="kicker border border-paper/50 px-4 py-2 hover:bg-paper hover:text-ink" aria-label="Previous photo">← Prev</button>
+      <span data-lb-count class="kicker min-w-16 text-center"></span>
+      <button type="button" data-lb-next class="kicker border border-paper/50 px-4 py-2 hover:bg-paper hover:text-ink" aria-label="Next photo">Next →</button>
+      <a data-lb-book href={site.bookUrl} class="kicker hidden bg-oxblood px-4 py-2 hover:bg-paper hover:text-ink">Book this look</a>
+      <button type="button" data-lb-close class="kicker border border-paper/50 px-4 py-2 hover:bg-paper hover:text-ink" aria-label="Close">Close ✕</button>
+    </div>
+  </div>
+</dialog>

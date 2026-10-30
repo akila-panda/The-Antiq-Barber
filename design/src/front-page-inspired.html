@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Front Page Inspired</title>
+<meta name="description" content="Seven front-page directions for Antiq Barbers, drawn from Kalso, Niccolò Miranda, Hagis and Rendezvous." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Courier+Prime:wght@400;700&family=Instrument+Serif:ital@0;1&family=Monsieur+La+Doulaise&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=UnifrakturMaguntia&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --paper: #eadcbf;
+  --paper-deep: #dccaa4;
+  --frame: #f3e9d2;
+  --print: #f6eedb;
+  --ink: #16120e;
+  --ink-soft: #4b4136;
+  --accent: #8e1b1b;
+  --rule: rgb(22 18 14 / 0.35);
+
+  --font-black: 'UnifrakturMaguntia', serif;
+  --font-display: 'Bodoni Moda', 'Didot', serif;
+  --font-cond: 'Instrument Serif', Georgia, serif;
+  --font-deck: 'Instrument Serif', Georgia, serif;
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-mono: 'Courier Prime', 'Courier New', monospace;
+  --font-script: 'Monsieur La Doulaise', cursive;
+
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --gutter: clamp(1rem, 3vw, 1.5rem);
+  --bar-h: 3.5rem;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-serif);
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .17 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"),
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgb(120 90 50 / 0.18) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-underline-offset: 3px; }
+button { font: inherit; color: inherit; }
+::selection { background: var(--accent); color: var(--paper); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ================= presenter chrome (not part of the design) ================= */
+.deck-bar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: 1rem;
+  min-height: var(--bar-h); padding: .5rem var(--gutter);
+  background: #0f0c09; color: #eadcbf;
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+}
+.deck-bar .brand { display: flex; align-items: center; gap: .6rem; white-space: nowrap; }
+.deck-bar .brand b { font-family: var(--font-black); font-size: 1.35rem; letter-spacing: 0; text-transform: none; font-weight: 400; }
+.deck-tabs { display: flex; gap: .35rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.deck-tabs::-webkit-scrollbar { display: none; }
+.deck-tabs button {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 1px solid rgb(234 220 191 / .28); background: transparent;
+  letter-spacing: inherit; text-transform: inherit; font-size: inherit; font-family: inherit;
+  padding: .5rem .7rem; cursor: pointer; white-space: nowrap;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.deck-tabs button b { font-family: var(--font-display); font-size: .95rem; letter-spacing: 0; }
+.deck-tabs button:hover { border-color: #eadcbf; }
+.deck-tabs button[aria-selected='true'] { background: #eadcbf; color: #0f0c09; border-color: #eadcbf; }
+.deck-tabs button[aria-selected='true'] b { color: var(--accent); }
+.deck-note {
+  max-width: 1400px; margin: 0 auto; padding: 1.25rem var(--gutter) 0;
+  display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; align-items: baseline; justify-content: space-between;
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+}
+.deck-note p { margin: 0; }
+.deck-note strong { color: var(--ink); }
+@media (max-width: 1100px) { .deck-bar .brand span { display: none; } .deck-tabs button .t { display: none; } }
+@media (max-width: 860px) { .deck-note .keys { display: none; } }
+
+/* ================= shared ================= */
+.wrap { max-width: 1400px; margin: 0 auto; padding: 0 var(--gutter); }
+.variant { padding: 2rem 0 6rem; overflow-x: clip; }
+.variant[hidden] { display: none; }
+.variant.bleed { padding: 0; }
+.display { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; line-height: .88; letter-spacing: -.01em; font-variation-settings: 'opsz' 96; margin: 0; text-wrap: balance; }
+.cond { font-family: var(--font-cond); font-weight: 400; text-transform: uppercase; line-height: .86; letter-spacing: -.005em; margin: 0; }
+.deck { font-family: var(--font-deck); font-size: clamp(1.35rem, 2.2vw, 1.8rem); line-height: 1.2; color: var(--ink-soft); margin: 0; }
+.lede { font-size: 1.12rem; line-height: 1.65; margin: 0; text-wrap: pretty; }
+.mono { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; }
+.tip { font-family: var(--font-serif); font-size: .9rem; color: var(--ink-soft); }
+.tip b { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; color: var(--ink); }
+.photo { position: relative; overflow: hidden; background: var(--paper-deep); }
+.photo img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.3) saturate(1.05) contrast(1.06); }
+.tag { display: inline-block; background: var(--accent); color: var(--paper); font-family: var(--font-mono); font-size: .62rem; letter-spacing: .16em; padding: .2rem .4rem; text-transform: uppercase; vertical-align: middle; }
+
+.status { display: inline-flex; align-items: center; gap: .55rem; font-family: var(--font-deck); font-size: 1.2rem; }
+.status::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: currentColor; flex: none; }
+.status[data-open='true'] { color: #2e6b3f; }
+.status[data-open='false'] { color: var(--accent); }
+.on-dark .status[data-open='true'] { color: #8fd19e; }
+.on-dark .status[data-open='false'] { color: #f3b2a8; }
+
+.book-pair { display: flex; flex-wrap: wrap; gap: .75rem; align-items: stretch; }
+.book-direct { display: inline-flex; align-items: stretch; border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); text-decoration: none; box-shadow: 4px 4px 0 var(--accent); transition: transform .25s var(--ease), box-shadow .25s var(--ease), background-color .2s; }
+.book-direct .stub { display: grid; place-items: center; padding: 0 .7rem; border-right: 1.5px dashed currentColor; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: #e2c27a; }
+.book-direct .label { padding: .85rem .4rem .85rem 1rem; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; text-transform: uppercase; line-height: 1; align-self: center; }
+.book-direct .arrow { align-self: center; padding-right: 1rem; font-size: 1.2rem; transition: transform .35s var(--ease); }
+.book-direct:hover { background: var(--accent); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+.book-direct:hover .arrow { transform: translateX(5px); }
+.book-booksy { display: inline-flex; align-items: baseline; gap: .45rem; border: 1.5px solid currentColor; padding: .85rem 1rem; text-decoration: none; transition: background-color .2s, color .2s; }
+.book-booksy .via { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; opacity: .75; }
+.book-booksy b { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -.01em; }
+.book-booksy:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.on-dark .book-direct { background: var(--paper); color: var(--ink); border-color: var(--paper); box-shadow: 4px 4px 0 var(--ink); }
+.on-dark .book-direct .stub { color: var(--accent); }
+.on-dark .book-direct:hover { background: var(--ink); color: var(--paper); box-shadow: 6px 6px 0 var(--paper); }
+.on-dark .book-booksy:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+/* Niccolò's oval outline button */
+.oval { display: inline-grid; place-items: center; padding: 1rem 2.4rem; border: 1.5px solid var(--ink); border-radius: 50%; font-family: var(--font-cond); font-size: 1.9rem; text-transform: uppercase; line-height: 1; text-decoration: none; transition: background-color .25s, color .25s, transform .4s var(--ease); }
+.oval:hover { background: var(--ink); color: var(--paper); transform: rotate(-4deg); }
+.booksy-line { font-family: var(--font-deck); font-style: italic; font-size: 1.1rem; color: var(--ink-soft); text-decoration: none; }
+.booksy-line b { font-family: ui-sans-serif, system-ui, sans-serif; font-style: normal; font-size: .95rem; color: var(--ink); }
+.booksy-line:hover { color: var(--ink); text-decoration: underline; }
+
+/* a vintage photo print (Kalso) */
+.print { position: absolute; padding: 8px 8px 26px; background: var(--print); border: 1px solid rgb(22 18 14 / .2); box-shadow: 0 22px 34px -20px rgb(40 25 10 / .7); rotate: var(--r, 0deg); }
+.print .photo { aspect-ratio: var(--ar, 4 / 5); }
+.print .photo img { filter: sepia(.45) saturate(.85) contrast(1.05); }
+
+/* ================= 1 · The Record ================= */
+.rec { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.vinyl-wrap { position: relative; width: min(100%, 36rem); aspect-ratio: 1; justify-self: center; }
+.vinyl { position: absolute; inset: 0; border-radius: 50%; background: repeating-radial-gradient(circle at 50% 50%, #18130f 0 1.5px, #221b16 1.5px 3px); box-shadow: 0 40px 70px -40px rgb(40 25 10 / .8), inset 0 0 0 6px #120e0b; }
+.vinyl .label { position: absolute; inset: 31%; border-radius: 50%; overflow: hidden; background: var(--accent); box-shadow: 0 0 0 3px #120e0b; }
+.vinyl .label img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: sepia(.35) saturate(1.05) contrast(1.05); transition: opacity .5s ease; }
+.vinyl .label svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vinyl .label svg text { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2.6px; fill: var(--paper); text-transform: uppercase; }
+.vinyl .hole { position: absolute; left: 50%; top: 50%; width: 3.5%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: var(--paper); box-shadow: inset 0 1px 2px rgb(0 0 0 / .5); }
+.vinyl-sheen { position: absolute; inset: 0; border-radius: 50%; pointer-events: none; background: conic-gradient(from 20deg, transparent 0 25deg, rgb(255 255 255 / .09) 45deg, transparent 75deg 200deg, rgb(255 255 255 / .07) 225deg, transparent 255deg); }
+.tonearm { position: absolute; right: -6%; top: -4%; width: 34%; transform-origin: 78% 12%; rotate: -14deg; transition: rotate .9s var(--ease); pointer-events: none; }
+.tonearm.on { rotate: 1deg; }
+.rec-copy { display: flex; flex-direction: column; gap: 1.5rem; }
+.rec-copy h2 { font-size: clamp(2.4rem, 4.6vw, 4.6rem); }
+.tracks { list-style: none; margin: 0; padding: 0; }
+.side { margin: 1rem 0 .25rem; }
+.track { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; align-items: baseline; gap: 1rem; width: 100%; padding: .8rem 0; border: 0; border-bottom: 1px solid var(--rule); background: none; text-align: left; cursor: pointer; transition: color .3s; }
+.track > span { transition: transform .5s var(--ease); }
+.track .n { font-family: var(--font-mono); font-size: .8rem; color: var(--ink-soft); }
+.track .t { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.25rem, 1.8vw, 1.6rem); text-transform: uppercase; }
+.track .w { font-family: var(--font-deck); font-style: italic; color: var(--ink-soft); }
+.track:hover, .track.is-on { color: var(--accent); }
+.track:hover > span, .track.is-on > span { transform: translateX(.75rem); }
+.rec-foot { display: flex; flex-direction: column; gap: 1rem; padding-top: .5rem; }
+@media (max-width: 1023px) { .rec { grid-template-columns: 1fr; } .vinyl-wrap { width: min(86vw, 30rem); } }
+
+/* ================= 2 · A Day at Antiq ================= */
+.day-scroller { position: relative; height: 520vh; }
+.day-stage { --bg: #eadcbf; --fg: #16120e; position: sticky; top: var(--bar-h); height: calc(100svh - var(--bar-h)); overflow: hidden; background: var(--bg); color: var(--fg); }
+.day-top { position: absolute; z-index: 4; left: var(--gutter); right: var(--gutter); top: 1.25rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
+.day-top h2 { font-size: clamp(1.6rem, 2.6vw, 2.6rem); max-width: 22rem; }
+.day-top .right { display: flex; flex-direction: column; align-items: flex-end; gap: .75rem; }
+.day-center { position: absolute; z-index: 3; inset: 0; display: grid; place-items: center; text-align: center; pointer-events: none; }
+.day-center .when { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .24em; text-transform: uppercase; opacity: .7; margin-bottom: .5rem; }
+.odo { display: inline-flex; align-items: flex-start; font-family: var(--font-display); font-weight: 800; font-variation-settings: 'opsz' 96; font-size: clamp(5rem, 17vw, 15rem); line-height: 1; letter-spacing: -.02em; }
+.odo .col { display: inline-block; height: 1em; overflow: hidden; }
+.odo .strip { display: flex; flex-direction: column; }
+.odo .strip span { display: block; height: 1em; }
+.odo .colon { padding: 0 .02em; }
+.day-lines { position: relative; height: 3rem; margin-top: .5rem; }
+.day-lines p { position: absolute; left: 50%; translate: -50% 0; width: max-content; max-width: 90vw; margin: 0; font-family: var(--font-deck); font-style: italic; font-size: clamp(1.4rem, 2.4vw, 2.1rem); opacity: 0; }
+.day-lines p:first-child { opacity: 1; }
+.day-prints .print { z-index: 2; width: clamp(10rem, 15vw, 15rem); opacity: 0; }
+.day-path { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
+.day-path path { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-dasharray: 5 7; opacity: .45; }
+.day-list { display: none; }
+@media (max-width: 1023px) {
+  .day-scroller { display: none; }
+  .day-list { display: flex; flex-direction: column; gap: 2.5rem; }
+  .day-list .chap { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem; }
+  .day-list .chap .odo-s { font-family: var(--font-display); font-weight: 800; font-size: 4.5rem; line-height: 1; }
+  .day-list .print { position: relative; width: 70%; }
+}
+
+/* ================= 3 · The Walk-Through ================= */
+.walk { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(2rem, 5vw, 5rem); }
+.walk-copy { position: sticky; top: calc(var(--bar-h) + 2rem); align-self: start; display: flex; flex-direction: column; gap: 1.5rem; }
+.walk-copy h2 { font-size: clamp(2.4rem, 4.6vw, 4.6rem); }
+.walk-copy .now { font-family: var(--font-deck); font-style: italic; font-size: 1.6rem; color: var(--accent); min-height: 2rem; }
+.walk-map { position: relative; width: 100%; aspect-ratio: 600 / 900; }
+.walk-map svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.walk-map .room { fill: var(--ink); }
+.walk-map .room.soft { fill: #3a3027; }
+.walk-map .lbl { font-family: var(--font-mono); font-size: 13px; letter-spacing: 3px; fill: var(--paper); text-transform: uppercase; }
+.walk-map .lbl.out { fill: var(--ink); }
+.walk-map .stop { fill: var(--paper); stroke: var(--accent); stroke-width: 3; }
+.walk-map .route { fill: none; stroke: var(--paper); stroke-width: 2.4; stroke-dasharray: 7 9; stroke-linecap: round; }
+.walk-map .print { width: 34%; z-index: 2; }
+@media (max-width: 1023px) { .walk { grid-template-columns: 1fr; } .walk-copy { position: static; } }
+
+/* ================= 4 · The Tabloid ================= */
+.tab-desk { position: relative; background: #1c1813; padding: clamp(2rem, 5vw, 4rem) var(--gutter) 5rem; transition: none; }
+.tab-page { position: relative; max-width: 1180px; margin: 0 auto; background: var(--paper); padding: clamp(1rem, 2.5vw, 2rem); box-shadow: 0 60px 90px -40px rgb(0 0 0 / .8); transform-origin: 50% 0; }
+.tp-top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; padding-bottom: .75rem; border-bottom: 1px solid var(--ink); font-family: var(--font-serif); font-size: .95rem; }
+.tp-top .mid { font-family: var(--font-black); font-size: 1.6rem; }
+.tp-top .end { text-align: right; }
+.tp-row1 { display: grid; grid-template-columns: 1fr 1.15fr 1fr; border-bottom: 1px solid var(--ink); }
+.tp-row1 > * { padding: 1rem; }
+.tp-row1 > * + * { border-left: 1px solid var(--rule); }
+.tp-story .photo { aspect-ratio: 16 / 9; margin-bottom: .6rem; }
+.tp-story h3 { font-family: var(--font-cond); font-weight: 400; font-size: 1.35rem; text-transform: uppercase; margin: 0 0 .3rem; display: flex; align-items: center; gap: .5rem; }
+.tp-story p { margin: 0; font-size: .92rem; line-height: 1.45; }
+.tp-mid { display: grid; place-content: center; text-align: center; gap: .6rem; }
+.tp-mid .big { font-family: var(--font-cond); font-size: clamp(1.8rem, 2.6vw, 2.4rem); line-height: 1; margin: 0; }
+.tp-mast { background: var(--ink); color: var(--paper); margin: 1rem 0; overflow: hidden; }
+.tp-mast svg { display: block; width: 100%; height: clamp(7rem, 22vw, 17rem); }
+.tp-row2 { display: grid; grid-template-columns: .95fr 1.4fr .95fr; }
+.tp-row2 > * { padding: 0 1rem; }
+.tp-row2 > * + * { border-left: 1px solid var(--rule); }
+.tp-row2 > :first-child { padding-left: 0; }
+.tp-row2 > :last-child { padding-right: 0; }
+.tp-shout { font-family: var(--font-cond); font-size: clamp(2.6rem, 5.2vw, 4.8rem); text-transform: uppercase; line-height: .86; margin: 0 0 1rem; }
+.tp-row2 .photo.tall { aspect-ratio: 4 / 5; }
+.tp-row2 .photo.wide { aspect-ratio: 5 / 4; }
+.tp-roles { font-family: var(--font-cond); font-size: clamp(1.6rem, 2.6vw, 2.4rem); text-transform: uppercase; line-height: 1; margin: 1rem 0 0; padding: 0; list-style: none; }
+.tp-roles li { border-top: 1px solid var(--ink); padding: .35rem 0; }
+.tp-side { display: flex; flex-direction: column; gap: 1.1rem; }
+.tp-side .lede { font-size: 1rem; }
+.dropcap::first-letter { float: left; font-family: var(--font-cond); font-size: 4.2em; line-height: .8; padding: .05em .1em 0 0; }
+/* postage stamp: perforated edge from a radial mask */
+.stamp {
+  position: relative; width: 9.5rem; padding: 10px; background: var(--print);
+  /* holes only round the edge: a solid centre layered over a ring of punched dots */
+  -webkit-mask: linear-gradient(#000 0 0) 7px 7px / calc(100% - 14px) calc(100% - 14px) no-repeat, radial-gradient(circle 4.5px, transparent 97%, #000) -6px -6px / 12px 12px round;
+  mask: linear-gradient(#000 0 0) 7px 7px / calc(100% - 14px) calc(100% - 14px) no-repeat, radial-gradient(circle 4.5px, transparent 97%, #000) -6px -6px / 12px 12px round;
+  filter: drop-shadow(0 6px 8px rgb(40 25 10 / .3));
+  align-self: flex-end; rotate: 4deg;
+}
+.stamp .photo { aspect-ratio: 4 / 5; }
+.stamp .photo img { filter: sepia(.6) saturate(.8) contrast(1.1); }
+.stamp .val { position: absolute; left: 16px; bottom: 14px; color: var(--paper); font-family: var(--font-cond); font-size: 1.6rem; line-height: 1; text-shadow: 0 1px 3px rgb(0 0 0 / .6); }
+.stamp-wrap { position: relative; align-self: flex-end; }
+.postmark { position: absolute; left: -4.5rem; top: 1.5rem; width: 9rem; color: var(--ink); opacity: .7; rotate: -12deg; pointer-events: none; }
+@media (max-width: 1023px) {
+  .tp-row1, .tp-row2 { grid-template-columns: 1fr; }
+  .tp-row1 > * + *, .tp-row2 > * + * { border-left: 0; border-top: 1px solid var(--rule); }
+  .tp-row2 > * { padding: 1rem 0; }
+  .postmark { left: auto; right: 7rem; }
+}
+
+/* ================= 5 · The Postcard ================= */
+.pc-head { text-align: center; padding: .5rem 0 2rem; }
+.pc-head h2 { font-size: clamp(2.2rem, 4.6vw, 4.2rem); }
+.pc-head .deck { margin-top: .75rem; }
+.pc-scene { perspective: 2200px; max-width: 980px; margin: 0 auto; }
+.pc { position: relative; aspect-ratio: 3 / 2; transform-style: preserve-3d; transition: transform 1.3s var(--ease); cursor: pointer; }
+.pc.is-back { transform: rotateY(180deg); }
+.pc-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: var(--print); border-radius: 6px; box-shadow: 0 40px 70px -40px rgb(40 25 10 / .7), inset 0 0 0 1px rgb(22 18 14 / .15); overflow: hidden; }
+.pc-front { padding: 14px; }
+.pc-front .inner { position: relative; height: 100%; border-radius: 3px; background: #2a1d14; overflow: hidden; }
+.pc-front .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .32; filter: sepia(.7) saturate(.8) blur(2px); }
+.pc-front .greet { position: absolute; left: 6%; top: 6%; font-family: var(--font-script); font-size: clamp(2.4rem, 6vw, 5rem); color: var(--paper); rotate: -8deg; line-height: 1; text-shadow: 0 2px 8px rgb(0 0 0 / .5); }
+.pc-front .letters { position: absolute; left: 0; right: 0; top: 50%; translate: 0 -58%; display: flex; justify-content: center; gap: .02em; margin: 0; font-family: var(--font-display); font-weight: 900; font-variation-settings: 'opsz' 96; font-size: clamp(5rem, 15vw, 12rem); line-height: .9; }
+/* large-letter postcard: each letter is a window onto a different room */
+.pc-front .letters span {
+  background-size: cover; background-position: center;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-text-stroke: 3px var(--paper);
+  filter: drop-shadow(4px 4px 0 var(--accent)) drop-shadow(3px 3px 0 #120c08);
+}
+.pc-front .ribbon { position: absolute; left: 50%; bottom: 9%; margin: 0; translate: -50% 0; background: var(--accent); color: var(--paper); font-family: var(--font-cond); font-size: clamp(1.1rem, 2vw, 1.6rem); text-transform: uppercase; letter-spacing: .08em; padding: .35rem 1.5rem; white-space: nowrap; }
+.pc-front .hint { position: absolute; right: 3%; bottom: 3%; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: rgb(234 220 191 / .8); }
+.pc-back { transform: rotateY(180deg); display: grid; grid-template-columns: 1.15fr 1px 1fr; gap: 0; padding: clamp(1.25rem, 3vw, 2.5rem); }
+.pc-back .divider { background: var(--rule); }
+.pc-back .msg { padding-right: clamp(1rem, 3vw, 2.5rem); display: flex; flex-direction: column; gap: .8rem; }
+.pc-back .script { font-family: var(--font-script); font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1; color: #1d2a4a; margin: 0; }
+.pc-back .hand { font-family: var(--font-deck); font-style: italic; font-size: clamp(1.15rem, 1.7vw, 1.45rem); line-height: 1.35; color: #1d2a4a; margin: 0; }
+.pc-back .addr { padding-left: clamp(1rem, 3vw, 2.5rem); display: flex; flex-direction: column; }
+.pc-back .addr-top { display: flex; justify-content: space-between; align-items: flex-start; min-height: 9rem; }
+.pc-back .addr-top .stamp { rotate: 3deg; width: 7rem; align-self: auto; }
+.pc-back .pm { width: 8rem; color: var(--ink); opacity: .65; rotate: -10deg; margin-top: 1rem; }
+.pc-back .lines { margin-top: auto; display: flex; flex-direction: column; }
+.pc-back .lines span { border-bottom: 1px solid var(--rule); padding: .45rem 0 .2rem; font-family: var(--font-deck); font-style: italic; font-size: 1.15rem; color: #1d2a4a; }
+.pc-back .act { display: flex; flex-direction: column; gap: .75rem; margin-top: 1.25rem; }
+.pc-flip { display: block; margin: 1.5rem auto 0; border: 1.5px solid var(--ink); background: transparent; padding: .7rem 1.4rem; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; transition: background-color .2s, color .2s; }
+.pc-flip:hover { background: var(--ink); color: var(--paper); }
+@media (max-width: 860px) {
+  .pc { aspect-ratio: auto; height: 40rem; }
+  .pc-front .letters { font-size: 26vw; flex-wrap: wrap; }
+  .pc-back { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; }
+  .pc-back .divider { height: 1px; margin: 1rem 0; }
+  .pc-back .msg, .pc-back .addr { padding: 0; }
+  .pc-back .addr-top { min-height: 6rem; }
+  .pc-back .addr-top .stamp { width: 5rem; }
+}
+
+/* ================= 6 · Drag the Paper ================= */
+.dp-head { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 1.5rem 3rem; align-items: end; padding-bottom: 1.5rem; border-bottom: 3px double var(--ink); }
+.dp-head h2 { font-size: clamp(3rem, 8vw, 7.5rem); }
+.dp-head .side { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+.dp-head .row { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem 1.5rem; }
+.rail { display: flex; overflow-x: auto; scrollbar-width: none; cursor: grab; padding: 2rem var(--gutter) 1rem; margin: 0 calc(var(--gutter) * -1); user-select: none; -webkit-user-select: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail.is-drag { cursor: grabbing; }
+.clip { flex: 0 0 clamp(16rem, 24vw, 21rem); padding: 0 1.4rem; border-left: 1px solid var(--rule); transform-origin: 50% 100%; will-change: transform; }
+.clip:first-child { border-left: 0; padding-left: 0; }
+.clip .photo { aspect-ratio: 4 / 5; margin-bottom: 1rem; pointer-events: none; }
+.clip .photo img { -webkit-user-drag: none; transition: transform 1.2s var(--ease), filter .6s; }
+.clip:hover .photo img { transform: scale(1.05); filter: sepia(.05) saturate(1.15); }
+.clip h3 { font-family: var(--font-cond); font-weight: 400; font-size: clamp(2rem, 2.8vw, 2.6rem); text-transform: uppercase; line-height: .9; margin: .6rem 0 .5rem; }
+.clip p { margin: 0; font-family: var(--font-deck); font-style: italic; font-size: 1.2rem; line-height: 1.25; color: var(--ink-soft); }
+.clip.end { display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; }
+.clip.end h3 { font-size: clamp(2.4rem, 3.4vw, 3.2rem); }
+@media (max-width: 860px) { .dp-head { grid-template-columns: 1fr; } }
+
+/* ================= 7 · The Statement ================= */
+.st { background: var(--accent); color: var(--paper); padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(4rem, 8vw, 7rem); }
+.st-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
+.st-sign { width: clamp(11rem, 22vw, 19rem); color: var(--paper); }
+.st-sign text { font-family: var(--font-script); font-size: 170px; }
+.st-top .right { display: flex; flex-direction: column; align-items: flex-end; gap: .6rem; text-align: right; }
+.st-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3.2fr); gap: 2rem 4rem; margin-top: clamp(2rem, 5vw, 4rem); }
+.st-small { font-family: var(--font-mono); font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; line-height: 1.8; margin: 0; max-width: 18rem; opacity: .9; }
+.st-big { font-family: var(--font-cond); font-size: clamp(2.6rem, 5.8vw, 6rem); line-height: 1.02; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.st-big em { font-style: italic; }
+.st-big .wd { opacity: .22; transition: opacity .3s linear; }
+.st-big .wd.on { opacity: 1; }
+.st-photo { width: min(64rem, 92vw); aspect-ratio: 16 / 9; clip-path: inset(0 0 0 0); margin: clamp(3rem, 6vw, 5rem) auto 0; overflow: hidden; border-radius: 2px; }
+.st-photo img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.2) saturate(1.05); }
+.st-foot { display: flex; justify-content: center; margin-top: 2.5rem; }
+@media (max-width: 860px) { .st-grid { grid-template-columns: 1fr; } .st-top { flex-direction: column; } .st-top .right { align-items: flex-start; text-align: left; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation: none !important; }
+  .st-big .wd { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<header class="deck-bar">
+  <div class="brand"><b>The Antiq Barber</b><span>· Front page, inspired</span></div>
+  <nav class="deck-tabs" role="tablist" aria-label="Directions">
+    <button role="tab" aria-selected="true" data-tab="1"><b>1</b><span class="t">The Record</span></button>
+    <button role="tab" aria-selected="false" data-tab="2"><b>2</b><span class="t">A Day at Antiq</span></button>
+    <button role="tab" aria-selected="false" data-tab="3"><b>3</b><span class="t">The Walk-Through</span></button>
+    <button role="tab" aria-selected="false" data-tab="4"><b>4</b><span class="t">The Tabloid</span></button>
+    <button role="tab" aria-selected="false" data-tab="5"><b>5</b><span class="t">The Postcard</span></button>
+    <button role="tab" aria-selected="false" data-tab="6"><b>6</b><span class="t">Drag the Paper</span></button>
+    <button role="tab" aria-selected="false" data-tab="7"><b>7</b><span class="t">The Statement</span></button>
+  </nav>
+</header>
+
+<div class="deck-note"><p data-note></p><p class="keys">← → to switch</p></div>
+
+<!-- ======================= 1 · THE RECORD (Kalso) ======================= -->
+<section class="variant" data-variant="1" role="tabpanel" aria-label="1, The Record">
+  <div class="wrap">
+    <div class="rec">
+      <div class="vinyl-wrap" data-vinyl-wrap>
+        <div class="vinyl" data-vinyl>
+          <div class="label">
+            <img data-img="front-bar" data-label-a alt="" />
+            <img data-label-b alt="" style="opacity:0" />
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <defs><path id="lbl-ring" d="M100,100 m-82,0 a82,82 0 1,1 164,0 a82,82 0 1,1 -164,0" /></defs>
+              <circle cx="100" cy="100" r="92" fill="none" stroke="rgb(0 0 0 / .45)" stroke-width="22" />
+              <text><textPath href="#lbl-ring" textLength="510">Antiq Records · Side A · Epping · Est. 2026 ·</textPath></text>
+            </svg>
+          </div>
+          <span class="hole"></span>
+        </div>
+        <div class="vinyl-sheen"></div>
+        <svg class="tonearm on" data-arm viewBox="0 0 120 260" aria-hidden="true">
+          <circle cx="94" cy="30" r="22" fill="#2a221c" stroke="#c9a063" stroke-width="3" />
+          <circle cx="94" cy="30" r="8" fill="#c9a063" />
+          <path d="M94 30 L86 200 L58 236" fill="none" stroke="#c9a063" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          <rect x="40" y="226" width="30" height="22" rx="3" transform="rotate(-38 55 237)" fill="#2a221c" stroke="#c9a063" stroke-width="2.5" />
+        </svg>
+      </div>
+      <div class="rec-copy">
+        <h2 class="display" data-in>Not your average barbershop</h2>
+        <p class="deck" data-in>Antique chairs, porthole mirrors and the <em>modern fade.</em> Put it on and have a listen.</p>
+        <div data-in>
+          <p class="mono side">Side A · Downstairs</p>
+          <ul class="tracks" data-tracks>
+            <li><button class="track is-on" data-show="front-bar"><span class="n">A1</span><span class="t">The front bar</span><span class="w">burnt timber</span></button></li>
+            <li><button class="track" data-show="parlour-row"><span class="n">A2</span><span class="t">The parlour</span><span class="w">porthole mirrors</span></button></li>
+            <li><button class="track" data-show="courtyard-sun"><span class="n">A3</span><span class="t">The courtyard</span><span class="w">birdsong</span></button></li>
+          </ul>
+          <p class="mono side">Side B · Upstairs</p>
+          <ul class="tracks">
+            <li><button class="track" data-show="lounge-neon-pool"><span class="n">B1</span><span class="t">The loft</span><span class="w">neon &amp; pool</span></button></li>
+            <li><button class="track" data-show="at-work"><span class="n">B2</span><span class="t">The modern fade</span><span class="w">in the chair</span></button></li>
+          </ul>
+        </div>
+        <div class="rec-foot" data-in>
+          <span class="status" data-status>Checking the hours</span>
+          <div class="book-pair">
+            <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+            <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · A DAY AT ANTIQ (Kalso) ======================= -->
+<section class="variant bleed" data-variant="2" role="tabpanel" aria-label="2, A Day at Antiq" hidden>
+  <div class="day-scroller" data-day>
+    <div class="day-stage" data-day-stage>
+      <svg class="day-path" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><path d="M120 150 C 300 60, 600 40, 860 120 S 980 420, 820 470 S 300 560, 140 430 S 60 260, 500 520" /></svg>
+      <div class="day-top">
+        <h2 class="display">Not your average barbershop</h2>
+        <div class="right">
+          <span class="status" data-status>Checking the hours</span>
+          <div class="book-pair" data-day-book>
+            <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+          <a class="booksy-line" href="#" style="color:inherit">or book on <b style="color:inherit">Booksy</b> ↗</a>
+        </div>
+      </div>
+      <div class="day-center">
+        <div>
+          <p class="when">A Thursday at Antiq</p>
+          <div class="odo" data-odo aria-hidden="true"></div>
+          <div class="day-lines" data-lines></div>
+        </div>
+      </div>
+      <div class="day-prints" data-prints></div>
+    </div>
+  </div>
+  <div class="wrap day-list" data-day-list></div>
+</section>
+
+<!-- ======================= 3 · THE WALK-THROUGH (Kalso) ======================= -->
+<section class="variant" data-variant="3" role="tabpanel" aria-label="3, The Walk-Through" hidden>
+  <div class="wrap">
+    <div class="walk">
+      <div class="walk-copy">
+        <h2 class="display" data-in>Not your average barbershop</h2>
+        <p class="lede" data-in>Step in off Miller Street and the century changes. Follow the path through the shop, from the door to the loft.</p>
+        <p class="now" data-now aria-live="polite">Miller Street</p>
+        <span class="status" data-status data-in>Checking the hours</span>
+        <div class="book-pair" data-in>
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="walk-map" data-walk>
+        <svg viewBox="0 0 600 900" aria-hidden="true">
+          <defs>
+            <!-- rough ink edges, like a printed map -->
+            <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="4" /><feDisplacementMap in="SourceGraphic" scale="9" /></filter>
+            <mask id="route-mask"><path data-route-draw d="M300 40 L300 170 C300 250 170 280 170 380 C170 450 330 460 430 420 C520 380 500 560 460 600 C420 650 330 690 300 770" fill="none" stroke="#fff" stroke-width="12" /></mask>
+          </defs>
+          <text class="lbl out" x="300" y="22" text-anchor="middle">Miller Street</text>
+          <g filter="url(#rough)">
+            <path class="room" d="M60 70 L540 64 L546 300 L60 306 Z" />
+            <path class="room" d="M60 318 L350 314 L346 520 L64 526 Z" />
+            <path class="room soft" d="M364 314 L546 312 L540 520 L360 524 Z" />
+            <path class="room" d="M420 538 L540 534 L536 660 L410 664 Z" />
+            <path class="room" d="M60 676 L546 672 L540 860 L66 864 Z" />
+          </g>
+          <text class="lbl" x="84" y="104">The front bar</text>
+          <text class="lbl" x="84" y="352">The parlour</text>
+          <text class="lbl" x="382" y="352">Courtyard</text>
+          <text class="lbl" x="430" y="572">Stairs</text>
+          <text class="lbl" x="84" y="710">The loft</text>
+          <path class="route" mask="url(#route-mask)" d="M300 40 L300 170 C300 250 170 280 170 380 C170 450 330 460 430 420 C520 380 500 560 460 600 C420 650 330 690 300 770" />
+          <g data-stops>
+            <circle class="stop" cx="300" cy="40" r="9" />
+            <circle class="stop" cx="300" cy="170" r="9" />
+            <circle class="stop" cx="170" cy="380" r="9" />
+            <circle class="stop" cx="430" cy="420" r="9" />
+            <circle class="stop" cx="460" cy="600" r="9" />
+            <circle class="stop" cx="300" cy="770" r="9" />
+          </g>
+        </svg>
+        <div class="print" data-walk-print style="left:67%;top:1%;--r:6deg;width:30%"><div class="photo"><img data-img="entrance" alt="The shopfront on Miller Street" /></div></div>
+        <div class="print" data-walk-print style="left:4%;top:12%;--r:-6deg;--ar:4/3;width:40%"><div class="photo"><img data-img="front-bar" alt="The front bar" /></div></div>
+        <div class="print" data-walk-print style="left:-6%;top:44%;--r:5deg"><div class="photo"><img data-img="parlour-row" alt="The parlour" /></div></div>
+        <div class="print" data-walk-print style="left:66%;top:36%;--r:-5deg"><div class="photo"><img data-img="courtyard-sun" alt="The courtyard" /></div></div>
+        <div class="print" data-walk-print style="left:62%;top:74%;--r:7deg"><div class="photo"><img data-img="lounge-neon-pool" alt="The loft" /></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 4 · THE TABLOID (Niccolò Miranda) ======================= -->
+<section class="variant bleed" data-variant="4" role="tabpanel" aria-label="4, The Tabloid" hidden>
+  <div class="tab-desk" data-desk>
+    <div class="tab-page" data-page>
+      <div class="tp-top"><span>Epping, VIC</span><span class="mid">The Antiq Barber</span><span class="end" data-today>Today</span></div>
+      <div class="tp-row1">
+        <article class="tp-story">
+          <div class="photo"><img data-img="front-bar" alt="The front bar" /></div>
+          <h3>The front bar <span class="tag">Downstairs</span></h3>
+          <p>Burnt timber, barrels and a wall of old bottles.</p>
+        </article>
+        <div class="tp-mid">
+          <p class="big">A gallery of culture. A home for barbers.</p>
+          <p class="tip"><b>TIP:</b> Walk in. A chair is usually free.</p>
+        </div>
+        <article class="tp-story">
+          <div class="photo"><img data-img="lounge-neon-pool" alt="The loft upstairs" /></div>
+          <h3>The loft <span class="tag">Upstairs</span></h3>
+          <p>Neon, a pool table and somewhere to linger.</p>
+        </article>
+      </div>
+      <div class="tp-mast">
+        <svg viewBox="0 0 1000 230" preserveAspectRatio="none" role="img" aria-label="Antiq">
+          <text x="500" y="214" text-anchor="middle" textLength="960" lengthAdjust="spacingAndGlyphs" fill="currentColor" style="font-family: var(--font-cond); font-size: 290px">ANTIQ</text>
+        </svg>
+      </div>
+      <div class="tp-row2">
+        <div>
+          <h2 class="tp-shout">Not your average barbershop!</h2>
+          <div class="photo tall"><img data-img="at-work" alt="A barber at work" /></div>
+        </div>
+        <div>
+          <div class="photo wide"><img data-img="chair" alt="An antique barber chair" /></div>
+          <ul class="tp-roles"><li>Skin fades</li><li>Scissor cuts</li><li>Beard work</li><li>Skin facials</li></ul>
+        </div>
+        <div class="tp-side">
+          <div class="stamp-wrap">
+            <div class="stamp"><div class="photo"><img data-img="deer" alt="" /></div><span class="val">$40</span></div>
+            <svg class="postmark" viewBox="0 0 160 90" aria-hidden="true"><circle cx="45" cy="45" r="36" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="45" cy="45" r="27" fill="none" stroke="currentColor" stroke-width="1" /><text x="45" y="42" text-anchor="middle" style="font: 700 9px var(--font-mono); letter-spacing: 1px" fill="currentColor">EPPING</text><text x="45" y="55" text-anchor="middle" style="font: 8px var(--font-mono)" fill="currentColor">VIC 3076</text><path d="M86 30 q8 -6 16 0 t16 0 t16 0 t16 0 M86 45 q8 -6 16 0 t16 0 t16 0 t16 0 M86 60 q8 -6 16 0 t16 0 t16 0 t16 0" fill="none" stroke="currentColor" stroke-width="2" /></svg>
+          </div>
+          <p class="lede dropcap">EPPING — Step in off Miller Street and the century changes. Antique chairs, porthole mirrors and the modern fade, downstairs and up.</p>
+          <a class="oval" href="#">Book a chair</a>
+          <a class="booksy-line" href="#">or book on <b>Booksy</b> ↗</a>
+          <span class="status" data-status>Checking the hours</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 5 · THE POSTCARD (Miranda × Kalso) ======================= -->
+<section class="variant" data-variant="5" role="tabpanel" aria-label="5, The Postcard" hidden>
+  <div class="wrap">
+    <div class="pc-head">
+      <h2 class="display" data-in>Not your average barbershop</h2>
+      <p class="deck" data-in>Sent from Miller Street, Epping. Turn it over.</p>
+    </div>
+    <div class="pc-scene">
+      <div class="pc" data-pc role="button" tabindex="0" aria-label="Postcard. Press to turn over.">
+        <div class="pc-face pc-front">
+          <div class="inner">
+            <img class="bg" data-img="front-bar-wide" alt="" />
+            <p class="greet">Greetings from</p>
+            <p class="letters" aria-label="Antiq">
+              <span data-bg="entrance">A</span><span data-bg="lounge-neon-pool">N</span><span data-bg="chair">T</span><span data-bg="courtyard-sun">I</span><span data-bg="at-work">Q</span>
+            </p>
+            <p class="ribbon">Barbers · Epping · Melbourne</p>
+            <p class="hint">Click to turn over ↻</p>
+          </div>
+        </div>
+        <div class="pc-face pc-back">
+          <div class="msg">
+            <p class="script">Dear Epping,</p>
+            <p class="hand">Antique chairs, porthole mirrors and the modern fade. Burnt timber at the front bar, birdsong in the courtyard, neon and a pool table upstairs.</p>
+            <p class="hand">Walk in, or keep a chair for later.</p>
+            <p class="script" style="font-size:clamp(1.8rem,3vw,2.6rem)">Alz, Diaz &amp; Mim</p>
+          </div>
+          <div class="divider"></div>
+          <div class="addr">
+            <div class="addr-top">
+              <svg class="pm" viewBox="0 0 160 90" aria-hidden="true"><circle cx="45" cy="45" r="36" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="45" cy="45" r="27" fill="none" stroke="currentColor" stroke-width="1" /><text x="45" y="42" text-anchor="middle" style="font: 700 9px var(--font-mono); letter-spacing: 1px" fill="currentColor">EPPING</text><text x="45" y="55" text-anchor="middle" style="font: 8px var(--font-mono)" fill="currentColor" data-pm-date>VIC 3076</text><path d="M86 30 q8 -6 16 0 t16 0 t16 0 t16 0 M86 45 q8 -6 16 0 t16 0 t16 0 t16 0 M86 60 q8 -6 16 0 t16 0 t16 0 t16 0" fill="none" stroke="currentColor" stroke-width="2" /></svg>
+              <div class="stamp"><div class="photo"><img data-img="deer" alt="" /></div><span class="val">$40</span></div>
+            </div>
+            <div class="lines"><span>Antiq Barbers</span><span>5/60 Miller Street</span><span>Epping VIC 3076</span></div>
+            <div class="act">
+              <span class="status" data-status>Checking the hours</span>
+              <div class="book-pair">
+                <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+                <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="pc-flip" type="button" data-pc-flip>Turn it over ↻</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 · DRAG THE PAPER (Niccolò Miranda) ======================= -->
+<section class="variant" data-variant="6" role="tabpanel" aria-label="6, Drag the Paper" hidden>
+  <div class="wrap">
+    <div class="dp-head">
+      <h2 class="cond" data-in>Not your average barbershop</h2>
+      <div class="side" data-in>
+        <p class="deck">Antique chairs, porthole mirrors and the <em>modern fade.</em></p>
+        <p class="tip"><b>TIP:</b> Drag sideways to look around the shop.</p>
+        <div class="row"><a class="oval" href="#">Book a chair</a><a class="booksy-line" href="#">or on <b>Booksy</b> ↗</a></div>
+      </div>
+    </div>
+    <div class="rail" data-rail>
+      <article class="clip" data-clip><div class="photo"><img data-img="front-bar" alt="The front bar" /></div><span class="tag">Downstairs</span><h3>The front bar</h3><p>Burnt timber, barrels, a wall of old bottles.</p></article>
+      <article class="clip" data-clip><div class="photo"><img data-img="parlour-row" alt="The parlour" /></div><span class="tag">Downstairs</span><h3>The parlour</h3><p>Tufted leather chairs along the glass.</p></article>
+      <article class="clip" data-clip><div class="photo"><img data-img="courtyard-sun" alt="The courtyard" /></div><span class="tag">Out back</span><h3>The courtyard</h3><p>Birdsong behind the glass.</p></article>
+      <article class="clip" data-clip><div class="photo"><img data-img="booth" alt="The booth" /></div><span class="tag">Downstairs</span><h3>The booth</h3><p>A raised corner for the long cuts.</p></article>
+      <article class="clip" data-clip><div class="photo"><img data-img="lounge-neon-pool" alt="The loft" /></div><span class="tag">Upstairs</span><h3>The loft</h3><p>Neon and a pool table.</p></article>
+      <article class="clip" data-clip><div class="photo"><img data-img="at-work" alt="A barber at work" /></div><span class="tag">In the chair</span><h3>The modern fade</h3><p>Old room, sharp work.</p></article>
+      <article class="clip end" data-clip>
+        <h3>Your chair is waiting</h3>
+        <span class="status" data-status>Checking the hours</span>
+        <div class="book-pair" style="flex-direction:column;align-items:flex-start">
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 7 · THE STATEMENT (Rendezvous × Hagis) ======================= -->
+<section class="variant bleed" data-variant="7" role="tabpanel" aria-label="7, The Statement" hidden>
+  <div class="st on-dark">
+    <div class="wrap">
+      <div class="st-top">
+        <svg class="st-sign" viewBox="0 0 520 220" role="img" aria-label="Antiq">
+          <text x="10" y="170" data-sign fill="currentColor" fill-opacity="0" stroke="currentColor" stroke-width="1.6">Antiq</text>
+        </svg>
+        <div class="right">
+          <span class="status" data-status>Checking the hours</span>
+          <span class="mono">5/60 Miller Street, Epping</span>
+        </div>
+      </div>
+      <div class="st-grid">
+        <p class="st-small" data-in>It's not just a haircut. It's an hour in an antique room: burnt timber, tufted leather, birdsong in the courtyard and neon upstairs.</p>
+        <h2 class="st-big" data-ink>Not your average barbershop. <em>A gallery of culture,</em> a home for barbers <em>and an experience for everyone.</em></h2>
+      </div>
+      <div class="st-photo" data-grow><img data-img="at-work" alt="A barber at work" /></div>
+      <div class="st-foot">
+        <div class="book-pair">
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  /* each photo is embedded once, then shared by every layout that uses it */
+  var IMGS = {
+    'front-bar-wide': 'IMG:front-bar-wide',
+    'front-bar': 'IMG:front-bar',
+    'chair': 'IMG:chair',
+    'parlour-row': 'IMG:parlour-row',
+    'courtyard-sun': 'IMG:courtyard-sun',
+    'booth': 'IMG:booth',
+    'lounge-neon-pool': 'IMG:lounge-neon-pool',
+    'at-work': 'IMG:at-work',
+    'entrance': 'IMG:entrance',
+    'deer': 'IMG:deer'
+  };
+  document.querySelectorAll('img[data-img]').forEach(function (img) { img.src = IMGS[img.dataset.img]; });
+  document.querySelectorAll('[data-bg]').forEach(function (el) { el.style.backgroundImage = 'url(' + IMGS[el.dataset.bg] + ')'; });
+
+  var hasGsap = typeof window.gsap !== 'undefined';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var animate = hasGsap && !reduced;
+  if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+  var barH = function () { return document.querySelector('.deck-bar').offsetHeight; };
+
+  /* ---------- today + live open / closed, in shop time (Melbourne) ---------- */
+  var today = new Intl.DateTimeFormat('en-AU', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Australia/Melbourne' }).format(new Date());
+  document.querySelectorAll('[data-today]').forEach(function (el) { el.textContent = today; });
+  var pmDate = new Intl.DateTimeFormat('en-AU', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Australia/Melbourne' }).format(new Date()).toUpperCase();
+  document.querySelectorAll('[data-pm-date]').forEach(function (el) { el.textContent = pmDate; });
+  var hours = { 0: ['10:00', '16:00'], 1: null, 2: ['10:00', '18:00'], 3: ['10:00', '18:00'], 4: ['11:00', '21:00'], 5: ['11:00', '21:00'], 6: ['09:00', '18:00'] };
+  function fmt(t) { var p = t.split(':'), h = +p[0], m = +p[1]; return (h % 12 || 12) + (m ? ':' + String(m).padStart(2, '0') : '') + (h < 12 ? 'am' : 'pm'); }
+  function toMin(t) { var p = t.split(':'); return +p[0] * 60 + +p[1]; }
+  try {
+    var parts = new Intl.DateTimeFormat('en-AU', { timeZone: 'Australia/Melbourne', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+    var get = function (t) { return (parts.find(function (p) { return p.type === t; }) || {}).value; };
+    var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
+    var now = +get('hour') * 60 + +get('minute');
+    var h = hours[day];
+    var open = !!h && now >= toMin(h[0]) && now < toMin(h[1]);
+    var text;
+    if (open) text = 'Open now · till ' + fmt(h[1]);
+    else {
+      for (var i = 0; i < 8; i++) {
+        var d = (day + i) % 7, hh = hours[d];
+        if (hh && (i > 0 || now < toMin(hh[0]))) {
+          text = 'Closed now · opens ' + (i === 0 ? 'at ' : i === 1 ? 'tomorrow ' : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d] + ' ') + fmt(hh[0]);
+          break;
+        }
+      }
+    }
+    document.querySelectorAll('[data-status]').forEach(function (el) { el.textContent = text; el.dataset.open = String(open); });
+  } catch (e) {}
+
+  /* ---------- 1 · the record: a track changes the label, the arm lifts and drops ---------- */
+  var labelA = document.querySelector('[data-label-a]'), labelB = document.querySelector('[data-label-b]'), arm = document.querySelector('[data-arm]');
+  var front = labelA, back = labelB, armTimer = 0;
+  document.querySelectorAll('.track').forEach(function (t) {
+    function play() {
+      if (t.classList.contains('is-on')) return;
+      document.querySelectorAll('.track').forEach(function (x) { x.classList.toggle('is-on', x === t); });
+      back.src = IMGS[t.dataset.show];
+      back.style.opacity = 1; front.style.opacity = 0;
+      var tmp = front; front = back; back = tmp;
+      arm.classList.remove('on');
+      clearTimeout(armTimer);
+      armTimer = setTimeout(function () { arm.classList.add('on'); }, 450);
+    }
+    t.addEventListener('mouseenter', play);
+    t.addEventListener('focus', play);
+    t.addEventListener('click', play);
+  });
+
+  /* ---------- 2 · a day at Antiq: chapters ---------- */
+  var chapters = [
+    { t: '11:00', line: 'Doors open on Miller Street', img: 'entrance', bg: '#eadcbf', fg: '#16120e', pos: [9, 30, -7] },
+    { t: '13:30', line: 'The hum of clippers, a fade taking shape', img: 'at-work', bg: '#e3c897', fg: '#16120e', pos: [72, 16, 6] },
+    { t: '15:45', line: 'Birdsong out in the courtyard', img: 'courtyard-sun', bg: '#d8b9a6', fg: '#16120e', pos: [6, 62, 5] },
+    { t: '19:00', line: 'Lights on upstairs', img: 'lounge-neon-pool', bg: '#16111c', fg: '#eadcbf', pos: [75, 54, -6] },
+    { t: '20:30', line: 'Last chair of the night', img: 'chair', bg: '#2a0e10', fg: '#eadcbf', pos: [60, 64, 4] }
+  ];
+  var odo = document.querySelector('[data-odo]'), linesEl = document.querySelector('[data-lines]'), printsEl = document.querySelector('[data-prints]'), list = document.querySelector('[data-day-list]');
+  var cols = [];
+  '00:00'.split('').forEach(function (ch) {
+    if (ch === ':') { var c = document.createElement('span'); c.className = 'colon'; c.textContent = ':'; odo.appendChild(c); return; }
+    var col = document.createElement('span'); col.className = 'col';
+    var strip = document.createElement('span'); strip.className = 'strip';
+    for (var n = 0; n < 10; n++) { var s = document.createElement('span'); s.textContent = n; strip.appendChild(s); }
+    col.appendChild(strip); odo.appendChild(col); cols.push(strip);
+  });
+  function digits(t) { return t.replace(':', '').split('').map(Number); }
+  function setOdo(t) {
+    digits(t).forEach(function (d, i) {
+      if (hasGsap) gsap.set(cols[i], { yPercent: -d * 10 });
+      else cols[i].style.transform = 'translateY(' + (-d * 10) + '%)';
+    });
+  }
+  setOdo(chapters[0].t);
+  chapters.forEach(function (c, i) {
+    var p = document.createElement('p'); p.textContent = c.line; linesEl.appendChild(p);
+    var pr = document.createElement('div'); pr.className = 'print';
+    pr.style.cssText = 'left:' + c.pos[0] + '%;top:' + c.pos[1] + '%;--r:' + c.pos[2] + 'deg';
+    pr.innerHTML = '<div class="photo"><img alt="" src="' + IMGS[c.img] + '"></div>';
+    if (i === 0) pr.style.opacity = 1;
+    printsEl.appendChild(pr);
+    var m = document.createElement('div'); m.className = 'chap'; m.style.background = c.bg; m.style.color = c.fg;
+    m.innerHTML = '<span class="odo-s">' + c.t + '</span><p class="deck" style="color:inherit">' + c.line + '</p><div class="print" style="--r:' + c.pos[2] + 'deg"><div class="photo"><img alt="" src="' + IMGS[c.img] + '"></div></div>';
+    list.appendChild(m);
+  });
+  var listHead = document.createElement('div');
+  listHead.innerHTML = '<h2 class="display" style="font-size:clamp(2.4rem,9vw,3.6rem)">Not your average barbershop</h2>';
+  list.prepend(listHead);
+  var listFoot = document.querySelector('[data-day-book]').parentNode.cloneNode(true);
+  listFoot.style.alignItems = 'flex-start';
+  list.appendChild(listFoot);
+
+  /* ---------- 5 · postcard ---------- */
+  var pc = document.querySelector('[data-pc]');
+  function flip() { pc.classList.toggle('is-back'); }
+  pc.addEventListener('click', function (e) { if (!e.target.closest('a')) flip(); });
+  pc.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+  document.querySelector('[data-pc-flip]').addEventListener('click', flip);
+
+  /* ---------- 6 · drag the paper: drag to scroll, clippings lean with the speed ---------- */
+  var rail = document.querySelector('[data-rail]');
+  var clips = rail.querySelectorAll('[data-clip]');
+  var down = false, sx = 0, sl = 0, lastX = 0, vel = 0, skew = 0;
+  rail.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; sx = lastX = e.clientX; sl = rail.scrollLeft; rail.classList.add('is-drag'); });
+  window.addEventListener('pointermove', function (e) { if (!down) return; rail.scrollLeft = sl - (e.clientX - sx); vel = e.clientX - lastX; lastX = e.clientX; });
+  window.addEventListener('pointerup', function () { down = false; rail.classList.remove('is-drag'); });
+  rail.addEventListener('scroll', function () { if (!down) vel = 0; });
+  (function lean() {
+    skew += (Math.max(-12, Math.min(12, vel * 0.6)) - skew) * 0.12;
+    vel *= 0.85;
+    if (Math.abs(skew) > 0.01) clips.forEach(function (c) { c.style.transform = 'skewX(' + (-skew).toFixed(2) + 'deg)'; });
+    requestAnimationFrame(lean);
+  })();
+
+  /* ---------- 7 · statement words ---------- */
+  var big = document.querySelector('[data-ink]');
+  (function wrap(node) {
+    Array.from(node.childNodes).forEach(function (n) {
+      if (n.nodeType === 3) {
+        var frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(function (w) {
+          if (!w.trim()) { frag.appendChild(document.createTextNode(w)); return; }
+          var s = document.createElement('span'); s.className = 'wd'; s.textContent = w; frag.appendChild(s);
+        });
+        node.replaceChild(frag, n);
+      } else wrap(n);
+    });
+  })(big);
+  var stWords = big.querySelectorAll('.wd');
+  if (!animate) stWords.forEach(function (w) { w.classList.add('on'); });
+
+  /* ---------- choreography ---------- */
+  function rise(root, delay) {
+    gsap.from(root.querySelectorAll('[data-in]'), { autoAlpha: 0, y: 40, filter: 'blur(8px)', duration: 1.2, stagger: 0.09, ease: 'expo.out', delay: delay || 0.2, clearProps: 'filter' });
+  }
+  var build = {
+    1: function (root) {
+      rise(root, 0.5);
+      var wrapEl = root.querySelector('[data-vinyl-wrap]'), vinyl = root.querySelector('[data-vinyl]');
+      // the record slides out of its sleeve, then spins at 33⅓
+      gsap.from(wrapEl, { xPercent: -60, rotate: -120, autoAlpha: 0, duration: 1.8, ease: 'expo.out' });
+      var spin = gsap.to(vinyl, { rotation: '+=360', duration: 1.8, ease: 'none', repeat: -1 });
+      // scrolling scratches it a little
+      ScrollTrigger.create({ trigger: root, start: 'top bottom', end: 'bottom top', onUpdate: function (st) { spin.timeScale(1 + Math.min(4, Math.abs(st.getVelocity()) / 600)); gsap.to(spin, { timeScale: 1, duration: 1, overwrite: true }); } });
+    },
+    2: function (root) {
+      var mm = gsap.matchMedia();
+      mm.add('(min-width: 1024px)', function () {
+        var stage = root.querySelector('[data-day-stage]');
+        var lines = root.querySelectorAll('[data-lines] p'), prints = root.querySelectorAll('[data-prints] .print');
+        var path = root.querySelector('.day-path path'), len = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: '5 7', attr: { 'stroke-dashoffset': 0 } });
+        gsap.from(prints[0], { y: -120, rotate: -25, autoAlpha: 0, duration: 1.4, ease: 'expo.out', delay: 0.3 });
+        var tl = gsap.timeline({ defaults: { ease: 'power2.inOut' }, scrollTrigger: { trigger: root.querySelector('[data-day]'), start: 'top top+=' + barH(), end: 'bottom bottom', scrub: 0.8 } });
+        chapters.forEach(function (c, i) {
+          if (i === 0) return;
+          var at = i - 1;
+          var ds = digits(c.t);
+          ds.forEach(function (d, k) { tl.to(cols[k], { yPercent: -d * 10, duration: 0.6, ease: 'power3.inOut' }, at + k * 0.06); });
+          tl.to(stage, { '--bg': c.bg, '--fg': c.fg, duration: 0.6 }, at)
+            .to(lines[i - 1], { autoAlpha: 0, y: -20, duration: 0.3 }, at)
+            .fromTo(lines[i], { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.4 }, at + 0.3)
+            .fromTo(prints[i], { autoAlpha: 0, y: -160, rotate: c.pos[2] * 4 }, { autoAlpha: 1, y: 0, rotate: 0, duration: 0.6, ease: 'expo.out' }, at + 0.2)
+            .to(prints[i - 1], { filter: 'brightness(.7)', duration: 0.4 }, at + 0.2);
+        });
+        tl.to({}, { duration: 0.4 });
+        // the dashed path gets walked as the day goes on
+        gsap.fromTo(path, { opacity: 0 }, { opacity: 0.45, duration: 1, delay: 0.5 });
+        return function () { prints.forEach(function (p, i) { p.style.opacity = i === 0 ? 1 : ''; }); setOdo(chapters[0].t); };
+      });
+      return function () { mm.revert(); };
+    },
+    3: function (root) {
+      rise(root, 0.15);
+      var draw = root.querySelector('[data-route-draw]'), len = draw.getTotalLength();
+      var prints = root.querySelectorAll('[data-walk-print]'), stops = root.querySelectorAll('[data-stops] circle'), now = root.querySelector('[data-now]');
+      var names = ['Miller Street', 'The front bar', 'The parlour', 'The courtyard', 'Up the stairs', 'The loft'];
+      var marks = [0, 0.14, 0.38, 0.58, 0.8, 1];
+      gsap.set(draw, { strokeDasharray: len, strokeDashoffset: len });
+      gsap.set(prints, { autoAlpha: 0, y: 30, scale: 0.9 });
+      gsap.set(stops, { scale: 0, transformOrigin: '50% 50%' });
+      var shown = -1;
+      gsap.to(draw, {
+        strokeDashoffset: 0, ease: 'none',
+        scrollTrigger: {
+          trigger: root.querySelector('[data-walk]'), start: 'top 70%', end: 'bottom 70%', scrub: 0.6,
+          onUpdate: function (st) {
+            var idx = -1;
+            marks.forEach(function (m, i) { if (st.progress >= m - 0.001) idx = i; });
+            if (idx === shown) return;
+            stops.forEach(function (s, i) { gsap.to(s, { scale: i <= idx ? 1 : 0, duration: 0.5, ease: 'back.out(3)' }); });
+            prints.forEach(function (p, i) { var on = i <= idx && i < prints.length; gsap.to(p, { autoAlpha: on ? 1 : 0, y: on ? 0 : 30, scale: on ? 1 : 0.9, duration: 0.7, ease: 'expo.out' }); });
+            now.textContent = names[Math.max(0, idx)];
+            shown = idx;
+          }
+        }
+      });
+    },
+    4: function (root) {
+      var page = root.querySelector('[data-page]'), desk = root.querySelector('[data-desk]');
+      // a single page lies on the desk, then is picked up to fill the view
+      var tl = gsap.timeline({ delay: 0.3 });
+      tl.from(page, { scale: 0.5, rotate: -5, y: 60, duration: 0.01 })
+        .to(page, { scale: 0.5, rotate: -5, y: 60, duration: 0.9 })
+        .to(page, { scale: 1, rotate: 0, y: 0, duration: 1.6, ease: 'expo.inOut' })
+        .to(desk, { backgroundColor: 'rgba(28,24,19,0)', duration: 1.2, ease: 'power2.inOut' }, '-=1.1')
+        .from(page.querySelector('.tp-mast svg'), { yPercent: 100, duration: 1.2, ease: 'expo.out' }, '-=0.5');
+      return function () { desk.style.backgroundColor = ''; };
+    },
+    5: function (root) {
+      rise(root, 0.15);
+      var pcEl = root.querySelector('[data-pc]');
+      // the intro moves the scene, never the card itself, so it can't fight the flip
+      gsap.from(pcEl.parentNode, { rotateX: 35, y: 120, autoAlpha: 0, transformPerspective: 1600, duration: 1.6, ease: 'expo.out', delay: 0.4, clearProps: 'transform' });
+      gsap.from(root.querySelectorAll('.letters span'), { yPercent: 60, autoAlpha: 0, duration: 1.2, stagger: 0.08, ease: 'expo.out', delay: 0.9 });
+    },
+    6: function (root) {
+      rise(root, 0.15);
+      gsap.from(root.querySelectorAll('[data-clip]'), { x: 160, autoAlpha: 0, duration: 1.4, stagger: 0.07, ease: 'expo.out', delay: 0.3 });
+    },
+    7: function (root) {
+      rise(root, 0.3);
+      var sign = root.querySelector('[data-sign]');
+      // the signature writes itself, then fills in
+      gsap.fromTo(sign, { strokeDasharray: 1400, strokeDashoffset: 1400, fillOpacity: 0 }, { strokeDashoffset: 0, duration: 2.6, ease: 'power2.inOut', delay: 0.2 });
+      gsap.to(sign, { fillOpacity: 1, duration: 0.8, delay: 2.4 });
+      ScrollTrigger.create({
+        trigger: root.querySelector('[data-ink]'), start: 'top 80%', end: 'bottom 45%', scrub: true,
+        onUpdate: function (st) { var lit = Math.round(st.progress * stWords.length); stWords.forEach(function (w, i) { w.classList.toggle('on', i < lit); }); }
+      });
+      gsap.fromTo(root.querySelector('[data-grow]'), { clipPath: 'inset(14% 41% 14% 41%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', scrollTrigger: { trigger: root.querySelector('[data-grow]'), start: 'top bottom', end: 'top 25%', scrub: true } });
+      return function () { stWords.forEach(function (w) { w.classList.remove('on'); }); };
+    }
+  };
+
+  /* ---------- tabs ---------- */
+  var notes = {
+    1: '<strong>1 · The Record.</strong> After Kalso: a spinning record with the shop on its label. Hover a track and the label changes.',
+    2: '<strong>2 · A Day at Antiq.</strong> After Kalso: a rolling clock through one Thursday. The colour shifts from daylight to neon as prints drop in.',
+    3: '<strong>3 · The Walk-Through.</strong> After Kalso: an ink floor plan of the shop. A dashed path walks you from the door to the loft.',
+    4: '<strong>4 · The Tabloid.</strong> After Niccolò Miranda: a single page lifted off the desk to fill the screen, with a stamp and an oval button.',
+    5: '<strong>5 · The Postcard.</strong> A large-letter postcard with a room inside each letter. Click to turn it over.',
+    6: '<strong>6 · Drag the Paper.</strong> After Niccolò Miranda: clippings you drag sideways. They lean as you pull.',
+    7: '<strong>7 · The Statement.</strong> After Rendezvous and Hagis: one oxblood colour, a signature that writes itself, and words that ink in as you scroll.'
+  };
+  var order = ['1', '2', '3', '4', '5', '6', '7'];
+  var current = null, ctx = null, teardown = null;
+  function show(key, push) {
+    if (key === current) return;
+    current = key;
+    if (teardown) { teardown(); teardown = null; }
+    if (ctx) { ctx.revert(); ctx = null; }
+    pc.classList.remove('is-back');
+    document.querySelectorAll('[data-variant]').forEach(function (v) { v.hidden = v.dataset.variant !== key; });
+    document.querySelectorAll('[data-tab]').forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.tab === key)); });
+    document.querySelector('[data-note]').innerHTML = notes[key];
+    window.scrollTo(0, 0);
+    if (push) history.replaceState(null, '', '#' + key);
+    if (!animate) return;
+    var root = document.querySelector('[data-variant="' + key + '"]');
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () {
+      if (current !== key) return;
+      ctx = gsap.context(function () { teardown = build[key](root) || null; }, root);
+      requestAnimationFrame(function () { ScrollTrigger.refresh(); window.scrollTo(0, 0); });
+    });
+  }
+  document.querySelectorAll('[data-tab]').forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab, true); }); });
+  document.addEventListener('keydown', function (e) {
+    if (e.target.closest('[data-pc]')) return;
+    var i = order.indexOf(current);
+    if (e.key === 'ArrowRight') show(order[(i + 1) % order.length], true);
+    if (e.key === 'ArrowLeft') show(order[(i + order.length - 1) % order.length], true);
+  });
+  document.querySelectorAll('a[href="#"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+  var start = (location.hash || '#1').slice(1);
+  show(order.indexOf(start) > -1 ? start : '1', false);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+---
+// Engraved barber tools hung in a section's margins. Each drifts at its own
+// speed as the page scrolls (see [data-parallax] in scripts/main.ts).
+// Wide screens only, so they never sit on top of text.
+import { tools, type ToolName } from '../data/tools';
+
+interface Props {
+  items: { tool: ToolName; x: string; y: string; size?: number; rotate?: number; speed?: number }[];
+}
+const { items } = Astro.props;
+---
+
+<div class="pointer-events-none absolute inset-0 hidden 2xl:block" aria-hidden="true">
+  {
+    items.map((t) => (
+      <span
+        class="absolute block text-ink [--tool-accent:var(--gold)]"
+        style={`left:${t.x}; top:${t.y}; width:${(t.size ?? 1) * 96}px; rotate:${t.rotate ?? 0}deg; opacity:.85`}
+        data-parallax={t.speed ?? 1}
+      >
+        <svg viewBox="0 0 100 100" class="block h-auto w-full overflow-visible drop-shadow-[0_10px_14px_rgb(0_0_0/0.18)]" set:html={tools[t.tool]} />
+      </span>
+    ))
+  }
+</div>

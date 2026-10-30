@@ -1,0 +1,62 @@
+---
+import '../styles/global.css';
+import { hours, site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `The Antiq Barber — Antiq Barbers, Epping, Melbourne`,
+  description = 'Antiq Barbers is an antique-styled barbershop on Miller Street, Epping. Skin fades, scissor cuts, beard grooming and classic barbering. Walk-ins welcome.',
+} = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BarberShop',
+  name: site.name,
+  slogan: site.tagline,
+  image: new URL('/images/shop/front-bar-wide.webp', Astro.site).href,
+  url: Astro.site?.href,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.line1,
+    addressLocality: site.address.suburb,
+    addressRegion: site.address.state,
+    postalCode: site.address.postcode,
+    addressCountry: 'AU',
+  },
+  telephone: '+61 3 8407 3631',
+  email: site.email,
+  priceRange: site.priceRange,
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+  openingHoursSpecification: hours
+    .filter((h) => h.open && h.close)
+    .map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.label, opens: h.open, closes: h.close })),
+  sameAs: [site.instagram, site.facebook, site.booksyUrl],
+};
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ebe1ca" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/shop/front-bar-wide.webp" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <slot />
+    <script type="application/json" id="shop-hours" set:html={JSON.stringify(hours)} />
+  </body>
+</html>

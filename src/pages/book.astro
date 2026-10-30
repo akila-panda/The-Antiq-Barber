@@ -1,0 +1,185 @@
+---
+// The Appointment Book: booking direct with the shop. The page is laid out
+// like a booking coupon on a newspaper page; the right-hand ticket fills in as
+// the customer chooses. Days and times are drawn in the browser from the shop
+// hours (Melbourne time). See scripts/book.ts.
+import Base from '../layouts/Base.astro';
+import { barbers, serviceGroups, site } from '../data/site';
+
+const steps = ['The service', 'The barber', 'The day', 'The time', 'Your details'];
+---
+
+<Base
+  title="Book a chair — The Antiq Barber, Epping"
+  description="Book a cut, shave or facial direct with Antiq Barbers on Miller Street, Epping. Pick a service, a barber and a time."
+>
+  <div class="border-b border-ink">
+    <div class="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-2 sm:px-6">
+      <a href="/" class="flex items-center gap-2 font-black text-2xl leading-none sm:text-3xl">
+        <img src="/images/logo.png" alt="" width="480" height="480" class="size-9 object-contain print-logo" />The Antiq Barber
+      </a>
+      <a href="/" class="kicker whitespace-nowrap border-b border-ink pb-0.5 hover:text-oxblood">← Front page</a>
+    </div>
+  </div>
+
+  <main class="mx-auto max-w-[1400px] px-4 pb-24 sm:px-6">
+    <div data-in class="kicker mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-ink pb-2 text-ink-soft">
+      <span>Booking direct · Epping</span>
+      <span data-today class="hidden text-ink sm:inline">Today</span>
+      <span>{site.address.line1}, {site.address.suburb}</span>
+    </div>
+
+    <header class="py-8 text-center md:py-12">
+      <h1 data-in class="font-black text-[clamp(3rem,9vw,6rem)] leading-[0.9]">The Appointment Book</h1>
+      <p data-in class="mx-auto mt-4 max-w-2xl font-deck text-[clamp(1.25rem,2vw,1.6rem)] italic leading-snug text-ink-soft">
+        Book straight into the shop's own book. Choose a cut, a barber and a time, and we'll text you to confirm.
+      </p>
+    </header>
+    <div class="rule-double"></div>
+
+    <noscript>
+      <p class="mt-8 border-2 border-ink p-6 text-center font-deck text-xl italic">
+        The appointment book needs JavaScript. Call us on <a href={site.phoneHref} class="underline">{site.phone}</a>, or
+        <a href={site.booksyUrl} class="underline">book on Booksy</a>.
+      </p>
+    </noscript>
+
+    <div class="mt-10 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_380px] xl:gap-14">
+      <form id="book-form" class="appt-coupon" novalidate>
+        <span class="appt-scissors" aria-hidden="true">✂</span>
+
+        <!-- 1 · service -->
+        <fieldset data-in class="appt-step">
+          <legend><span class="appt-num">1</span>{steps[0]}</legend>
+          <div class="gap-x-8 md:columns-2">
+            {
+              serviceGroups.map((g) => (
+                <div class="mb-6 break-inside-avoid">
+                  <p class="border-b border-ink pb-1.5 font-display text-lg font-bold">{g.title}</p>
+                  <ul>
+                    {g.items.map((s) => (
+                      <li>
+                        <label class="appt-service">
+                          <input type="radio" name="service" value={s.name} data-price={s.price} data-duration={s.duration} data-group={g.title} required />
+                          <span class="min-w-0 flex-1">
+                            <span class="block font-display text-lg font-bold leading-tight">{s.name}</span>
+                            <span class="block font-deck italic text-ink-soft">{s.duration}</span>
+                          </span>
+                          <span class="num font-display text-xl font-bold whitespace-nowrap">{s.price}</span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <!-- 2 · barber -->
+        <fieldset data-in class="appt-step">
+          <legend><span class="appt-num">2</span>{steps[1]}</legend>
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <label class="appt-barber">
+              <input type="radio" name="barber" value="Whoever's free" checked />
+              <span class="font-black text-5xl leading-none">?</span>
+              <span class="font-display text-lg font-bold leading-tight">Whoever's free</span>
+              <span class="font-deck italic text-ink-soft">Soonest chair</span>
+            </label>
+            {
+              barbers.map((b) => (
+                <label class="appt-barber">
+                  <input type="radio" name="barber" value={b.name} />
+                  <span class="font-black text-5xl leading-none">{b.name[0]}</span>
+                  <span class="font-display text-lg font-bold leading-tight">{b.name}</span>
+                  <span class="font-deck italic text-ink-soft">{b.role}</span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <!-- 3 · day (filled in the browser, from the shop hours) -->
+        <fieldset data-in class="appt-step">
+          <legend><span class="appt-num">3</span>{steps[2]}</legend>
+          <div data-days class="appt-days" role="radiogroup" aria-label="Day"></div>
+        </fieldset>
+
+        <!-- 4 · time -->
+        <fieldset data-in class="appt-step">
+          <legend><span class="appt-num">4</span>{steps[3]}</legend>
+          <div data-times class="appt-times"></div>
+          <p data-times-empty class="font-deck text-lg italic text-ink-soft">Pick a service and a day first.</p>
+        </fieldset>
+
+        <!-- 5 · details -->
+        <fieldset data-in class="appt-step">
+          <legend><span class="appt-num">5</span>{steps[4]}</legend>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="appt-field">
+              <span>Your name</span>
+              <input name="name" autocomplete="name" required />
+            </label>
+            <label class="appt-field">
+              <span>Mobile</span>
+              <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+            </label>
+            <label class="appt-field sm:col-span-2">
+              <span>Anything we should know? <em class="not-italic text-ink-soft">(optional)</em></span>
+              <textarea name="notes" rows="3"></textarea>
+            </label>
+          </div>
+        </fieldset>
+      </form>
+
+      <!-- the ticket: fills in as you choose -->
+      <aside class="lg:sticky lg:top-6">
+        <div data-in class="appt-ticket">
+          <p class="text-center font-black text-3xl leading-none">Your ticket</p>
+          <p class="kicker mt-2 text-center text-ink-soft">Antiq Barbers · Epping</p>
+          <dl class="mt-5 divide-y divide-dashed divide-ink/40 border-y border-ink">
+            <div class="appt-line"><dt>Service</dt><dd data-sum="service">—</dd></div>
+            <div class="appt-line"><dt>Barber</dt><dd data-sum="barber">Whoever's free</dd></div>
+            <div class="appt-line"><dt>Day</dt><dd data-sum="day">—</dd></div>
+            <div class="appt-line"><dt>Time</dt><dd data-sum="time">—</dd></div>
+          </dl>
+          <div class="mt-4 flex items-baseline justify-between">
+            <span class="font-deck text-lg italic">Price at the shop</span>
+            <span data-sum="price" class="num font-display text-3xl font-bold">—</span>
+          </div>
+          <p data-error class="mt-4 hidden font-deck text-lg italic text-oxblood" role="alert"></p>
+          <button type="submit" form="book-form" class="book-direct mt-5 w-full justify-between [&_.label]:text-[1.15rem]">
+            <span class="stub">New</span>
+            <span class="label">Request this chair</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="mt-3 text-center font-deck italic text-ink-soft">We'll text you to confirm the time.</p>
+        </div>
+
+        <div data-in class="mt-6 border border-ink p-5 text-center">
+          <p class="font-deck text-xl italic leading-snug">Already use Booksy? Same barbers, same prices.</p>
+          <a href={site.booksyUrl} target="_blank" rel="noopener" class="book-booksy mt-3">
+            <span class="via">Book on</span><span class="booksy-word">Booksy</span><span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+
+    <!-- shown once the request is on its way -->
+    <section data-done hidden class="mx-auto mt-10 max-w-2xl border-4 border-double border-ink p-8 text-center sm:p-12" tabindex="-1">
+      <p class="stamp text-2xl text-oxblood">Noted</p>
+      <h2 class="mt-6 font-black text-[clamp(2.4rem,6vw,4rem)] leading-none">See you soon.</h2>
+      <p data-done-line class="mt-4 font-deck text-xl italic leading-snug"></p>
+      <p data-done-mail class="mt-4 hidden text-lg leading-relaxed">
+        Your email app has opened with the request written out to {site.email}. Press send and we'll text to confirm.
+        Nothing opened? Call <a href={site.phoneHref} class="underline decoration-oxblood">{site.phone}</a>.
+      </p>
+      <a href="/" class="kicker mt-8 inline-block border-b border-ink pb-0.5 hover:text-oxblood">← Back to the front page</a>
+    </section>
+  </main>
+
+  <script type="application/json" id="book-config" set:html={JSON.stringify({ endpoint: site.bookingEndpoint, email: site.email })} />
+  <script>
+    import '../scripts/book';
+  </script>
+</Base>

@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Front Page Layouts</title>
+<meta name="description" content="Six new layout structures for the Antiq Barbers front-page lead section." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Courier+Prime:wght@400;700&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=UnifrakturMaguntia&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --paper: #eadcbf;
+  --paper-deep: #dccaa4;
+  --frame: #f3e9d2;
+  --ink: #16120e;
+  --ink-soft: #4b4136;
+  --accent: #8e1b1b;
+  --brass: #c99a48;
+  --rule: rgb(22 18 14 / 0.35);
+
+  --font-black: 'UnifrakturMaguntia', serif;
+  --font-display: 'Bodoni Moda', 'Didot', serif;
+  --font-deck: 'Instrument Serif', Georgia, serif;
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-mono: 'Courier Prime', 'Courier New', monospace;
+
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --gutter: clamp(1rem, 3vw, 1.5rem);
+  --bar-h: 3.5rem;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-serif);
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .17 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"),
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgb(120 90 50 / 0.18) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-underline-offset: 3px; }
+button { font: inherit; color: inherit; }
+::selection { background: var(--accent); color: var(--paper); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ================= presenter chrome (not part of the design) ================= */
+.deck-bar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: 1rem;
+  min-height: var(--bar-h); padding: .5rem var(--gutter);
+  background: #0f0c09; color: #eadcbf;
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+}
+.deck-bar .brand { display: flex; align-items: center; gap: .6rem; white-space: nowrap; }
+.deck-bar .brand b { font-family: var(--font-black); font-size: 1.35rem; letter-spacing: 0; text-transform: none; font-weight: 400; }
+.deck-tabs { display: flex; gap: .35rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.deck-tabs::-webkit-scrollbar { display: none; }
+.deck-tabs button {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 1px solid rgb(234 220 191 / .28); background: transparent;
+  letter-spacing: inherit; text-transform: inherit; font-size: inherit; font-family: inherit;
+  padding: .5rem .75rem; cursor: pointer; white-space: nowrap;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.deck-tabs button b { font-family: var(--font-display); font-size: .95rem; letter-spacing: 0; }
+.deck-tabs button:hover { border-color: #eadcbf; }
+.deck-tabs button[aria-selected='true'] { background: #eadcbf; color: #0f0c09; border-color: #eadcbf; }
+.deck-tabs button[aria-selected='true'] b { color: var(--accent); }
+.deck-note {
+  max-width: 1400px; margin: 0 auto; padding: 1.25rem var(--gutter) 0;
+  display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; align-items: baseline; justify-content: space-between;
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+}
+.deck-note p { margin: 0; }
+.deck-note strong { color: var(--ink); }
+@media (max-width: 860px) {
+  .deck-bar .brand span { display: none; }
+  .deck-tabs button .t { display: none; }
+  .deck-note .keys { display: none; }
+}
+
+/* ================= shared ================= */
+.wrap { max-width: 1400px; margin: 0 auto; padding: 0 var(--gutter); }
+.variant { padding: 2rem 0 6rem; overflow-x: clip; }
+.variant[hidden] { display: none; }
+.display {
+  font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+  line-height: .88; letter-spacing: -.01em; font-variation-settings: 'opsz' 96;
+  margin: 0; text-wrap: balance;
+}
+.deck { font-family: var(--font-deck); font-size: clamp(1.35rem, 2.2vw, 1.8rem); line-height: 1.2; color: var(--ink-soft); margin: 0; }
+.lede { font-size: 1.12rem; line-height: 1.65; margin: 0; text-wrap: pretty; }
+.motto { font-family: var(--font-display); font-style: italic; font-weight: 500; line-height: 1.1; margin: 0; font-variation-settings: 'opsz' 48; }
+.photo { position: relative; overflow: hidden; background: var(--paper-deep); }
+.photo img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.3) saturate(1.05) contrast(1.06); transition: filter .9s ease, transform 1.4s var(--ease); }
+.line-mask { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.line-mask > span { display: block; }
+
+.status { display: inline-flex; align-items: center; gap: .55rem; font-family: var(--font-deck); font-size: 1.2rem; }
+.status::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: currentColor; flex: none; }
+.status[data-open='true'] { color: #2e6b3f; }
+.status[data-open='false'] { color: var(--accent); }
+.on-dark .status[data-open='true'] { color: #8fd19e; }
+.on-dark .status[data-open='false'] { color: #f0a49a; }
+
+.book-pair { display: flex; flex-wrap: wrap; gap: .75rem; align-items: stretch; }
+.book-direct {
+  display: inline-flex; align-items: stretch;
+  border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); text-decoration: none;
+  box-shadow: 4px 4px 0 var(--accent);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), background-color .2s;
+}
+.book-direct .stub { display: grid; place-items: center; padding: 0 .7rem; border-right: 1.5px dashed currentColor; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: #e2c27a; }
+.book-direct .label { padding: .85rem .4rem .85rem 1rem; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; text-transform: uppercase; line-height: 1; align-self: center; }
+.book-direct .arrow { align-self: center; padding-right: 1rem; font-size: 1.2rem; transition: transform .35s var(--ease); }
+.book-direct:hover { background: var(--accent); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+.book-direct:hover .arrow { transform: translateX(5px); }
+.book-booksy { display: inline-flex; align-items: baseline; gap: .45rem; border: 1.5px solid currentColor; padding: .85rem 1rem; text-decoration: none; transition: background-color .2s, color .2s; }
+.book-booksy .via { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; opacity: .75; }
+.book-booksy b { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -.01em; }
+.book-booksy:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.on-dark .book-direct { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.on-dark .book-direct .stub { color: var(--accent); }
+.on-dark .book-direct:hover { background: var(--accent); color: var(--paper); box-shadow: 6px 6px 0 var(--paper); }
+.on-dark .book-booksy:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+/* ================= 1 · Bento ================= */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    'head head hero hero'
+    'head head hero hero'
+    'lede chair neon motto'
+    'status chair neon book';
+  gap: .75rem;
+}
+.tile { position: relative; border: 1px solid var(--ink); padding: clamp(1.1rem, 2vw, 1.75rem); overflow: hidden; transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
+.tile:hover { transform: translateY(-4px); box-shadow: 0 18px 30px -22px rgb(40 25 10 / .6); }
+.tile.photo { padding: 0; min-height: 14rem; }
+.tile.photo:hover img { transform: scale(1.06); filter: sepia(.05) saturate(1.15); }
+.t-head { grid-area: head; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; background: var(--frame); }
+.t-head h2 { font-size: clamp(2.6rem, 5.2vw, 5.4rem); }
+.t-hero { grid-area: hero; min-height: 26rem; }
+.t-lede { grid-area: lede; }
+.t-chair { grid-area: chair; }
+.t-neon { grid-area: neon; }
+.t-motto { grid-area: motto; background: var(--accent); color: var(--paper); border-color: var(--accent); display: flex; align-items: flex-end; }
+.t-motto .motto { font-size: clamp(1.25rem, 1.6vw, 1.55rem); }
+.t-status { grid-area: status; background: var(--ink); color: var(--paper); display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; }
+.t-status .big { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(1.6rem, 2.2vw, 2.1rem); line-height: .95; margin: 0; }
+.t-book { grid-area: book; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; background: var(--frame); }
+.t-book .book-pair { flex-direction: column; align-items: stretch; }
+.t-book .book-direct { justify-content: space-between; }
+.t-book p { margin: 0; font-family: var(--font-deck); font-size: 1.35rem; line-height: 1.15; }
+@media (max-width: 1023px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: 'head head' 'hero hero' 'lede lede' 'chair neon' 'motto motto' 'status book'; }
+  .t-hero { min-height: 18rem; }
+}
+@media (max-width: 560px) {
+  .bento { grid-template-areas: 'head head' 'hero hero' 'lede lede' 'chair neon' 'motto motto' 'status status' 'book book'; }
+}
+
+/* ================= 2 · Room by Room ================= */
+.rr-top { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2rem 4rem; align-items: end; padding-bottom: 2rem; border-bottom: 1px solid var(--ink); }
+.rr-top h2 { font-size: clamp(2.6rem, 6vw, 5.8rem); }
+.rr-side { display: flex; flex-direction: column; gap: 1.25rem; }
+.rooms { display: flex; gap: .6rem; height: min(68svh, 620px); margin-top: 2rem; }
+.room {
+  position: relative; flex: 1 1 0; min-width: 0; padding: 0; border: 1px solid var(--ink);
+  background: #1a120b; overflow: hidden; cursor: pointer; text-align: left;
+  transition: flex-grow .9s var(--ease);
+}
+.room.is-open { flex-grow: 5; }
+.room img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: sepia(.45) saturate(.9) brightness(.7); transition: filter .9s ease, transform 1.4s var(--ease); transform: scale(1.12); }
+.room.is-open img { filter: sepia(.1) saturate(1.1) brightness(.95); transform: scale(1); }
+.room::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgb(10 7 4 / .75), transparent 45%); pointer-events: none; }
+.room .name-v, .room .name-h { position: absolute; z-index: 1; color: var(--paper); font-family: var(--font-display); font-weight: 800; text-transform: uppercase; line-height: .9; transition: opacity .5s ease, transform .8s var(--ease); }
+.room .name-v { left: 50%; bottom: 1.25rem; writing-mode: vertical-rl; rotate: 180deg; translate: -50% 0; font-size: 1.15rem; letter-spacing: .04em; white-space: nowrap; }
+.room .name-h { left: 1.5rem; bottom: 1.25rem; font-size: clamp(2rem, 3.6vw, 3.4rem); opacity: 0; transform: translateY(1.5rem); white-space: nowrap; }
+.room.is-open .name-v { opacity: 0; }
+.room.is-open .name-h { opacity: 1; transform: none; transition-delay: .25s; }
+@media (max-width: 860px) {
+  .rr-top { grid-template-columns: 1fr; }
+  .rooms { flex-direction: column; height: auto; }
+  .room { flex: none; height: 4.5rem; transition: height .8s var(--ease); }
+  .room.is-open { height: 22rem; }
+  .room .name-v { writing-mode: horizontal-tb; rotate: 0deg; left: 1.25rem; translate: 0 0; bottom: 50%; transform: translateY(50%); }
+}
+
+/* ================= 3 · The House List ================= */
+.hl { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: 2rem 4rem; }
+.hl-intro { display: flex; flex-direction: column; gap: 1.5rem; position: sticky; top: calc(var(--bar-h) + 2rem); align-self: start; }
+.hl-intro h2 { font-size: clamp(2.2rem, 3.3vw, 3.4rem); }
+.hl-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.hl-row {
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: clamp(1rem, 2vw, 1.6rem) 0; border-bottom: 1px solid var(--ink); cursor: default;
+}
+.hl-row .t { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(1.9rem, 4.4vw, 4.3rem); line-height: .95; transition: transform .6s var(--ease), color .4s, opacity .4s; }
+.hl-row .t em { font-family: var(--font-deck); text-transform: none; font-weight: 400; }
+.hl-row .where { font-family: var(--font-deck); font-style: italic; font-size: 1.15rem; color: var(--ink-soft); white-space: nowrap; transition: opacity .4s; }
+.hl-row .thumb { display: none; }
+.hl-list:hover .hl-row:not(:hover) .t { opacity: .28; }
+.hl-row:hover .t { transform: translateX(1.25rem); color: var(--accent); }
+.hl-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem 3rem; margin-top: 2.5rem; }
+.hl-foot .motto { font-size: clamp(1.4rem, 2.2vw, 2rem); max-width: 34rem; }
+.hl-float {
+  position: fixed; top: 0; left: 0; z-index: 40; pointer-events: none;
+  width: clamp(14rem, 20vw, 20rem); aspect-ratio: 4 / 5;
+  border: 1px solid var(--ink); padding: 6px; background: var(--frame);
+  box-shadow: 0 30px 50px -24px rgb(40 25 10 / .6);
+  opacity: 0; scale: .6; rotate: -4deg; transition: opacity .35s ease, scale .6s var(--ease);
+}
+.hl-float.is-on { opacity: 1; scale: 1; }
+.hl-float img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.2) saturate(1.05); }
+@media (max-width: 1023px), (hover: none) {
+  .hl { grid-template-columns: 1fr; }
+  .hl-intro { position: static; }
+  .hl-row .thumb { display: block; width: 4.5rem; height: 4.5rem; flex: none; border: 1px solid var(--ink); overflow: hidden; }
+  .hl-row .thumb img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.25); }
+  .hl-row .where { display: none; }
+  .hl-float { display: none; }
+}
+
+/* ================= 4 · Through the Window ================= */
+.tw-scroller { position: relative; height: 280vh; }
+.tw-stage { position: sticky; top: var(--bar-h); height: calc(100svh - var(--bar-h)); overflow: hidden; }
+.tw-words { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 1; }
+.tw-words h2 { font-size: clamp(3rem, 9vw, 8rem); text-align: center; line-height: .86; width: 100%; padding: 0 var(--gutter); }
+.tw-words .l1, .tw-words .l2, .tw-words .l3 { display: block; }
+.tw-words .l2 { display: flex; justify-content: center; align-items: center; }
+.tw-gap { display: block; width: clamp(12rem, 24vw, 22rem); height: 1em; flex: none; }
+.tw-window {
+  position: absolute; inset: 0;
+  clip-path: inset(50% 50% 50% 50% round 999px 999px 0px 0px);
+  will-change: clip-path;
+}
+.tw-window img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.2) saturate(1.08); transform: scale(1.35); will-change: transform; }
+.tw-window::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgb(10 7 4 / .8), rgb(10 7 4 / .1) 55%); opacity: 0; transition: none; }
+.tw-copy {
+  position: absolute; z-index: 2; left: var(--gutter); right: var(--gutter); bottom: clamp(1.5rem, 5vh, 3.5rem);
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 1.5rem 3rem; align-items: end;
+  color: var(--paper); opacity: 0;
+}
+.tw-copy .deck { color: var(--paper); font-size: clamp(1.8rem, 3vw, 2.8rem); }
+.tw-copy .right { display: flex; flex-direction: column; gap: 1.25rem; }
+.tw-copy .lede { color: rgb(234 220 191 / .88); }
+.tw-hint { position: absolute; z-index: 1; bottom: 1.5rem; left: 50%; translate: -50% 0; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+@media (max-width: 1023px) {
+  .tw-scroller { height: auto; }
+  .tw-stage { position: static; height: auto; overflow: visible; }
+  .tw-words { position: static; }
+  .tw-words h2 { font-size: clamp(2.6rem, 12vw, 5rem); padding: 0; }
+  .tw-gap { display: none; }
+  .tw-window { position: relative; inset: auto; clip-path: inset(0 round 999px 999px 0 0) !important; aspect-ratio: 3 / 4; margin: 1.5rem auto 0; max-width: 26rem; }
+  .tw-window img { transform: none !important; }
+  .tw-copy { position: static; grid-template-columns: 1fr; color: var(--ink); opacity: 1 !important; margin-top: 2rem; }
+  .tw-copy .deck { color: var(--ink); }
+  .tw-copy .lede { color: var(--ink); }
+  .tw-copy.on-dark .book-direct { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tw-copy.on-dark .status[data-open='false'] { color: var(--accent); }
+  .tw-copy.on-dark .status[data-open='true'] { color: #2e6b3f; }
+  .tw-hint { display: none; }
+}
+
+/* ================= 5 · Three Floors ================= */
+.tf-head { text-align: center; padding: 1rem 0 3rem; }
+.tf-head h2 { font-size: clamp(2.6rem, 7vw, 6rem); }
+.tf-head .deck { margin-top: 1rem; }
+.tf-cards { display: flex; flex-direction: column; gap: 2rem; padding-bottom: 4rem; }
+.tf-card {
+  position: sticky; top: calc(var(--bar-h) + 1.5rem + var(--i) * 1.4rem);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  height: min(70svh, 580px);
+  border: 1px solid var(--ink); background: var(--frame);
+  box-shadow: 0 -18px 40px -30px rgb(40 25 10 / .6);
+  transform-origin: 50% 0;
+  overflow: hidden;
+}
+.tf-card .photo { height: 100%; }
+.tf-card .txt { padding: clamp(1.5rem, 4vw, 3.5rem); display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem; border-left: 1px solid var(--ink); }
+.tf-card .floor { font-family: var(--font-deck); font-style: italic; font-size: 1.35rem; color: var(--ink-soft); margin: 0; }
+.tf-card h3 { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(2.6rem, 5.5vw, 5rem); line-height: .9; margin: 0; }
+.tf-card .line { font-family: var(--font-deck); font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.2; margin: 0; }
+.tf-card.dark { background: var(--ink); color: var(--paper); }
+.tf-card.dark .floor { color: rgb(234 220 191 / .7); }
+.tf-card.dark .txt { border-color: rgb(234 220 191 / .2); }
+.tf-card.red { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+.tf-card.red .floor { color: rgb(234 220 191 / .75); }
+.tf-card.red .txt { border-color: rgb(234 220 191 / .25); }
+@media (max-width: 860px) {
+  .tf-card { grid-template-columns: 1fr; grid-template-rows: 55% 45%; height: min(78svh, 640px); }
+  .tf-card .txt { border-left: 0; border-top: 1px solid var(--ink); padding: 1.25rem; }
+}
+
+/* ================= 6 · On the Table ================= */
+.ot-table { position: relative; min-height: min(92svh, 860px); margin-top: .5rem; }
+.ot-note {
+  position: absolute; z-index: 5; left: 50%; top: 50%; translate: -50% -50%;
+  width: min(36rem, 92%); text-align: center;
+  background: var(--frame); border: 4px double var(--ink); padding: clamp(1.5rem, 3vw, 2.75rem);
+  box-shadow: 0 30px 60px -36px rgb(40 25 10 / .7);
+  display: flex; flex-direction: column; align-items: center; gap: 1.1rem;
+}
+.ot-note h2 { font-size: clamp(2.3rem, 4.4vw, 4.2rem); }
+.ot-note .deck { font-size: clamp(1.25rem, 1.8vw, 1.6rem); }
+.ot-note .book-pair { justify-content: center; margin-top: .4rem; }
+.print-card {
+  position: absolute; z-index: 1; width: var(--w); padding: 8px 8px 30px;
+  background: #f6eedb; border: 1px solid rgb(22 18 14 / .25);
+  box-shadow: 0 22px 34px -20px rgb(40 25 10 / .65);
+  rotate: var(--r); cursor: grab; touch-action: none; user-select: none;
+  transition: box-shadow .3s ease, scale .3s var(--ease);
+}
+.print-card:hover { scale: 1.03; box-shadow: 0 30px 44px -22px rgb(40 25 10 / .7); }
+.print-card.is-drag { cursor: grabbing; scale: 1.06; box-shadow: 0 44px 60px -26px rgb(40 25 10 / .75); }
+.print-card .photo { aspect-ratio: var(--ar, 4 / 5); pointer-events: none; }
+.print-card .photo img { -webkit-user-drag: none; }
+.ot-hint { position: absolute; bottom: .5rem; left: 50%; translate: -50% 0; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+@media (max-width: 1023px) {
+  .ot-table { min-height: 0; display: flex; flex-direction: column; gap: 2rem; }
+  .ot-note { position: relative; left: auto; top: auto; translate: none; width: 100%; }
+  .ot-prints { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 1rem .5rem 2rem; }
+  .print-card { position: relative; left: auto !important; top: auto !important; flex: 0 0 62%; scroll-snap-align: center; cursor: default; transform: none !important; }
+  .ot-hint { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="deck-bar">
+  <div class="brand"><b>The Antiq Barber</b><span>· Front page, six layouts</span></div>
+  <nav class="deck-tabs" role="tablist" aria-label="Layouts">
+    <button role="tab" aria-selected="true" data-tab="1"><b>1</b><span class="t">Bento</span></button>
+    <button role="tab" aria-selected="false" data-tab="2"><b>2</b><span class="t">Room by Room</span></button>
+    <button role="tab" aria-selected="false" data-tab="3"><b>3</b><span class="t">The House List</span></button>
+    <button role="tab" aria-selected="false" data-tab="4"><b>4</b><span class="t">Through the Window</span></button>
+    <button role="tab" aria-selected="false" data-tab="5"><b>5</b><span class="t">Three Floors</span></button>
+    <button role="tab" aria-selected="false" data-tab="6"><b>6</b><span class="t">On the Table</span></button>
+  </nav>
+</header>
+
+<div class="deck-note">
+  <p data-note></p>
+  <p class="keys">← → to switch</p>
+</div>
+
+<!-- ======================= 1 · BENTO ======================= -->
+<section class="variant" data-variant="1" role="tabpanel" aria-label="1, Bento">
+  <div class="wrap">
+    <div class="bento">
+      <div class="tile t-head" data-tile>
+        <h2 class="display" data-lines><span class="line-mask"><span>Not your</span></span><span class="line-mask"><span>average</span></span><span class="line-mask"><span>barbershop</span></span></h2>
+        <p class="deck">Antique chairs, porthole mirrors and the <em>modern fade.</em></p>
+      </div>
+      <div class="tile photo t-hero" data-tile><img data-img="front-bar-wide" alt="The front bar at Antiq Barbers: burnt-timber counter, barrel tables and barber chairs under warm lights" /></div>
+      <div class="tile t-lede" data-tile><p class="lede">Step in off Miller Street and the century changes. Hand-burnt timber, tufted leather, a courtyard of birdsong.</p></div>
+      <div class="tile photo t-chair" data-tile><img data-img="chair" alt="A tufted leather antique barber chair between whisky barrels" /></div>
+      <div class="tile photo t-neon" data-tile><img data-img="lounge-neon-pool" alt="The upstairs loft: a pool table under neon" /></div>
+      <div class="tile t-motto" data-tile><p class="motto">“A gallery of culture. A home for barbers. An experience for everyone.”</p></div>
+      <div class="tile t-status on-dark" data-tile>
+        <p class="big">Walk-ins welcome</p>
+        <span class="status" data-status>Checking the hours</span>
+      </div>
+      <div class="tile t-book" data-tile>
+        <p>Or keep a chair for later.</p>
+        <div class="book-pair">
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · ROOM BY ROOM ======================= -->
+<section class="variant" data-variant="2" role="tabpanel" aria-label="2, Room by Room" hidden>
+  <div class="wrap">
+    <div class="rr-top">
+      <h2 class="display" data-lines><span class="line-mask"><span>Not your average</span></span><span class="line-mask"><span>barbershop</span></span></h2>
+      <div class="rr-side" data-rise>
+        <p class="deck">Five rooms, one roof. Antique chairs, porthole mirrors and the <em>modern fade.</em></p>
+        <span class="status" data-status>Checking the hours</span>
+        <div class="book-pair">
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="rooms" data-rooms>
+      <button class="room is-open" aria-expanded="true"><img data-img="front-bar-wide" alt="" /><span class="name-v">The front bar</span><span class="name-h">The front bar</span></button>
+      <button class="room" aria-expanded="false"><img data-img="parlour-row" alt="" /><span class="name-v">The parlour</span><span class="name-h">The parlour</span></button>
+      <button class="room" aria-expanded="false"><img data-img="courtyard-sun" alt="" /><span class="name-v">The courtyard</span><span class="name-h">The courtyard</span></button>
+      <button class="room" aria-expanded="false"><img data-img="booth" alt="" /><span class="name-v">The booth</span><span class="name-h">The booth</span></button>
+      <button class="room" aria-expanded="false"><img data-img="lounge-neon-pool" alt="" /><span class="name-v">The loft</span><span class="name-h">The loft</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 3 · THE HOUSE LIST ======================= -->
+<section class="variant" data-variant="3" role="tabpanel" aria-label="3, The House List" hidden>
+  <div class="wrap">
+    <div class="hl">
+      <div class="hl-intro">
+        <h2 class="display" data-lines><span class="line-mask"><span>Not your</span></span><span class="line-mask"><span>average</span></span><span class="line-mask"><span>barbershop</span></span></h2>
+        <p class="lede" data-rise>Step in off Miller Street and the century changes. Here's what's inside.</p>
+        <span class="status" data-status data-rise>Checking the hours</span>
+      </div>
+      <ul class="hl-list" data-hl>
+        <li class="hl-row" data-show="chair"><span class="t">Antique chairs</span><span class="where">Downstairs</span><span class="thumb"><img data-img="chair" alt="" /></span></li>
+        <li class="hl-row" data-show="parlour-row"><span class="t">Porthole <em>mirrors</em></span><span class="where">The parlour</span><span class="thumb"><img data-img="parlour-row" alt="" /></span></li>
+        <li class="hl-row" data-show="courtyard-sun"><span class="t">A courtyard of birdsong</span><span class="where">Out back</span><span class="thumb"><img data-img="courtyard-sun" alt="" /></span></li>
+        <li class="hl-row" data-show="lounge-neon-pool"><span class="t">Neon &amp; a pool table</span><span class="where">Upstairs</span><span class="thumb"><img data-img="lounge-neon-pool" alt="" /></span></li>
+        <li class="hl-row" data-show="at-work"><span class="t">The <em>modern</em> fade</span><span class="where">In the chair</span><span class="thumb"><img data-img="at-work" alt="" /></span></li>
+      </ul>
+      <div class="hl-foot" data-rise>
+        <p class="motto">“A gallery of culture. A home for barbers. An experience for everyone.”</p>
+        <div class="book-pair">
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hl-float" data-float aria-hidden="true"><img alt="" /></div>
+</section>
+
+<!-- ======================= 4 · THROUGH THE WINDOW ======================= -->
+<section class="variant" data-variant="4" role="tabpanel" aria-label="4, Through the Window" hidden style="padding-top:0">
+  <div class="tw-scroller" data-tw>
+    <div class="tw-stage">
+      <div class="tw-window" data-window><img data-img="front-bar-wide" alt="The front bar at Antiq Barbers, seen through an arched window" /></div>
+      <div class="tw-words">
+        <h2 class="display">
+          <span class="l1" data-l1>Not your</span>
+          <span class="l2"><span data-l2a>aver</span><span class="tw-gap" data-gap aria-hidden="true"></span><span data-l2b>age</span></span>
+          <span class="l3" data-l3>barbershop</span>
+        </h2>
+      </div>
+      <div class="tw-copy on-dark" data-twcopy>
+        <p class="deck">Antique chairs, porthole mirrors and the <em>modern fade.</em></p>
+        <div class="right">
+          <p class="lede">Hand-burnt timber and tufted leather downstairs, a courtyard of birdsong out back, neon and a pool table upstairs.</p>
+          <span class="status" data-status>Checking the hours</span>
+          <div class="book-pair">
+            <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+            <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+      <p class="tw-hint" data-twhint>Scroll to look inside ↓</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 5 · THREE FLOORS ======================= -->
+<section class="variant" data-variant="5" role="tabpanel" aria-label="5, Three Floors" hidden>
+  <div class="wrap">
+    <div class="tf-head">
+      <h2 class="display" data-lines><span class="line-mask"><span>Not your average</span></span><span class="line-mask"><span>barbershop</span></span></h2>
+      <p class="deck" data-rise>Three floors of it. Scroll down through the shop.</p>
+    </div>
+    <div class="tf-cards">
+      <article class="tf-card" style="--i:0" data-card>
+        <div class="photo"><img data-img="parlour-row" alt="Antique barber chairs along the courtyard glass" /></div>
+        <div class="txt"><p class="floor">Downstairs</p><h3>The parlour</h3><p class="line">Antique chairs and porthole mirrors, in a row along the glass.</p></div>
+      </article>
+      <article class="tf-card" style="--i:1" data-card>
+        <div class="photo"><img data-img="courtyard-sun" alt="The courtyard behind the glass, in the sun" /></div>
+        <div class="txt"><p class="floor">Out the back</p><h3>The courtyard</h3><p class="line">Birdsong behind the glass while you wait.</p></div>
+      </article>
+      <article class="tf-card dark" style="--i:2" data-card>
+        <div class="photo"><img data-img="lounge-neon-pool" alt="The upstairs loft: a pool table under neon" /></div>
+        <div class="txt"><p class="floor">Upstairs</p><h3>The loft</h3><p class="line">Neon, a pool table and somewhere to linger.</p></div>
+      </article>
+      <article class="tf-card red on-dark" style="--i:3" data-card>
+        <div class="photo"><img data-img="client-seated" alt="A client in the barber chair" /></div>
+        <div class="txt">
+          <p class="floor">And then</p>
+          <h3>Your chair</h3>
+          <div style="display:flex;flex-direction:column;gap:1.1rem">
+            <span class="status" data-status>Checking the hours</span>
+            <div class="book-pair">
+              <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+              <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 · ON THE TABLE ======================= -->
+<section class="variant" data-variant="6" role="tabpanel" aria-label="6, On the Table" hidden>
+  <div class="wrap">
+    <div class="ot-table" data-table>
+      <div class="ot-note" data-rise>
+        <h2 class="display">Not your average barbershop</h2>
+        <p class="deck">Antique chairs, porthole mirrors and the <em>modern fade</em>, on Miller Street, Epping.</p>
+        <span class="status" data-status>Checking the hours</span>
+        <div class="book-pair">
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="ot-prints">
+        <div class="print-card" data-print style="left:1%;top:4%;--w:clamp(12rem,17vw,16rem);--r:-7deg"><div class="photo"><img data-img="chair" alt="An antique barber chair" /></div></div>
+        <div class="print-card" data-print style="left:6%;top:50%;--w:clamp(13rem,19vw,18rem);--r:4deg;--ar:4/3"><div class="photo"><img data-img="front-bar" alt="The front bar" /></div></div>
+        <div class="print-card" data-print style="left:76%;top:2%;--w:clamp(12rem,16vw,15rem);--r:6deg"><div class="photo"><img data-img="lounge-neon-pool" alt="The neon loft" /></div></div>
+        <div class="print-card" data-print style="left:73%;top:50%;--w:clamp(13rem,18vw,17rem);--r:-4deg;--ar:4/3"><div class="photo"><img data-img="at-work" alt="A barber at work" /></div></div>
+        <div class="print-card" data-print style="left:23%;top:-2%;--w:clamp(9rem,11vw,11rem);--r:9deg;--ar:1"><div class="photo"><img data-img="deer" alt="The stag on the wall" /></div></div>
+        <div class="print-card" data-print style="left:62%;top:70%;--w:clamp(10rem,12vw,12rem);--r:-10deg"><div class="photo"><img data-img="courtyard-sun" alt="The courtyard" /></div></div>
+      </div>
+      <p class="ot-hint">Drag the prints around</p>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  /* each photo is embedded once, then shared by every layout that uses it */
+  var IMGS = {
+    'front-bar-wide': 'IMG:front-bar-wide',
+    'front-bar': 'IMG:front-bar',
+    'chair': 'IMG:chair',
+    'parlour-row': 'IMG:parlour-row',
+    'courtyard-sun': 'IMG:courtyard-sun',
+    'booth': 'IMG:booth',
+    'lounge-neon-pool': 'IMG:lounge-neon-pool',
+    'at-work': 'IMG:at-work',
+    'client-seated': 'IMG:client-seated',
+    'deer': 'IMG:deer'
+  };
+  document.querySelectorAll('img[data-img]').forEach(function (img) { img.src = IMGS[img.dataset.img]; });
+
+  var hasGsap = typeof window.gsap !== 'undefined';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var animate = hasGsap && !reduced;
+  if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+  var desktop = window.matchMedia('(min-width: 1024px)');
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  var barH = function () { return document.querySelector('.deck-bar').offsetHeight; };
+
+  /* ---------- live open / closed, in shop time (Melbourne) ---------- */
+  var hours = { 0: ['10:00', '16:00'], 1: null, 2: ['10:00', '18:00'], 3: ['10:00', '18:00'], 4: ['11:00', '21:00'], 5: ['11:00', '21:00'], 6: ['09:00', '18:00'] };
+  function fmt(t) { var p = t.split(':'), h = +p[0], m = +p[1]; return (h % 12 || 12) + (m ? ':' + String(m).padStart(2, '0') : '') + (h < 12 ? 'am' : 'pm'); }
+  function toMin(t) { var p = t.split(':'); return +p[0] * 60 + +p[1]; }
+  try {
+    var parts = new Intl.DateTimeFormat('en-AU', { timeZone: 'Australia/Melbourne', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+    var get = function (t) { return (parts.find(function (p) { return p.type === t; }) || {}).value; };
+    var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
+    var now = +get('hour') * 60 + +get('minute');
+    var h = hours[day];
+    var open = !!h && now >= toMin(h[0]) && now < toMin(h[1]);
+    var text;
+    if (open) text = 'Open now · till ' + fmt(h[1]);
+    else {
+      for (var i = 0; i < 8; i++) {
+        var d = (day + i) % 7, hh = hours[d];
+        if (hh && (i > 0 || now < toMin(hh[0]))) {
+          text = 'Closed now · opens ' + (i === 0 ? 'at ' : i === 1 ? 'tomorrow ' : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d] + ' ') + fmt(hh[0]);
+          break;
+        }
+      }
+    }
+    document.querySelectorAll('[data-status]').forEach(function (el) { el.textContent = text; el.dataset.open = String(open); });
+  } catch (e) {}
+
+  /* ---------- 2 · rooms accordion (works without GSAP) ---------- */
+  var rooms = document.querySelectorAll('[data-rooms] .room');
+  function openRoom(r) {
+    rooms.forEach(function (x) { x.classList.toggle('is-open', x === r); x.setAttribute('aria-expanded', String(x === r)); });
+  }
+  rooms.forEach(function (r) {
+    r.addEventListener('click', function () { openRoom(r); });
+    r.addEventListener('focus', function () { openRoom(r); });
+    r.addEventListener('mouseenter', function () { if (fine.matches) openRoom(r); });
+  });
+
+  /* ---------- 3 · the house list: a print follows the cursor ---------- */
+  var float = document.querySelector('[data-float]');
+  var floatImg = float.querySelector('img');
+  var hl = document.querySelector('[data-hl]');
+  var fx = 0, fy = 0, tx = 0, ty = 0, raf = 0;
+  function follow() {
+    fx += (tx - fx) * 0.14; fy += (ty - fy) * 0.14;
+    float.style.transform = 'translate(' + (fx + 28) + 'px,' + (fy - float.offsetHeight / 2) + 'px)';
+    raf = requestAnimationFrame(follow);
+  }
+  hl.addEventListener('pointermove', function (e) { tx = e.clientX; ty = e.clientY; });
+  hl.querySelectorAll('.hl-row').forEach(function (row) {
+    row.addEventListener('pointerenter', function (e) {
+      if (!fine.matches) return;
+      if (!float.classList.contains('is-on')) { fx = tx = e.clientX; fy = ty = e.clientY; }
+      floatImg.src = IMGS[row.dataset.show];
+      float.classList.add('is-on');
+      if (!raf) follow();
+    });
+  });
+  hl.addEventListener('pointerleave', function () { float.classList.remove('is-on'); cancelAnimationFrame(raf); raf = 0; });
+
+  /* ---------- 6 · draggable prints ---------- */
+  var z = 10;
+  document.querySelectorAll('[data-print]').forEach(function (card) {
+    var sx, sy, ox = 0, oy = 0, dragging = false;
+    card.addEventListener('pointerdown', function (e) {
+      if (!desktop.matches) return;
+      dragging = true;
+      card.setPointerCapture(e.pointerId);
+      card.classList.add('is-drag');
+      card.style.zIndex = ++z;
+      sx = e.clientX - ox; sy = e.clientY - oy;
+    });
+    card.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      ox = e.clientX - sx; oy = e.clientY - sy;
+      card.style.transform = 'translate(' + ox + 'px,' + oy + 'px)';
+    });
+    function end() { dragging = false; card.classList.remove('is-drag'); }
+    card.addEventListener('pointerup', end);
+    card.addEventListener('pointercancel', end);
+  });
+
+  /* ---------- each layout's choreography ---------- */
+  function lines(root, delay) {
+    gsap.from(root.querySelectorAll('[data-lines] .line-mask > span'), { yPercent: 110, rotate: 4, duration: 1.3, stagger: 0.09, ease: 'expo.out', delay: delay || 0.1 });
+  }
+  function rise(root, delay) {
+    gsap.from(root.querySelectorAll('[data-rise]'), { autoAlpha: 0, y: 40, filter: 'blur(8px)', duration: 1.2, stagger: 0.08, ease: 'expo.out', delay: delay || 0.35, clearProps: 'filter' });
+  }
+
+  var build = {
+    1: function (root) {
+      lines(root, 0.35);
+      var tiles = root.querySelectorAll('[data-tile]');
+      gsap.from(tiles, { clipPath: 'inset(100% 0 0 0)', duration: 1.2, stagger: { each: 0.07, from: 'start' }, ease: 'expo.inOut', clearProps: 'clipPath' });
+      gsap.from(root.querySelectorAll('.tile.photo img'), { scale: 1.35, duration: 1.8, stagger: 0.07, ease: 'expo.out', delay: 0.2, clearProps: 'transform' });
+    },
+    2: function (root) {
+      lines(root); rise(root);
+      gsap.from(root.querySelectorAll('.room'), { yPercent: 100, autoAlpha: 0, duration: 1.3, stagger: 0.08, ease: 'expo.out', delay: 0.4 });
+    },
+    3: function (root) {
+      lines(root); rise(root, 0.5);
+      gsap.from(root.querySelectorAll('.hl-row'), { autoAlpha: 0, y: 30, duration: 1.1, stagger: 0.07, ease: 'expo.out', delay: 0.3 });
+    },
+    4: function (root) {
+      var mm = gsap.matchMedia();
+      mm.add('(min-width: 1024px)', function () {
+        var win = root.querySelector('[data-window]');
+        // intro moves the headline as a whole; the scroll timeline owns the individual words
+        gsap.from(root.querySelector('.tw-words h2'), { y: 80, autoAlpha: 0, duration: 1.3, ease: 'expo.out', delay: 0.1 });
+        // the arch sits exactly in the gap between AVER and AGE, a little taller than the line
+        var stage = root.querySelector('.tw-stage');
+        function arch() {
+          var g = root.querySelector('[data-gap]').getBoundingClientRect();
+          var st = stage.getBoundingClientRect();
+          var extra = g.height * 0.9;
+          return 'inset(' + (g.top - st.top - extra) + 'px ' + (st.right - g.right) + 'px ' + (st.bottom - g.bottom - extra * 0.4) + 'px ' + (g.left - st.left) + 'px round 999px 999px 0px 0px)';
+        }
+        var a = arch();
+        gsap.set(win, { clipPath: a });
+        gsap.from(win, { autoAlpha: 0, y: 60, duration: 1.4, ease: 'expo.out', delay: 0.3 });
+        var tl = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: { trigger: root.querySelector('[data-tw]'), start: 'top top+=' + barH(), end: 'bottom bottom', scrub: 0.8 }
+        });
+        tl.fromTo(win, { clipPath: a }, { clipPath: 'inset(0px 0px 0px 0px round 0px 0px 0px 0px)', duration: 1, immediateRender: false }, 0)
+          .to(win.querySelector('img'), { scale: 1, duration: 1 }, 0)
+          .to(root.querySelector('[data-l1]'), { yPercent: -160, autoAlpha: 0, duration: 0.7 }, 0)
+          .to(root.querySelector('[data-l2a]'), { xPercent: -140, autoAlpha: 0, duration: 0.7 }, 0)
+          .to(root.querySelector('[data-l2b]'), { xPercent: 140, autoAlpha: 0, duration: 0.7 }, 0)
+          .to(root.querySelector('[data-l3]'), { yPercent: 160, autoAlpha: 0, duration: 0.7 }, 0)
+          .to(root.querySelector('[data-twhint]'), { autoAlpha: 0, duration: 0.2 }, 0)
+          .fromTo(root.querySelector('[data-twcopy]'), { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 0.9)
+          .to({}, { duration: 0.3 });
+        // darken the photo under the copy
+        var shade = document.createElement('div');
+        shade.style.cssText = 'position:absolute;inset:0;background:linear-gradient(to top,rgb(10 7 4 / .85),rgb(10 7 4 / .15) 60%);opacity:0;pointer-events:none';
+        win.appendChild(shade);
+        tl.to(shade, { opacity: 1, duration: 0.3 }, 0.85);
+        return function () { shade.remove(); };
+      });
+      mm.add('(max-width: 1023px)', function () { rise(root, 0.1); });
+      return function () { mm.revert(); };
+    },
+    5: function (root) {
+      lines(root); rise(root);
+      var cards = root.querySelectorAll('[data-card]');
+      cards.forEach(function (card, i) {
+        if (i === cards.length - 1) return;
+        // as the next card arrives, this one sinks back and dims
+        gsap.to(card, {
+          scale: 0.92 + i * 0.015, filter: 'brightness(.72)', ease: 'none',
+          scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top ' + (barH() + 40 + (i + 1) * 22), scrub: true }
+        });
+      });
+      cards.forEach(function (card) {
+        gsap.from(card.querySelector('img'), { scale: 1.25, ease: 'none', scrollTrigger: { trigger: card, start: 'top bottom', end: 'top top', scrub: true } });
+      });
+    },
+    6: function (root) {
+      rise(root, 0.1);
+      var mm = gsap.matchMedia();
+      mm.add('(min-width: 1024px)', function () {
+        // the prints are dealt onto the table from below
+        gsap.from(root.querySelectorAll('[data-print]'), {
+          y: function () { return window.innerHeight * 0.8; }, rotate: function () { return gsap.utils.random(-40, 40); },
+          autoAlpha: 0, duration: 1.4, stagger: 0.09, ease: 'expo.out', delay: 0.35, clearProps: 'transform,rotate'
+        });
+      });
+      return function () { mm.revert(); };
+    }
+  };
+
+  /* ---------- tabs ---------- */
+  var notes = {
+    1: '<strong>1 · Bento.</strong> The whole shop at a glance: headline, photos, motto, live status and booking as one mosaic of tiles.',
+    2: '<strong>2 · Room by Room.</strong> Five rooms side by side. Hover one and it opens up; the rest fold away to their names.',
+    3: '<strong>3 · The House List.</strong> Big type lists what’s inside. Hover a line and its photo follows the cursor.',
+    4: '<strong>4 · Through the Window.</strong> An arched window sits in the headline; scroll and it opens to the whole room.',
+    5: '<strong>5 · Three Floors.</strong> Cards stack as you scroll down through the shop, ending on your chair.',
+    6: '<strong>6 · On the Table.</strong> A notice in the middle, prints scattered around it. The prints can be dragged.'
+  };
+  var order = ['1', '2', '3', '4', '5', '6'];
+  var current = null, ctx = null, teardown = null;
+
+  function show(key, push) {
+    if (key === current) return;
+    current = key;
+    if (teardown) { teardown(); teardown = null; }
+    if (ctx) { ctx.revert(); ctx = null; }
+    document.querySelectorAll('[data-print]').forEach(function (c) { c.style.transform = ''; });
+    document.querySelectorAll('[data-variant]').forEach(function (v) { v.hidden = v.dataset.variant !== key; });
+    document.querySelectorAll('[data-tab]').forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.tab === key)); });
+    document.querySelector('[data-note]').innerHTML = notes[key];
+    window.scrollTo(0, 0);
+    if (push) history.replaceState(null, '', '#' + key);
+    if (!animate) return;
+    var root = document.querySelector('[data-variant="' + key + '"]');
+    // measure only once the type has loaded, so positions are final
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () {
+      if (current !== key) return;
+      ctx = gsap.context(function () { teardown = build[key](root) || null; }, root);
+      requestAnimationFrame(function () { ScrollTrigger.refresh(); window.scrollTo(0, 0); });
+    });
+  }
+
+  document.querySelectorAll('[data-tab]').forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab, true); }); });
+  document.addEventListener('keydown', function (e) {
+    var i = order.indexOf(current);
+    if (e.key === 'ArrowRight') show(order[(i + 1) % order.length], true);
+    if (e.key === 'ArrowLeft') show(order[(i + order.length - 1) % order.length], true);
+  });
+  document.querySelectorAll('a[href="#"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+
+  var start = (location.hash || '#1').slice(1);
+  show(order.indexOf(start) > -1 ? start : '1', false);
+})();
+</script>
+</body>
+</html>

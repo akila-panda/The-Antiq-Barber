@@ -1,0 +1,294 @@
+{
+ "/images/shop/at-work.webp": [
+  1600,
+  1200
+ ],
+ "/images/shop/bar-counter.webp": [
+  640,
+  427
+ ],
+ "/images/shop/bar-mirror.webp": [
+  640,
+  427
+ ],
+ "/images/shop/bar-shelf.webp": [
+  640,
+  960
+ ],
+ "/images/shop/bmx.webp": [
+  640,
+  960
+ ],
+ "/images/shop/booth-chair.webp": [
+  640,
+  876
+ ],
+ "/images/shop/booth-overhead.webp": [
+  640,
+  853
+ ],
+ "/images/shop/booth.webp": [
+  640,
+  828
+ ],
+ "/images/shop/chair-deer.webp": [
+  640,
+  853
+ ],
+ "/images/shop/chair.webp": [
+  640,
+  960
+ ],
+ "/images/shop/client-courtyard.webp": [
+  640,
+  853
+ ],
+ "/images/shop/client-seated.webp": [
+  640,
+  853
+ ],
+ "/images/shop/courtyard-bag.webp": [
+  640,
+  427
+ ],
+ "/images/shop/courtyard-boy.webp": [
+  640,
+  853
+ ],
+ "/images/shop/courtyard-glass.webp": [
+  640,
+  427
+ ],
+ "/images/shop/courtyard-sun.webp": [
+  640,
+  853
+ ],
+ "/images/shop/deer.webp": [
+  640,
+  640
+ ],
+ "/images/shop/entrance.webp": [
+  640,
+  853
+ ],
+ "/images/shop/front-bar-wide.webp": [
+  1317,
+  741
+ ],
+ "/images/shop/front-bar.webp": [
+  640,
+  427
+ ],
+ "/images/shop/lounge-graffiti-pool.webp": [
+  640,
+  640
+ ],
+ "/images/shop/lounge-guitars.webp": [
+  640,
+  853
+ ],
+ "/images/shop/lounge-mickey.webp": [
+  640,
+  883
+ ],
+ "/images/shop/lounge-moto.webp": [
+  640,
+  853
+ ],
+ "/images/shop/lounge-mural.webp": [
+  640,
+  427
+ ],
+ "/images/shop/lounge-neon-pool.webp": [
+  640,
+  853
+ ],
+ "/images/shop/lounge-neon-wide.webp": [
+  640,
+  480
+ ],
+ "/images/shop/lounge-pool-day.webp": [
+  640,
+  640
+ ],
+ "/images/shop/lounge-pool-graffiti.webp": [
+  640,
+  853
+ ],
+ "/images/shop/lounge-pool-mural.webp": [
+  640,
+  640
+ ],
+ "/images/shop/lounge-pool-skylight.webp": [
+  640,
+  640
+ ],
+ "/images/shop/lounge-pool-tall.webp": [
+  640,
+  1137
+ ],
+ "/images/shop/lounge-pool-wide.webp": [
+  640,
+  640
+ ],
+ "/images/shop/lounge-pool-window.webp": [
+  640,
+  640
+ ],
+ "/images/shop/lounge-stairs-pool.webp": [
+  640,
+  640
+ ],
+ "/images/shop/neon-rock.webp": [
+  640,
+  960
+ ],
+ "/images/shop/parlour-chairs.webp": [
+  640,
+  427
+ ],
+ "/images/shop/parlour-nook.webp": [
+  640,
+  960
+ ],
+ "/images/shop/parlour-row.webp": [
+  640,
+  960
+ ],
+ "/images/work/beard-chair.webp": [
+  640,
+  853
+ ],
+ "/images/work/beard-frame.webp": [
+  640,
+  688
+ ],
+ "/images/work/beard-mirror.webp": [
+  640,
+  853
+ ],
+ "/images/work/bleach-crop.webp": [
+  640,
+  1075
+ ],
+ "/images/work/blue-colour.webp": [
+  640,
+  853
+ ],
+ "/images/work/crop-fringe-beard.webp": [
+  640,
+  833
+ ],
+ "/images/work/curly-top.webp": [
+  640,
+  1075
+ ],
+ "/images/work/fade-beard-courtyard.webp": [
+  640,
+  1075
+ ],
+ "/images/work/fade-beard-window.webp": [
+  640,
+  853
+ ],
+ "/images/work/fade-chair.webp": [
+  640,
+  853
+ ],
+ "/images/work/fade-classic.webp": [
+  640,
+  853
+ ],
+ "/images/work/fade-courtyard-2.webp": [
+  640,
+  853
+ ],
+ "/images/work/fade-courtyard.webp": [
+  640,
+  853
+ ],
+ "/images/work/fade-mirror.webp": [
+  640,
+  480
+ ],
+ "/images/work/fade-neon.webp": [
+  640,
+  853
+ ],
+ "/images/work/fade-textured.webp": [
+  640,
+  853
+ ],
+ "/images/work/flat-top.webp": [
+  640,
+  1075
+ ],
+ "/images/work/high-skin-fade.webp": [
+  640,
+  853
+ ],
+ "/images/work/junior.webp": [
+  640,
+  1075
+ ],
+ "/images/work/long-beard.webp": [
+  640,
+  853
+ ],
+ "/images/work/low-taper.webp": [
+  640,
+  853
+ ],
+ "/images/work/mullet-burst.webp": [
+  640,
+  853
+ ],
+ "/images/work/mullet-slick.webp": [
+  640,
+  853
+ ],
+ "/images/work/mullet.webp": [
+  640,
+  1075
+ ],
+ "/images/work/pompadour.webp": [
+  640,
+  1196
+ ],
+ "/images/work/scissor-cut.webp": [
+  640,
+  1075
+ ],
+ "/images/work/side-part.webp": [
+  640,
+  853
+ ],
+ "/images/work/skin-fade-beard.webp": [
+  640,
+  853
+ ],
+ "/images/work/slick-back.webp": [
+  640,
+  853
+ ],
+ "/images/work/taper-beard.webp": [
+  640,
+  853
+ ],
+ "/images/work/taper-black-wall.webp": [
+  640,
+  853
+ ],
+ "/images/work/taper-neon-tee.webp": [
+  640,
+  853
+ ],
+ "/images/work/teen-taper.webp": [
+  640,
+  1075
+ ],
+ "/images/work/textured-crop.webp": [
+  640,
+  1075
+ ]
+}

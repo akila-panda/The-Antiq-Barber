@@ -1,0 +1,98 @@
+---
+import FloatingTools from './FloatingTools.astro';
+import { barbers, googleReviews, reviews, site, bookHref } from '../data/site';
+
+// Google first (most people know it), then two from Booksy.
+const allReviews = [
+  ...googleReviews.slice(0, 4).map((r) => ({ ...r, source: 'Google' })),
+  ...reviews.slice(0, 2).map((r) => ({ name: r.name, text: r.text, source: 'Booksy' })),
+];
+import SectionHead from './SectionHead.astro';
+---
+
+<section id="correspondents" data-edition="day" class="relative mx-auto max-w-[1400px] scroll-mt-16 px-4 pt-16 sm:px-6">
+  <FloatingTools items={[{ tool: 'brush', x: '-8%', y: '18%', size: 1, rotate: -10, speed: 1.2 }, { tool: 'moustache', x: '101%', y: '58%', size: 1.1, rotate: 6, speed: 0.9 }]} />
+  <SectionHead page={6} title="Staff & Reviews" aside="The barbers" />
+
+  <div class="grid gap-12 pt-10 lg:grid-cols-12 lg:gap-0">
+    <!-- staff -->
+    <div class="lg:col-span-7 lg:border-r lg:border-ink/40 lg:pr-10">
+      <div class="grid grid-cols-2 gap-6 pt-6 sm:grid-cols-3">
+        {
+          barbers.map((b) => (
+            <article data-rise>
+              <div class="halftone grid aspect-[4/5] place-items-center border border-ink">
+                <span class="font-black text-[clamp(5rem,9vw,7.5rem)] leading-none text-ink/80">{b.name[0]}</span>
+                <span class="kicker absolute bottom-2 left-2 bg-paper px-1.5 py-0.5 text-[0.6rem] text-ink-soft whitespace-nowrap">Photo soon</span>
+              </div>
+              <h3 class="mt-4 font-display text-4xl font-extrabold uppercase leading-none">{b.name}</h3>
+              <p class="mt-1 font-deck text-lg italic text-ink-soft">{b.role}</p>
+              <a
+                href={bookHref({ barber: b.name })}
+                class="mt-2 inline-block border-b border-ink pb-0.5 font-display font-bold hover:border-oxblood hover:text-oxblood"
+              >
+                Book with {b.name} →
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
+      <figure class="mt-10" data-unveil>
+        <button
+          type="button"
+          class="halftone block aspect-[4/3] w-full cursor-zoom-in border border-ink"
+          data-lightbox="gallery"
+          data-src="/images/shop/at-work.webp"
+          data-caption="At the chair: a cut in progress in the parlour"
+          aria-label="Enlarge: a cut in progress in the parlour"
+        >
+          <img src="/images/shop/at-work.webp" alt="A barber at work on a client's cut in the parlour, guitar and stag on the wall behind" loading="lazy" />
+        </button>
+      </figure>
+
+      <!-- ratings on both platforms -->
+      <div data-rise class="mt-10 grid border-y-4 border-double border-ink sm:grid-cols-2">
+        <a href={site.google.url} target="_blank" rel="noopener" class="group flex items-center gap-4 py-5 pr-4">
+          <span class="num gold-leaf font-display text-[clamp(3.5rem,6vw,5rem)] font-bold leading-none">{site.google.score}</span>
+          <span>
+            <span class="block text-lg tracking-[0.2em] text-oxblood" aria-hidden="true">★★★★★</span>
+            <span class="block font-display text-xl font-bold">Google</span>
+            <span class="font-deck italic text-ink-soft group-hover:text-oxblood">{site.google.count} reviews →</span>
+          </span>
+        </a>
+        <a href={site.booksyUrl} target="_blank" rel="noopener" class="group flex items-center gap-4 border-t border-ink/40 py-5 sm:border-l sm:border-t-0 sm:pl-5">
+          <span class="num gold-leaf font-display text-[clamp(3.5rem,6vw,5rem)] font-bold leading-none">{site.rating.score}</span>
+          <span>
+            <span class="block text-lg tracking-[0.2em] text-oxblood" aria-hidden="true">★★★★★</span>
+            <span class="block font-display text-xl font-bold">Booksy</span>
+            <span class="font-deck italic text-ink-soft group-hover:text-oxblood">{site.rating.count} reviews →</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- reviews -->
+    <div id="reviews" class="scroll-mt-16 lg:col-span-5 lg:pl-10">
+      <p data-split class="font-deck text-[clamp(3.5rem,7vw,6rem)] italic leading-none">Reviews</p>
+      <p class="mt-1 border-b border-ink pb-2 font-deck text-lg italic text-ink-soft">From clients on Google &amp; Booksy</p>
+      <div class="divide-y divide-ink/30">
+        {
+          allReviews.map((r, i) => (
+            <blockquote data-rise class="py-5">
+              <p class="text-sm tracking-[0.2em] text-oxblood" aria-label="5 stars">★★★★★</p>
+              <p class="mt-1 font-serif text-lg leading-relaxed">“{r.text}”</p>
+              <footer class="mt-2 font-deck italic text-ink-soft">
+                <span class="text-oxblood">— {r.name}</span> · {r.source}
+              </footer>
+            </blockquote>
+          ))
+        }
+      </div>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a href={site.google.url} target="_blank" rel="noopener" class="kicker border border-ink px-3 py-2 transition hover:bg-ink hover:text-paper">All Google reviews ↗</a>
+        <a href={site.booksyUrl} target="_blank" rel="noopener" class="kicker border border-ink px-3 py-2 transition hover:bg-ink hover:text-paper">All Booksy reviews ↗</a>
+      </div>
+    </div>
+  </div>
+</section>

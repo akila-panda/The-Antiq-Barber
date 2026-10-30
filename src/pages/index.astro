@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Preloader from '../components/Preloader.astro';
+import Masthead from '../components/Masthead.astro';
+import FrontPage from '../components/FrontPage.astro';
+import Classifieds from '../components/Classifieds.astro';
+import NightEdition from '../components/NightEdition.astro';
+import Clippings from '../components/Clippings.astro';
+import Portraits from '../components/Portraits.astro';
+import Lightbox from '../components/Lightbox.astro';
+import Dawn from '../components/Dawn.astro';
+import Correspondents from '../components/Correspondents.astro';
+import Directions from '../components/Directions.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base>
+  <Preloader />
+  <!-- the whole page is one sheet, so it can lie on the desk after the preloader -->
+  <div id="sheet" class="sheet">
+  <Masthead />
+  <main>
+    <FrontPage />
+    <Classifieds />
+    <Clippings />
+    <NightEdition />
+    <Portraits />
+    <Dawn />
+    <Correspondents />
+    <Directions />
+  </main>
+  <Footer />
+  </div>
+  <Lightbox />
+  <script>
+    import '../scripts/main';
+  </script>
+</Base>

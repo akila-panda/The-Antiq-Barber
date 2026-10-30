@@ -1,0 +1,42 @@
+---
+// The two ways to book, side by side. Our own appointment book leads (a ticket
+// with a "Direct" stub); Booksy follows, always named, so nobody is surprised
+// where they land. variant="stamp" keeps a section's round stamp and adds a
+// quiet Booksy line under it.
+import { bookHref, site } from '../data/site';
+
+interface Props {
+  service?: string;
+  barber?: string;
+  label?: string;
+  variant?: 'tickets' | 'stamp';
+  size?: 'md' | 'lg';
+  class?: string;
+}
+const { service, barber, label = 'Book direct', variant = 'tickets', size = 'md', class: cls } = Astro.props;
+const href = bookHref({ service, barber });
+---
+
+{
+  variant === 'stamp' ? (
+    <div class:list={['flex flex-col items-center gap-3', cls]}>
+      <a href={href} class="stamp text-2xl">{label}</a>
+      <a href={site.booksyUrl} target="_blank" rel="noopener" class="book-booksy-line">
+        or book on <span class="booksy-word">Booksy</span> ↗
+      </a>
+    </div>
+  ) : (
+    <div class:list={['book-pair', size === 'lg' && 'book-pair-lg', cls]}>
+      <a href={href} class="book-direct">
+        <span class="stub">New</span>
+        <span class="label">{label}</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a href={site.booksyUrl} target="_blank" rel="noopener" class="book-booksy">
+        <span class="via">or on</span>
+        <span class="booksy-word">Booksy</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  )
+}

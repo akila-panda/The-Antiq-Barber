@@ -1,0 +1,63 @@
+---
+import { dims, upstairs } from '../data/gallery';
+import SectionHead from './SectionHead.astro';
+---
+
+<section id="night" class="relative mt-24 scroll-mt-0">
+  <!-- pinned stage: paper -> lights out -> neon -->
+  <div data-night-stage class="relative h-[100svh] overflow-hidden">
+    <div data-day-ink class="absolute inset-0 grid place-items-center bg-[#eadcbf] px-4 text-center text-[#16120e]">
+      <div>
+        <p class="mt-5 font-display text-[clamp(3rem,10vw,9rem)] font-black uppercase leading-[0.85] tracking-[-0.02em] [text-shadow:none]">
+          Upstairs,<br />the lights<br />change.
+        </p>
+        <p class="mt-6 font-deck text-2xl italic text-[#4b4136]">Keep scrolling. Mind the stairs.</p>
+      </div>
+    </div>
+
+    <div data-night-layer class="absolute inset-0 grid place-items-center bg-night px-4 text-center">
+      <div
+        class="pointer-events-none absolute inset-0 opacity-60"
+        style="background: radial-gradient(45% 40% at 20% 30%, rgb(255 46 136 / .22), transparent 70%), radial-gradient(45% 40% at 80% 75%, rgb(91 116 255 / .25), transparent 70%);"
+        aria-hidden="true"
+      >
+      </div>
+      <div data-night-title class="relative">
+        <p class="neon neon-flicker mt-4 font-black text-[clamp(3.4rem,12vw,11rem)] leading-[0.9]">
+          The Night<br />Edition
+        </p>
+        <div class="neon-rule mx-auto mt-8 w-2/3 max-w-md"></div>
+        <p class="neon neon-blue mt-6 -rotate-3 font-neon text-[clamp(2.4rem,5vw,4rem)]">rack 'em up</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery II: upstairs, hung as a wall of neon signs. The whole site is in the night edition now. -->
+  <div data-edition="night" class="relative pb-28">
+    <div class="mx-auto max-w-[1400px] px-4 pt-16 sm:px-6">
+      <SectionHead page={4} title="The Loft" aside="Upstairs" tone="night" />
+      <p class="mx-auto mt-5 max-w-xl text-center font-deck text-xl italic text-ink-soft">Graffiti, skylights and a full-size pool table.</p>
+
+      <!-- the neon wall: each frame is a tube that switches on as it scrolls in -->
+      <div class="mt-16 columns-2 gap-5 md:columns-3 lg:columns-4">
+        {
+          upstairs.map((p, i) => (
+            <figure class="mb-5 break-inside-avoid">
+              <button
+                type="button"
+                class="tube-frame block w-full cursor-zoom-in"
+                style={`--tube: var(--color-neon-${i % 3 === 1 ? 'blue' : 'pink'}); --i: ${i % 4}`}
+                data-lightbox="upstairs"
+                data-src={p.src}
+                data-caption={p.caption}
+                aria-label={`Enlarge: ${p.caption}`}
+              >
+                <img src={p.src} {...dims(p.src)} alt={p.caption} loading="lazy" class="h-auto w-full" />
+              </button>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

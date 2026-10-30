@@ -1,0 +1,117 @@
+---
+import BookPair from './BookPair.astro';
+import { site } from '../data/site';
+
+const sections = [
+  { href: '#front', label: 'Front Page', page: 1 },
+  { href: '#classifieds', label: 'Services', page: 2 },
+  { href: '#gallery', label: 'Gallery', page: 3 },
+  { href: '#night', label: 'The Loft', page: 4 },
+  { href: '#portraits', label: 'Our Work', page: 5 },
+  { href: '#reviews', label: 'Reviews', page: 6 },
+  { href: '#directions', label: 'Directions', page: 7 },
+];
+---
+
+<!-- slim sticky bar, shown once the masthead scrolls away -->
+<div
+  id="slimbar"
+  class="fixed inset-x-0 top-0 z-50 -translate-y-full border-b border-ink bg-paper/95 backdrop-blur-sm transition-transform duration-500"
+>
+  <div class="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-2 sm:px-6">
+    <a href="#front" class="flex items-center gap-2 font-black text-2xl leading-none sm:text-3xl"><img src="/images/logo.png" alt="" width="480" height="480" class="size-9 object-contain print-logo" />The Antiq Barber</a>
+    <nav class="hidden items-center gap-3 xl:flex" aria-label="Sections">
+      {sections.slice(1).map((s) => (
+        <a href={s.href} class="nav-ticket nav-ticket-sm" data-nav>
+          <span class="stub">{s.page}</span><span class="label">{s.label}</span>
+        </a>
+      ))}
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href={site.booksyUrl} target="_blank" rel="noopener" class="book-booksy-line hidden whitespace-nowrap text-base sm:inline">
+        <span class="booksy-word">Booksy</span> ↗
+      </a>
+      <a
+        href={site.bookUrl}
+        class="kicker whitespace-nowrap border border-ink bg-ink px-4 py-2 text-paper transition hover:bg-oxblood hover:border-oxblood"
+      >
+        Book a chair
+      </a>
+    </div>
+  </div>
+</div>
+
+<header id="masthead" class="mx-auto max-w-[1400px] px-4 pt-4 sm:px-6 sm:pt-6">
+  <!-- dateline strip -->
+  <div data-hero="dateline" class="kicker flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-ink pb-2 text-ink-soft">
+    <span>Epping Edition · Melbourne, Victoria</span>
+    <span data-today class="hidden text-ink sm:inline">Today's edition</span>
+    <span>Cuts from $40 · Walk-ins welcome</span>
+  </div>
+
+  <!-- nameplate -->
+  <div class="py-5 md:py-7">
+    <div class="text-center">
+      <h1 data-hero="name" class="flex flex-col items-center justify-center gap-x-[0.15em] font-black text-[clamp(3.1rem,10vw,8.5rem)] leading-[0.85] tracking-tight sm:flex-row">
+        <span class="sr-only">The Antiq Barber</span>
+        <span aria-hidden="true" class="hidden sm:inline">The Antiq</span>
+        <!-- the house crest sits in the nameplate, printed into the paper -->
+        <span data-hero="crest" class="order-first grid size-[clamp(5rem,11vw,9rem)] shrink-0 place-items-center rounded-full border-2 border-ink p-1 sm:order-none">
+          <span class="grid size-full place-items-center rounded-full border border-ink/60"><img src="/images/logo.png" alt="" width="480" height="480" class="size-[82%] object-contain print-logo" /></span>
+        </span>
+        <span aria-hidden="true" class="hidden sm:inline">Barber</span>
+        <span aria-hidden="true" class="mt-3 sm:hidden">The Antiq Barber</span>
+      </h1>
+      <p data-hero="tagline" class="mt-3 font-deck text-lg italic text-ink-soft sm:text-xl">
+        “{site.tagline}” — {site.intro}
+      </p>
+    </div>
+
+  </div>
+
+  <!-- section nav -->
+  <div class="rule-double">
+    <nav class="flex items-center justify-between gap-4 border-b border-ink py-2.5" aria-label="Sections">
+      <ul data-nav-row class="hidden flex-wrap items-center gap-x-3 gap-y-2 xl:flex">
+        {
+          sections.map((s) => (
+            <li>
+              <a href={s.href} class="nav-ticket" data-nav>
+                <span class="stub">{s.page}</span><span class="label">{s.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <span data-today class="kicker text-ink xl:hidden">Today's edition</span>
+      <button
+        id="menu-btn"
+        class="kicker flex items-center gap-2 border border-ink px-3 py-1.5 xl:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        Sections <span aria-hidden="true">☰</span>
+      </button>
+      <a
+        href={site.instagram}
+        target="_blank"
+        rel="noopener"
+        class="kicker hidden hover:text-oxblood xl:inline"
+      >
+        {site.instagramHandle} ↗
+      </a>
+    </nav>
+    <ul id="mobile-menu" class="hidden border-b border-ink py-3 xl:hidden">
+      {
+        sections.map((s) => (
+          <li class="py-1.5">
+            <a href={s.href} class="nav-ticket nav-ticket-lg w-full" data-nav>
+              <span class="stub">{s.page}</span><span class="label">{s.label}</span>
+            </a>
+          </li>
+        ))
+      }
+      <li class="pt-3"><BookPair class="justify-center" /></li>
+    </ul>
+  </div>
+</header>

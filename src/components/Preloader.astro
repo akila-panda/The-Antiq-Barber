@@ -1,0 +1,176 @@
+---
+// Full-site preloader. First thing in <body>, with an inline (not deferred)
+// script, so it paints and starts tracking load progress immediately.
+// Sequence: three razor strokes sweep the sheet → the logo is stamped in →
+// barber tools float in around it → a razor rides the strop as the page loads →
+// tools scatter, the sheet lifts (fires `antiq:lift`), then `antiq:ready`.
+// First visit of a session: instead of lifting, the dark sheet becomes a desk
+// and the front page is set down on it, then picked up (scripts/main.ts).
+import { tools, type ToolName } from '../data/tools';
+
+const title = 'The Antiq Barber';
+
+// where each tool floats, where it flies in from, its bob tempo and parallax depth
+const floaters: { tool: ToolName; x: number; y: number; fx: number; fy: number; r: number; dur: number; depth: number; size: number }[] = [
+  { tool: 'scissors', x: 16, y: 22, fx: -260, fy: -180, r: -18, dur: 5.2, depth: 26, size: 1 },
+  { tool: 'razor', x: 80, y: 18, fx: 280, fy: -200, r: 14, dur: 6.1, depth: 18, size: 1.15 },
+  { tool: 'comb', x: 9, y: 62, fx: -320, fy: 40, r: 10, dur: 5.7, depth: 32, size: 1.05 },
+  { tool: 'brush', x: 88, y: 58, fx: 320, fy: 60, r: -10, dur: 4.9, depth: 22, size: 0.95 },
+  { tool: 'tin', x: 24, y: 84, fx: -200, fy: 260, r: 8, dur: 6.4, depth: 14, size: 0.9 },
+  { tool: 'moustache', x: 74, y: 86, fx: 220, fy: 260, r: -6, dur: 5.4, depth: 30, size: 1 },
+];
+
+// a torn paper edge under the sheet, seen as it lifts away
+const tear = Array.from({ length: 49 }, (_, i) => {
+  const x = (1 - i / 48) * 100;
+  const y = 30 + ((i * 53) % 41) + (i % 4) * 6;
+  return `${x.toFixed(2)}% ${y}%`;
+}).join(', ');
+---
+
+<div class="preloader" role="status" aria-live="polite" aria-label="Loading The Antiq Barber" style={`--tear: polygon(0% 0%, 100% 0%, ${tear})`}>
+  <!-- the desk (first visit): burnt-timber planks under a warm lamp -->
+  <div class="pl-desk" aria-hidden="true"></div>
+  <!-- three straight-razor strokes slash across the sheet -->
+  <div class="pl-strokes" aria-hidden="true">
+    <span class="pl-band" style="--c: #c9a063; --d: 0s"></span>
+    <span class="pl-band" style="--c: #8e1b1b; --d: .13s"></span>
+    <span class="pl-band" style="--c: #f1e4c8; --d: .26s"></span>
+  </div>
+
+  <div class="pl-frame" aria-hidden="true"></div>
+  <div class="pl-desk-shadow" aria-hidden="true"></div>
+  <!-- yesterday's paper, peeking out from under today's -->
+  <div class="pl-under" aria-hidden="true"><span></span></div>
+
+  <!-- the tools of the trade, floating in around the stamp -->
+  <div class="pl-tools" aria-hidden="true">
+    {
+      floaters.map((f, i) => (
+        <span
+          class="pl-tool"
+          style={`left:${f.x}%; top:${f.y}%; --fx:${f.fx}px; --fy:${f.fy}px; --r:${f.r}deg; --depth:${f.depth}; --s:${f.size}; --i:${i}`}
+        >
+          <span class="pl-tool-in">
+            <span class="pl-tool-bob" style={`--dur:${f.dur}s`}>
+              <svg viewBox="0 0 100 100" set:html={tools[f.tool]} />
+            </span>
+          </span>
+        </span>
+      ))
+    }
+  </div>
+
+  <div class="pl-stage">
+    <div class="pl-stamp">
+      <img src="/images/logo.png" alt="" width="480" height="480" />
+    </div>
+
+    <p class="pl-title" aria-hidden="true">
+      <span class="pl-title-ghost">{title}</span>
+      <span class="pl-title-ink">{title}</span>
+    </p>
+
+    <!-- progress: a razor stropping along a leather strop -->
+    <div class="pl-strop" aria-hidden="true">
+      <span class="pl-strop-fill"></span>
+      <span class="pl-strop-razor"><svg viewBox="0 0 100 100" set:html={tools.razor} /></span>
+    </div>
+
+    <p class="pl-place">Epping · Melbourne</p>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    var el = document.querySelector('.preloader');
+    if (!el) return;
+    root.classList.add('is-loading');
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var seen = false;
+    try { seen = sessionStorage.getItem('antiq-desk') === '1'; } catch (e) {}
+    var desk = !reduced && !seen;
+    if (desk) el.classList.add('will-desk'); // the tools will settle on the desk, not scatter
+    // the desk adds its own moment, so the loader itself can be a touch shorter
+    var MIN = reduced ? 300 : desk ? 2200 : 2700; // let the opening choreography play, never flash
+    var MAX = 9000; // never trap anyone on a slow connection
+    var start = performance.now();
+    var shown = 0;
+    var done = 0;
+    var total = 1;
+    var finished = false;
+
+    function track(p) {
+      total++;
+      p.then(tick, tick);
+    }
+    function tick() {
+      done++;
+    }
+    if (document.fonts && document.fonts.ready) track(document.fonts.ready);
+    function trackImages() {
+      document.querySelectorAll('img:not([loading="lazy"])').forEach(function (img) {
+        if (img.closest('.preloader') || img.complete) return;
+        track(new Promise(function (res) {
+          img.addEventListener('load', res, { once: true });
+          img.addEventListener('error', res, { once: true });
+        }));
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', trackImages, { once: true });
+    else trackImages();
+    window.addEventListener('load', tick, { once: true });
+
+    // the tools drift away from the pointer, each at its own depth
+    if (!reduced) {
+      el.addEventListener('pointermove', function (e) {
+        if (finished) return; // the tools hold still once they've landed
+        el.style.setProperty('--mx', ((e.clientX / innerWidth) * 2 - 1).toFixed(3));
+        el.style.setProperty('--my', ((e.clientY / innerHeight) * 2 - 1).toFixed(3));
+      });
+    }
+
+    function frame(now) {
+      var target = Math.min(1, done / total);
+      if (now - start > MAX) target = 1;
+      // the strop only starts once the stamp has landed
+      var ready = reduced || now - start > 900;
+      if (ready) shown += (target - shown) * (reduced ? 1 : target === 1 ? 0.07 : 0.05);
+      if (target === 1 && shown > 0.985) shown = 1;
+      el.style.setProperty('--p', shown.toFixed(4));
+      if (shown === 1 && now - start >= MIN && !finished) return finish();
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    function finish() {
+      finished = true;
+      el.classList.add('is-done');
+      var cleaned = false;
+      function cleanup() {
+        if (cleaned) return;
+        cleaned = true;
+        el.remove();
+        root.classList.remove('is-loading');
+        window.dispatchEvent(new Event('antiq:ready'));
+      }
+      setTimeout(function () {
+        // the page script sets the desk up; if it isn't there yet, just lift as before
+        if (desk && typeof window.__antiqDesk === 'function') {
+          try { sessionStorage.setItem('antiq-desk', '1'); } catch (e) {}
+          el.classList.add('is-desk');
+          window.__antiqDesk(el, cleanup);
+          return;
+        }
+        el.classList.add('is-leaving');
+        window.dispatchEvent(new Event('antiq:lift'));
+        el.addEventListener('transitionend', function (e) {
+          if (e.target === el) cleanup();
+        });
+        setTimeout(cleanup, 1500);
+      }, reduced ? 0 : 700);
+    }
+  })();
+</script>

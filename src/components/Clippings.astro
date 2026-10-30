@@ -1,0 +1,53 @@
+---
+import { dims, downstairs as rooms } from '../data/gallery';
+import SectionHead from './SectionHead.astro';
+
+---
+
+<section id="gallery" data-edition="day" class="scroll-mt-16 pt-16">
+  <div data-gallery-pin class="flex flex-col lg:h-[100svh] lg:justify-center lg:overflow-hidden lg:py-6">
+    <div class="mx-auto w-full max-w-[1400px] px-4 sm:px-6">
+      <SectionHead page={3} title="The Gallery" aside="Downstairs" />
+    </div>
+
+    <div class="rail mt-8 overflow-x-auto pb-8 lg:overflow-visible lg:pb-0">
+      <div
+        data-gallery-track
+        class="flex w-max items-start gap-6 lg:items-stretch px-4 sm:px-6 lg:px-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]"
+      >
+        {
+          rooms.map((room) => (
+            <>
+              <div class="flex w-[17rem] shrink-0 flex-col justify-between border-y-4 border-double border-ink py-6 pr-4 lg:h-[min(62vh,560px)]">
+                <div class="my-8 lg:my-0">
+                  <h3 class="font-display text-5xl font-extrabold uppercase leading-[0.9]">{room.title}</h3>
+                </div>
+                <p class="font-deck text-xl italic leading-snug text-ink-soft">{room.blurb}</p>
+              </div>
+              {room.plates.map((p) => {
+                return (
+                  <figure class="group w-min shrink-0 snap-start border border-ink bg-[var(--frame)] p-2.5 shadow-[0_18px_40px_-24px_rgb(40_25_10/0.6)]">
+                    <button
+                      type="button"
+                      class={`halftone block ${p.wide ? 'aspect-[3/2] h-[14rem] sm:h-[22rem]' : 'aspect-[3/4] h-[22rem]'} max-w-[85vw] cursor-zoom-in lg:h-[calc(min(62vh,560px)-1.25rem-2px)]`}
+                      data-lightbox="gallery"
+                      data-src={p.src}
+                      data-caption={p.caption}
+                      aria-label={`Enlarge: ${p.caption}`}
+                    >
+                      <img src={p.src} {...dims(p.src)} alt={p.caption} loading="lazy" draggable="false" />
+                    </button>
+                  </figure>
+                );
+              })}
+            </>
+          ))
+        }
+        <div class="flex w-[19rem] shrink-0 flex-col items-center justify-center gap-6 text-center lg:h-[min(62vh,560px)]">
+          <p class="font-deck text-3xl italic leading-tight">That's downstairs. Upstairs, the lights change.</p>
+          <a href="#night" class="border-b-2 border-ink font-display text-2xl font-bold uppercase hover:text-oxblood">Go upstairs</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Front Page Directions</title>
+<meta name="description" content="Four design directions for the Antiq Barbers front-page lead section." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Courier+Prime:wght@400;700&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=UnifrakturMaguntia&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --paper: #eadcbf;
+  --paper-deep: #dccaa4;
+  --frame: #f3e9d2;
+  --ink: #16120e;
+  --ink-soft: #4b4136;
+  --accent: #8e1b1b;
+  --gold: #a0772b;
+  --brass-hi: #e2c27a;
+  --rule: rgb(22 18 14 / 0.35);
+
+  --font-black: 'UnifrakturMaguntia', serif;
+  --font-display: 'Bodoni Moda', 'Didot', serif;
+  --font-deck: 'Instrument Serif', Georgia, serif;
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-mono: 'Courier Prime', 'Courier New', monospace;
+
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --gutter: clamp(1rem, 3vw, 1.5rem);
+  --bar-h: 3.5rem;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-serif);
+  color: var(--ink);
+  background-color: var(--paper);
+  /* newsprint: fibre noise + foxed edges, same recipe as the site */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .17 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"),
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgb(120 90 50 / 0.18) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-underline-offset: 3px; }
+::selection { background: var(--accent); color: var(--paper); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ================= presenter chrome (not part of the design) ================= */
+.deck-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: var(--bar-h);
+  padding: 0.5rem var(--gutter);
+  background: #0f0c09;
+  color: #eadcbf;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.deck-bar .brand { display: flex; align-items: center; gap: 0.6rem; white-space: nowrap; }
+.deck-bar .brand b { font-family: var(--font-black); font-size: 1.35rem; letter-spacing: 0; text-transform: none; font-weight: 400; }
+.deck-tabs { display: flex; gap: 0.35rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.deck-tabs::-webkit-scrollbar { display: none; }
+.deck-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgb(234 220 191 / 0.28);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.deck-tabs button b { font-family: var(--font-display); font-size: 0.95rem; letter-spacing: 0; }
+.deck-tabs button:hover { border-color: #eadcbf; }
+.deck-tabs button[aria-selected='true'] { background: #eadcbf; color: #0f0c09; border-color: #eadcbf; }
+.deck-tabs button[aria-selected='true'] b { color: var(--accent); }
+.deck-note {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter) 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.deck-note p { margin: 0; }
+.deck-note strong { color: var(--ink); font-weight: 700; }
+.deck-note .keys { opacity: .7; }
+@media (max-width: 720px) {
+  .deck-bar .brand span { display: none; }
+  .deck-tabs button .t { display: none; }
+  .deck-note .keys { display: none; }
+}
+
+/* ================= shared pieces ================= */
+.wrap { max-width: 1400px; margin: 0 auto; padding: 0 var(--gutter); }
+.variant { padding: 2rem 0 6rem; overflow-x: clip; }
+.variant[hidden] { display: none; }
+
+.kicker { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; }
+.rule-double { border-top: 3px double var(--ink); }
+.rule-tt { border-top: 4px solid var(--ink); box-shadow: 0 3px 0 -2px var(--paper), 0 4px 0 -2px var(--ink); }
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  font-variation-settings: 'opsz' 96;
+  margin: 0;
+  text-wrap: balance;
+}
+.deck {
+  font-family: var(--font-deck);
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  line-height: 1.2;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.lede { font-size: 1.12rem; line-height: 1.65; margin: 0; text-wrap: pretty; }
+.dropcap::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 4.6em;
+  line-height: 0.78;
+  padding: 0.08em 0.12em 0 0;
+}
+.motto {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+  font-variation-settings: 'opsz' 48;
+}
+
+/* hand-tinted halftone print, as on the site */
+.print { position: relative; overflow: hidden; background: var(--paper-deep); isolation: isolate; }
+.print img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.32) saturate(1.05) contrast(1.06); transition: filter .9s ease, transform 1.4s var(--ease); }
+.print::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgb(22 18 14 / .6) .8px, transparent 1.35px);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+  opacity: .22;
+  transition: opacity .9s ease;
+}
+.print:hover img { filter: sepia(.05) saturate(1.15) contrast(1.04); }
+.print:hover::after { opacity: .06; }
+.engraved { border: 1px solid var(--ink); padding: 6px; background: var(--frame); box-shadow: inset 0 0 0 1px var(--frame), inset 0 0 0 2px var(--ink); }
+
+/* open / closed status, filled by script */
+.status { display: inline-flex; align-items: center; gap: 0.55rem; }
+.status::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: currentColor; }
+.status[data-open='true'] { color: #2e6b3f; }
+.status[data-open='true']::before { animation: pulse 2.4s ease-in-out infinite; }
+.status[data-open='false'] { color: var(--accent); }
+@keyframes pulse { 50% { box-shadow: 0 0 0 .35rem rgb(46 107 63 / 0); opacity: .55; } }
+
+/* the two booking routes (mirrors BookPair on the site) */
+.book-pair { display: flex; flex-wrap: wrap; gap: .75rem; align-items: stretch; }
+.book-direct {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--accent);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), background-color .2s;
+}
+.book-direct .stub { display: grid; place-items: center; padding: 0 .7rem; border-right: 1.5px dashed currentColor; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--brass-hi); }
+.book-direct .label { padding: .85rem .4rem .85rem 1rem; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; text-transform: uppercase; line-height: 1; align-self: center; }
+.book-direct .arrow { align-self: center; padding-right: 1rem; font-size: 1.2rem; transition: transform .35s var(--ease); }
+.book-direct:hover { background: var(--accent); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+.book-direct:hover .arrow { transform: translateX(5px); }
+.book-booksy { display: inline-flex; align-items: baseline; gap: .45rem; border: 1.5px solid var(--ink); padding: .85rem 1rem; text-decoration: none; transition: background-color .2s, color .2s; }
+.book-booksy .via { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+.book-booksy b { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -.01em; }
+.book-booksy:hover { background: var(--ink); color: var(--paper); }
+.book-booksy:hover .via { color: inherit; }
+
+/* split headline lines into masks for the rise */
+.line-mask { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.line-mask > span { display: block; }
+
+/* ================= A · The Lead Story ================= */
+.a-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 0; }
+.a-head { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: end; padding-bottom: 1.5rem; border-bottom: 1px solid var(--ink); }
+.a-head h2 { grid-column: 1 / 10; font-size: clamp(2.8rem, 7.2vw, 6.6rem); }
+.a-walkin { grid-column: 10 / -1; text-align: right; padding-bottom: .4rem; }
+.a-walkin .big { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; text-transform: uppercase; line-height: 1; margin: 0 0 .6rem; }
+.a-walkin .status { font-family: var(--font-deck); font-size: 1.2rem; }
+.a-photo { grid-column: 1 / 9; position: relative; padding: 2rem 2rem 4.5rem 0; border-right: 1px solid var(--rule); }
+.a-photo .hero { aspect-ratio: 16 / 10; }
+.a-plate {
+  position: absolute;
+  right: -1.2rem;
+  bottom: 0;
+  width: clamp(9rem, 22%, 15rem);
+  rotate: 3deg;
+  box-shadow: 0 22px 40px -18px rgb(40 25 10 / .55);
+  z-index: 2;
+}
+.a-plate .print { aspect-ratio: 4 / 5; }
+.a-plate::before, .a-plate::after {
+  /* paper tape */
+  content: '';
+  position: absolute;
+  top: -.8rem;
+  width: 4.2rem;
+  height: 1.5rem;
+  background: rgb(236 222 186 / .78);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .12);
+  z-index: 3;
+}
+.a-plate::before { left: -1.2rem; rotate: -32deg; }
+.a-plate::after { right: -1.2rem; rotate: 28deg; }
+.a-copy { grid-column: 9 / -1; padding: 2rem 0 0 2.5rem; display: flex; flex-direction: column; gap: 1.6rem; }
+.a-copy .deck { font-size: clamp(1.5rem, 2vw, 1.85rem); }
+.a-copy .motto-block { padding: 1.4rem 0; }
+.a-copy .motto { font-size: clamp(1.5rem, 1.9vw, 1.8rem); }
+.a-copy .motto-block p.by { margin: .8rem 0 0; font-family: var(--font-deck); font-style: italic; font-size: 1.1rem; color: var(--ink-soft); }
+@media (max-width: 1023px) {
+  .a-head { display: block; }
+  .a-walkin { text-align: left; margin-top: 1.25rem; }
+  .a-photo, .a-copy { grid-column: 1 / -1; border-right: 0; }
+  .a-photo { padding: 1.5rem 0 3.5rem; }
+  .a-plate { right: 1.75rem; width: 38%; }
+  .a-copy { padding: 1rem 0 0; }
+}
+
+/* ================= B · The Porthole ================= */
+.b-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; padding-top: 1rem; }
+.b-left h2 { font-size: clamp(2.4rem, 3.7vw, 4rem); }
+.b-left .deck { margin-top: 1.25rem; }
+.b-left .status { margin-top: 2rem; font-family: var(--font-deck); font-size: 1.2rem; }
+.b-left .walk { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; text-transform: uppercase; margin: 2rem 0 .35rem; padding-top: 1.25rem; border-top: 1px solid var(--ink); }
+.b-left .walk + .status { margin-top: 0; }
+.b-right { display: flex; flex-direction: column; gap: 1.6rem; }
+.b-right .motto { font-size: clamp(1.4rem, 1.8vw, 1.7rem); padding: 1.25rem 0; border-top: 3px double var(--ink); border-bottom: 3px double var(--ink); }
+
+.porthole { --d: clamp(17rem, 34vw, 31rem); position: relative; width: var(--d); height: var(--d); }
+.porthole .ring-text { position: absolute; inset: -2.6rem; width: calc(100% + 5.2rem); height: calc(100% + 5.2rem); overflow: visible; }
+.porthole .ring-text text { font-family: var(--font-mono); font-size: 13.5px; letter-spacing: 6.2px; fill: var(--ink); text-transform: uppercase; }
+.porthole .brass {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* turned brass: a conic sheen, dark rim, raised lip */
+  background:
+    conic-gradient(from 210deg, #6d4d1a, #c99a48, #f0d48f, #b4843a, #6d4d1a, #a77a31, #e8c67c, #8a6224, #6d4d1a);
+  box-shadow:
+    0 30px 60px -28px rgb(40 25 10 / .7),
+    inset 0 0 0 2px rgb(40 25 10 / .55),
+    inset 0 0 0 .55rem rgb(255 240 200 / .12);
+}
+.porthole .rivet {
+  position: absolute;
+  width: .9rem;
+  height: .9rem;
+  margin: -.45rem 0 0 -.45rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff1c9, #b88a3c 45%, #5a3e12 100%);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .4);
+}
+.porthole .glass {
+  position: absolute;
+  inset: 11%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 3px #4a3410, inset 0 10px 30px rgb(0 0 0 / .55);
+  background: #1a120b;
+}
+.porthole .glass img { position: absolute; inset: -14%; width: 128%; height: 128%; max-width: none; object-fit: cover; filter: sepia(.25) saturate(1.1) contrast(1.05); will-change: transform; }
+.porthole .glass::after {
+  /* the glare on the glass */
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(120% 70% at 30% 12%, rgb(255 255 255 / .32), transparent 45%), radial-gradient(60% 40% at 78% 88%, rgb(255 220 160 / .14), transparent 70%);
+  pointer-events: none;
+}
+@media (max-width: 1023px) {
+  .b-grid { grid-template-columns: 1fr; justify-items: start; }
+  .porthole { justify-self: center; margin: 3.5rem 0; --d: min(calc(100vw - 2 * var(--gutter) - 6rem), 24rem); }
+}
+
+/* ================= C · Words & Pictures ================= */
+.c-head { padding: 1rem 0 2rem; }
+.c-head h2 { font-size: clamp(2.6rem, 8.4vw, 7.5rem); line-height: .96; text-wrap: initial; }
+.c-head h2 .w { display: inline-block; }
+.pill {
+  display: inline-block;
+  vertical-align: -.06em;
+  height: .78em;
+  width: 1.7em;
+  margin: 0 .12em;
+  border-radius: 999px;
+  overflow: hidden;
+  border: .045em solid var(--ink);
+  background: var(--paper-deep);
+  position: relative;
+}
+/* hover growth switches on once the intro has set the pill (so the two never fight) */
+.pill.is-set { transition: width .7s var(--ease); }
+.pill img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.28) saturate(1.05) contrast(1.05); transition: transform 1s var(--ease), filter .6s; }
+.pill.is-set:hover { width: 2.7em; }
+.pill:hover img { transform: scale(1.06); filter: none; }
+.pill.wide { width: 2.3em; }
+.pill.wide.is-set:hover { width: 3.1em; }
+.c-cols {
+  display: grid;
+  grid-template-columns: 1.1fr 2fr 1.15fr;
+  border-top: 3px double var(--ink);
+}
+.c-cols > * { padding: 2rem 2rem 0; }
+.c-cols > * + * { border-left: 1px solid var(--rule); }
+.c-cols > :first-child { padding-left: 0; }
+.c-cols > :last-child { padding-right: 0; }
+.c-cols .deck { font-size: clamp(1.5rem, 2.2vw, 2rem); color: var(--ink); }
+.c-cols .lede-cols { column-count: 2; column-gap: 2rem; column-rule: 1px solid var(--rule); text-align: justify; hyphens: auto; }
+.c-cols .motto { font-size: 1.45rem; }
+.c-side { display: flex; flex-direction: column; gap: 1.5rem; }
+.c-side .status { font-family: var(--font-deck); font-size: 1.2rem; }
+@media (max-width: 1023px) {
+  .c-cols { grid-template-columns: 1fr; }
+  .c-cols > * { padding: 1.5rem 0 0 !important; border-left: 0 !important; }
+  .c-cols .lede-cols { column-count: 1; }
+}
+
+/* ================= D · Step Inside ================= */
+.d-scroller { position: relative; height: 340vh; }
+.d-stage {
+  position: sticky;
+  top: calc(var(--bar-h) + 1rem);
+  height: calc(100svh - var(--bar-h) - 2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.d-copy { display: flex; flex-direction: column; gap: 1.5rem; }
+.d-copy h2 { font-size: clamp(2.6rem, 5vw, 5rem); }
+.d-copy .lede { font-size: clamp(1.15rem, 1.45vw, 1.35rem); }
+.d-copy .lede .wd { opacity: .16; transition: opacity .25s linear; }
+.d-copy .lede .wd.on { opacity: 1; }
+.d-copy .foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid var(--ink); }
+.d-copy .status { font-family: var(--font-deck); font-size: 1.2rem; }
+.d-arch {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 30rem);
+  height: min(100%, 40rem);
+  max-height: 72svh;
+  aspect-ratio: 3 / 4;
+  border-radius: 999px 999px 0 0;
+  border: 1px solid var(--ink);
+  padding: 8px;
+  background: var(--frame);
+  box-shadow: inset 0 0 0 1px var(--frame), inset 0 0 0 2px var(--ink), 0 30px 60px -30px rgb(40 25 10 / .6);
+}
+.d-arch .frames { position: relative; width: 100%; height: 100%; border-radius: inherit; overflow: hidden; background: #1a120b; }
+.d-arch .frames img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: sepia(.28) saturate(1.05) contrast(1.05); clip-path: inset(100% 0 0 0); will-change: clip-path, transform; }
+.d-arch .frames img:first-child { clip-path: inset(0 0 0 0); }
+.d-ticks { position: absolute; right: -1.6rem; top: 50%; translate: 0 -50%; display: grid; gap: .5rem; }
+.d-ticks span { width: .55rem; height: .55rem; border: 1px solid var(--ink); border-radius: 50%; transition: background-color .3s; }
+.d-ticks span.on { background: var(--ink); }
+.d-hint { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+@media (max-width: 1023px) {
+  .d-scroller { height: auto; }
+  .d-stage { position: static; height: auto; grid-template-columns: 1fr; }
+  .d-copy .lede .wd { opacity: 1; }
+  .d-arch { width: 100%; height: auto; max-height: none; }
+  .d-arch .frames { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; aspect-ratio: 3 / 4; }
+  .d-arch .frames img { position: relative; flex: 0 0 100%; clip-path: none !important; scroll-snap-align: start; }
+  .d-ticks, .d-hint { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation: none !important; }
+  .d-copy .lede .wd { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<header class="deck-bar">
+  <div class="brand"><b>The Antiq Barber</b><span>· Front page, four directions</span></div>
+  <nav class="deck-tabs" role="tablist" aria-label="Directions">
+    <button role="tab" aria-selected="true" aria-controls="v-a" data-tab="a"><b>A</b><span class="t">The Lead Story</span></button>
+    <button role="tab" aria-selected="false" aria-controls="v-b" data-tab="b"><b>B</b><span class="t">The Porthole</span></button>
+    <button role="tab" aria-selected="false" aria-controls="v-c" data-tab="c"><b>C</b><span class="t">Words &amp; Pictures</span></button>
+    <button role="tab" aria-selected="false" aria-controls="v-d" data-tab="d"><b>D</b><span class="t">Step Inside</span></button>
+  </nav>
+</header>
+
+<div class="deck-note">
+  <p data-note><strong>A · The Lead Story.</strong> One photograph leads, a second is tipped in. The copy reads down a single column.</p>
+  <p class="keys">← → to switch</p>
+</div>
+
+<!-- ======================================================================
+     A · THE LEAD STORY
+     ====================================================================== -->
+<section class="variant" id="v-a" data-variant="a" role="tabpanel" aria-label="A, The Lead Story">
+  <div class="wrap">
+    <div class="a-grid">
+      <div class="a-head">
+        <h2 class="display" data-lines><span class="line-mask"><span>Not your average</span></span><span class="line-mask"><span>barbershop</span></span></h2>
+        <div class="a-walkin" data-rise>
+          <p class="big">Walk-ins welcome</p>
+          <span class="status" data-status>Checking the hours</span>
+        </div>
+      </div>
+
+      <div class="a-photo">
+        <div class="engraved" data-unveil>
+          <div class="print hero"><img src="IMG:front-bar-wide" alt="The front bar at Antiq Barbers: burnt-timber counter, barrel tables and barber chairs under warm lights" /></div>
+        </div>
+        <figure class="a-plate engraved" data-tip style="margin:0">
+          <div class="print"><img src="IMG:chair" alt="A tufted leather antique barber chair between whisky barrels" /></div>
+        </figure>
+      </div>
+
+      <div class="a-copy">
+        <p class="deck" data-rise>Antique chairs, porthole mirrors and the <em>modern fade.</em></p>
+        <p class="lede dropcap" data-rise>EPPING — Step in off Miller Street and the century changes. Hand-burnt timber, tufted leather and a courtyard of birdsong downstairs; neon and a pool table upstairs.</p>
+        <div class="motto-block rule-tt" data-rise>
+          <p class="motto">“A gallery of culture. A home for barbers. An experience for everyone.”</p>
+          <p class="by">The house motto</p>
+        </div>
+        <div class="book-pair" data-rise>
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     B · THE PORTHOLE
+     ====================================================================== -->
+<section class="variant" id="v-b" data-variant="b" role="tabpanel" aria-label="B, The Porthole" hidden>
+  <div class="wrap">
+    <div class="b-grid">
+      <div class="b-left">
+        <h2 class="display" data-lines><span class="line-mask"><span>Not your</span></span><span class="line-mask"><span>average</span></span><span class="line-mask"><span>barbershop</span></span></h2>
+        <p class="deck" data-rise>Antique chairs, porthole mirrors and the <em>modern fade.</em></p>
+        <p class="walk" data-rise>Walk-ins welcome</p>
+        <span class="status" data-status data-rise>Checking the hours</span>
+      </div>
+
+      <div class="porthole" data-porthole aria-hidden="true">
+        <svg class="ring-text" viewBox="0 0 400 400">
+          <defs><path id="ring" d="M200,200 m-186,0 a186,186 0 1,1 372,0 a186,186 0 1,1 -372,0" /></defs>
+          <g data-ring style="transform-origin: 200px 200px">
+            <text><textPath href="#ring" textLength="1165" lengthAdjust="spacing">Miller Street · Epping · Antique Barbers · Est. 2026 · Skin fades · Scissor cuts · Beard work ·</textPath></text>
+          </g>
+        </svg>
+        <div class="brass"></div>
+        <div data-rivets></div>
+        <div class="glass"><img src="IMG:at-work" alt="" /></div>
+      </div>
+
+      <div class="b-right">
+        <p class="lede dropcap" data-rise>EPPING — Step in off Miller Street and the century changes. Hand-burnt timber, tufted leather and a courtyard of birdsong downstairs; neon and a pool table upstairs.</p>
+        <p class="motto" data-rise>“A gallery of culture. A home for barbers. An experience for everyone.”</p>
+        <div class="book-pair" data-rise>
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     C · WORDS & PICTURES
+     ====================================================================== -->
+<section class="variant" id="v-c" data-variant="c" role="tabpanel" aria-label="C, Words and Pictures" hidden>
+  <div class="wrap">
+    <div class="c-head">
+      <h2 class="display" aria-label="Not your average barbershop">
+        <span class="w" data-word>Not</span>
+        <span class="w" data-word>your</span>
+        <span class="pill wide" data-pill aria-hidden="true"><img src="IMG:entrance" alt="" /></span>
+        <span class="w" data-word>average</span>
+        <span class="pill" data-pill aria-hidden="true"><img src="IMG:at-work" alt="" /></span>
+        <span class="w" data-word>barber</span><span class="pill" data-pill aria-hidden="true"><img src="IMG:chair" alt="" /></span><span class="w" data-word>shop</span>
+      </h2>
+    </div>
+
+    <div class="c-cols">
+      <p class="deck" data-rise>Antique chairs, porthole mirrors and the <em>modern fade.</em></p>
+      <div class="lede-cols" data-rise>
+        <p class="lede dropcap">EPPING — Step in off Miller Street and the century changes. Hand-burnt timber, tufted leather and a courtyard of birdsong downstairs; neon and a pool table upstairs. Melbourne's first antique barbershop: skin fades, scissor cuts and beard work, done properly, in a room worth sitting in.</p>
+      </div>
+      <div class="c-side" data-rise>
+        <p class="motto">“A gallery of culture. A home for barbers. An experience for everyone.”</p>
+        <span class="status" data-status>Checking the hours</span>
+        <div class="book-pair">
+          <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     D · STEP INSIDE
+     ====================================================================== -->
+<section class="variant" id="v-d" data-variant="d" role="tabpanel" aria-label="D, Step Inside" hidden>
+  <div class="wrap">
+    <div class="d-scroller" data-scroller>
+      <div class="d-stage">
+        <div class="d-copy">
+          <h2 class="display" data-lines><span class="line-mask"><span>Not your</span></span><span class="line-mask"><span>average</span></span><span class="line-mask"><span>barbershop</span></span></h2>
+          <p class="lede" data-ink>Step in off Miller Street and the century changes. Hand-burnt timber and tufted leather. A courtyard of birdsong behind the glass. And in the chair, the modern fade.</p>
+          <div class="foot">
+            <span class="status" data-status>Checking the hours</span>
+            <div class="book-pair">
+              <a class="book-direct" href="#"><span class="stub">New</span><span class="label">Book a chair</span><span class="arrow" aria-hidden="true">→</span></a>
+              <a class="book-booksy" href="#"><span class="via">or on</span><b>Booksy</b><span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <p class="d-hint">Scroll to step inside ↓</p>
+        </div>
+        <div class="d-arch">
+          <div class="frames" data-frames>
+            <img src="IMG:entrance" alt="The shopfront on Miller Street, open to the street" />
+            <img src="IMG:front-bar" alt="The burnt-timber front bar" />
+            <img src="IMG:parlour-row" alt="Barber chairs along the courtyard glass" />
+            <img src="IMG:at-work" alt="A barber at work on a fade" />
+          </div>
+          <div class="d-ticks" data-ticks aria-hidden="true"><span class="on"></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var hasGsap = typeof window.gsap !== 'undefined';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var animate = hasGsap && !reduced;
+  if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- live open / closed, in shop time (Melbourne) ---------- */
+  var hours = { 0: ['10:00', '16:00'], 1: null, 2: ['10:00', '18:00'], 3: ['10:00', '18:00'], 4: ['11:00', '21:00'], 5: ['11:00', '21:00'], 6: ['09:00', '18:00'] };
+  function fmt(t) { var p = t.split(':'), h = +p[0], m = +p[1]; return (h % 12 || 12) + (m ? ':' + String(m).padStart(2, '0') : '') + (h < 12 ? 'am' : 'pm'); }
+  function toMin(t) { var p = t.split(':'); return +p[0] * 60 + +p[1]; }
+  try {
+    var parts = new Intl.DateTimeFormat('en-AU', { timeZone: 'Australia/Melbourne', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+    var get = function (t) { return (parts.find(function (p) { return p.type === t; }) || {}).value; };
+    var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
+    var now = +get('hour') * 60 + +get('minute');
+    var h = hours[day];
+    var open = !!h && now >= toMin(h[0]) && now < toMin(h[1]);
+    var text;
+    if (open) text = 'Open now · till ' + fmt(h[1]);
+    else {
+      for (var i = 0; i < 8; i++) {
+        var d = (day + i) % 7, hh = hours[d];
+        if (hh && (i > 0 || now < toMin(hh[0]))) {
+          text = 'Closed now · opens ' + (i === 0 ? 'at ' : i === 1 ? 'tomorrow ' : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d] + ' ') + fmt(hh[0]);
+          break;
+        }
+      }
+    }
+    document.querySelectorAll('[data-status]').forEach(function (el) { el.textContent = text; el.dataset.open = String(open); });
+  } catch (e) {}
+
+  /* ---------- porthole rivets ---------- */
+  var rivets = document.querySelector('[data-rivets]');
+  for (var r = 0; r < 12; r++) {
+    var a = (r / 12) * Math.PI * 2, s = document.createElement('span');
+    s.className = 'rivet';
+    s.style.left = 50 + Math.cos(a) * 44.5 + '%';
+    s.style.top = 50 + Math.sin(a) * 44.5 + '%';
+    rivets.appendChild(s);
+  }
+
+  /* ---------- D: split the lede into words to ink in ---------- */
+  var ink = document.querySelector('[data-ink]');
+  ink.innerHTML = ink.textContent.trim().split(/\s+/).map(function (w) { return '<span class="wd">' + w + '</span>'; }).join(' ');
+  var words = ink.querySelectorAll('.wd');
+
+  /* ---------- each direction's choreography ---------- */
+  var ctx = null;
+  var mm = hasGsap ? gsap.matchMedia() : null;
+
+  function shared(root) {
+    gsap.from(root.querySelectorAll('[data-lines] .line-mask > span'), { yPercent: 110, rotate: 4, duration: 1.3, stagger: 0.09, ease: 'expo.out', delay: 0.1 });
+    gsap.from(root.querySelectorAll('[data-rise]'), { autoAlpha: 0, y: 40, filter: 'blur(8px)', duration: 1.2, stagger: 0.08, ease: 'expo.out', delay: 0.35, clearProps: 'filter' });
+  }
+
+  var build = {
+    a: function (root) {
+      shared(root);
+      var hero = root.querySelector('[data-unveil]');
+      gsap.fromTo(hero, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.6, ease: 'expo.inOut', delay: 0.2 });
+      gsap.from(hero.querySelector('img'), { scale: 1.3, duration: 2.2, ease: 'expo.out', delay: 0.2 });
+      gsap.from(root.querySelector('[data-tip]'), { y: -80, rotate: -12, autoAlpha: 0, duration: 1.3, ease: 'expo.out', delay: 1.1 });
+      gsap.to(hero.querySelector('img'), { yPercent: 8, ease: 'none', scrollTrigger: { trigger: hero, start: 'top bottom', end: 'bottom top', scrub: true } });
+    },
+    b: function (root) {
+      shared(root);
+      var hole = root.querySelector('[data-porthole]');
+      var img = hole.querySelector('.glass img');
+      gsap.from(hole.querySelector('.brass'), { scale: 0.6, rotate: -90, autoAlpha: 0, duration: 1.6, ease: 'expo.out', delay: 0.15 });
+      gsap.from(hole.querySelectorAll('.rivet'), { scale: 0, duration: 0.6, stagger: 0.04, ease: 'back.out(3)', delay: 0.8 });
+      gsap.fromTo(hole.querySelector('.glass'), { clipPath: 'circle(0% at 50% 50%)' }, { clipPath: 'circle(50% at 50% 50%)', duration: 1.5, ease: 'expo.inOut', delay: 0.5 });
+      gsap.from(hole.querySelector('.ring-text'), { autoAlpha: 0, rotate: -40, duration: 1.8, ease: 'expo.out', delay: 0.7 });
+      // the street-ring turns as you scroll; the room shifts behind the glass with the pointer
+      gsap.to(hole.querySelector('[data-ring]'), { rotate: 120, ease: 'none', scrollTrigger: { trigger: hole, start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
+      var qx = gsap.quickTo(img, 'x', { duration: 0.9, ease: 'expo.out' });
+      var qy = gsap.quickTo(img, 'y', { duration: 0.9, ease: 'expo.out' });
+      function move(e) {
+        var b = hole.getBoundingClientRect();
+        qx(((e.clientX - b.left) / b.width - 0.5) * -36);
+        qy(((e.clientY - b.top) / b.height - 0.5) * -36);
+      }
+      window.addEventListener('pointermove', move);
+      return function () { window.removeEventListener('pointermove', move); };
+    },
+    c: function (root) {
+      gsap.from(root.querySelectorAll('[data-word]'), { yPercent: 60, autoAlpha: 0, duration: 1.2, stagger: 0.07, ease: 'expo.out', delay: 0.1 });
+      var pills = root.querySelectorAll('[data-pill]');
+      pills.forEach(function (p) { p.classList.remove('is-set'); });
+      gsap.from(pills, {
+        width: 0, borderWidth: 0, marginLeft: 0, marginRight: 0, duration: 1.4, stagger: 0.12, ease: 'expo.inOut', delay: 0.45, clearProps: 'all',
+        onComplete: function () { pills.forEach(function (p) { p.classList.add('is-set'); }); }
+      });
+      gsap.from(root.querySelectorAll('[data-pill] img'), { scale: 1.6, duration: 1.8, stagger: 0.12, ease: 'expo.out', delay: 0.6 });
+      gsap.from(root.querySelectorAll('[data-rise]'), { autoAlpha: 0, y: 40, filter: 'blur(8px)', duration: 1.2, stagger: 0.1, ease: 'expo.out', delay: 0.9, clearProps: 'filter' });
+    },
+    d: function (root) {
+      shared(root);
+      var cleanup = null;
+      mm.add('(min-width: 1024px)', function () {
+        var frames = root.querySelectorAll('[data-frames] img');
+        var ticks = root.querySelectorAll('[data-ticks] span');
+        var tl = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: root.querySelector('[data-scroller]'),
+            start: 'top top+=' + (document.querySelector('.deck-bar').offsetHeight + 16),
+            end: 'bottom bottom',
+            scrub: 0.8,
+            onUpdate: function (st) {
+              var lit = Math.round(st.progress * words.length * 1.15);
+              words.forEach(function (w, i) { w.classList.toggle('on', i < lit); });
+              var f = Math.min(frames.length - 1, Math.floor(st.progress * frames.length));
+              ticks.forEach(function (t, i) { t.classList.toggle('on', i <= f); });
+            }
+          }
+        });
+        // each room wipes up over the last, the one beneath sinks back a little
+        for (var i = 1; i < frames.length; i++) {
+          tl.fromTo(frames[i], { clipPath: 'inset(100% 0 0 0)', scale: 1.15 }, { clipPath: 'inset(0% 0 0 0)', scale: 1, duration: 1 }, i - 1)
+            .to(frames[i - 1], { scale: 0.92, filter: 'sepia(.6) brightness(.6)', duration: 1 }, i - 1);
+        }
+        tl.to({}, { duration: 0.4 });
+        return function () { words.forEach(function (w) { w.classList.remove('on'); }); };
+      });
+      return cleanup;
+    }
+  };
+
+  /* ---------- tabs ---------- */
+  var notes = {
+    a: '<strong>A · The Lead Story.</strong> One photograph leads, a second is tipped in. The copy reads down a single column.',
+    b: '<strong>B · The Porthole.</strong> Built around the shop’s own porthole mirrors: a brass ring with the room moving behind the glass.',
+    c: '<strong>C · Words &amp; Pictures.</strong> The headline is the hero: real photos set into the words, the story in two newspaper columns.',
+    d: '<strong>D · Step Inside.</strong> The section pins as you scroll. Each room wipes in through an arched door while the story inks in.'
+  };
+  var order = ['a', 'b', 'c', 'd'];
+  var current = null, teardown = null;
+
+  function show(key, push) {
+    if (key === current) return;
+    current = key;
+    if (ctx) { ctx.revert(); ctx = null; }
+    if (teardown) { teardown(); teardown = null; }
+    document.querySelectorAll('[data-variant]').forEach(function (v) { v.hidden = v.dataset.variant !== key; });
+    document.querySelectorAll('[data-tab]').forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.tab === key)); });
+    document.querySelector('[data-note]').innerHTML = notes[key];
+    window.scrollTo(0, 0);
+    if (push) history.replaceState(null, '', '#' + key);
+    document.querySelectorAll('[data-pill]').forEach(function (p) { p.classList.add('is-set'); });
+    if (!animate) return;
+    var root = document.querySelector('[data-variant="' + key + '"]');
+    ctx = gsap.context(function () { teardown = build[key](root) || null; }, root);
+    requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+  }
+
+  document.querySelectorAll('[data-tab]').forEach(function (t) {
+    t.addEventListener('click', function () { show(t.dataset.tab, true); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.target.closest('input, textarea')) return;
+    var i = order.indexOf(current);
+    if (e.key === 'ArrowRight') show(order[(i + 1) % order.length], true);
+    if (e.key === 'ArrowLeft') show(order[(i + order.length - 1) % order.length], true);
+  });
+  document.querySelectorAll('a[href="#"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+
+  var start = (location.hash || '#a').slice(1);
+  show(order.indexOf(start) > -1 ? start : 'a', false);
+})();
+</script>
+</body>
+</html>
